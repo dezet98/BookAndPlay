@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent implements OnInit {
   signInForm: FormGroup;
-
+  loading = false;
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -22,15 +22,15 @@ export class SignInComponent implements OnInit {
 
   onSubmit() {
     console.log(this.signInForm.value); // for test
+    this.loading = true;
     this.auth.signIn(this.signInForm.value)
-    .subscribe((response: any) =>
-    {
-      this.router.navigate(['']);
-      alert('Login was successful');  // to extend
-    },
-    error =>
-    {
-      alert('Failed to login'); // to extend
-    });
+      .subscribe((response: any) => {
+        this.router.navigate(['']);
+        alert('Login was successful');  // to extend
+      },
+        error => {
+          alert('Failed to login'); // to extend
+          this.loading = false;
+        });
   }
 }

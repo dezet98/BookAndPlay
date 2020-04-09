@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class SignUpComponent implements OnInit {
   signUpForm: FormGroup;
+  loading = false;
 
   constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { }
 
@@ -24,16 +25,16 @@ export class SignUpComponent implements OnInit {
 
   onSubmit() {
     console.log(this.signUpForm.value);  // for test
+    this.loading = true;
     this.userService.SignUp(this.signUpForm.value)
-    .subscribe( (response: any) =>
-    {
-      this.router.navigate(['SignIn']);
-      alert('Register was successful');  // to extend
-    },
-    error =>
-    {
-      alert('Failed to register'); // to extend
-    });
+      .subscribe((response: any) => {
+        this.router.navigate(['SignIn']);
+        alert('Register was successful');  // to extend
+      },
+        error => {
+          alert('Failed to register'); // to extend
+          this.loading = false;
+        });
   }
 }
 

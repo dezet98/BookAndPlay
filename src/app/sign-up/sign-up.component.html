@@ -4,5 +4,5 @@
   <input type="password" formControlName="password" placeholder="Make your password up" required>
   <input type="password" formControlName="repeatPassword" placeholder="Repeat password" required>
 
-  <button type="submit" [disabled]="!signUpForm.valid">Sign Up</button>
+  <button type="submit" [disabled]="loading || !signUpForm.valid">Sign Up</button>
 </form>
