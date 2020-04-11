@@ -16,7 +16,7 @@ export class ResponseInterceptor implements HttpInterceptor {
         tap(
           (event: HttpEvent<any>) => {
             if (event instanceof HttpResponse) {
-              console.log('User is logging');
+              console.log('Correct response');
             }
           }, error => {
             if (error instanceof HttpErrorResponse) {

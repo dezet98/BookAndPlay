@@ -21,15 +21,17 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.signInForm.value); // for test
+    console.log(this.signInForm.value);
     this.loading = true;
+
     this.auth.signIn(this.signInForm.value)
       .subscribe((response: any) => {
         this.router.navigate(['']);
         alert('Login was successful');  // to extend
       },
-        error => {
-          alert('Failed to login'); // to extend
+        err => {
+          alert('Failed to login: '  + err.error.title ); // to extend
+          console.log('Status: ' + err.status + ' Title: ' + err.error.title);
           this.loading = false;
         });
   }

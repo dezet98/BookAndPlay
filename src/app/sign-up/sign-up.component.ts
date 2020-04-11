@@ -12,27 +12,31 @@ export class SignUpComponent implements OnInit {
   signUpForm: FormGroup;
   loading = false;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { }
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     this.signUpForm = this.fb.group({
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
       email: ['', Validators.required],
-      username: [''],
       password: ['', Validators.required],
-      repeatPassword: ['', Validators.required]
+      repeatPassword: ['', Validators.required],
+      phoneNumber: ['']
     });
   }
 
   onSubmit() {
     console.log(this.signUpForm.value);  // for test
     this.loading = true;
+
     this.userService.SignUp(this.signUpForm.value)
       .subscribe((response: any) => {
         this.router.navigate(['SignIn']);
-        alert('Register was successful');  // to extend
+        alert('Register was successful: ' + response);  // to extend
       },
-        error => {
-          alert('Failed to register'); // to extend
+        err => {
+          alert('Failed to register: ' + err.error.title); // to extend
+          console.log('Status: ' + err.status + ' Title: ' + err.error.title);
           this.loading = false;
         });
   }

@@ -11,6 +11,8 @@ import { ReservationsComponent } from './reservations/reservations.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AddTokenInterceptor } from './_auth/add-token.interceptor';
+import { ResponseInterceptor } from './_auth/response.interceptor';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { AddTokenInterceptor } from './_auth/add-token.interceptor';
     YourObjectsComponent,
     ReservationsComponent,
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +35,11 @@ import { AddTokenInterceptor } from './_auth/add-token.interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AddTokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ResponseInterceptor,
       multi: true
     }
   ],

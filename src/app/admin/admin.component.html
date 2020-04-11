@@ -1,0 +1,17 @@
+<button (click)="getAllUsers()">Get all users</button>
+<table>
+    <tr>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Email</th>
+      <th>Password</th>
+      <th>phoneNumber</th>
+    </tr>
+    <tr *ngFor="let user of allUsers">
+      <td>{{user.name}}</td>
+      <td>{{user.surname}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.password}}</td>
+      <td>{{user.phoneNumber}}</td>
+    </tr>
+</table>

@@ -1,8 +1,10 @@
 <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+  <input type="text" formControlName="name" placeholder="Your name" required>
+  <input type="text" formControlName="surname" placeholder="Your surname" required>
   <input type="email" formControlName="email" placeholder="Your email" required>
-  <input type="text" formControlName="username" placeholder="Your nickname">
   <input type="password" formControlName="password" placeholder="Make your password up" required>
   <input type="password" formControlName="repeatPassword" placeholder="Repeat password" required>
+  <input type="tel" formControlName="phoneNumber" placeholder="Phone number" required>
 
   <button type="submit" [disabled]="loading || !signUpForm.valid">Sign Up</button>
 </form>
