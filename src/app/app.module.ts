@@ -13,6 +13,15 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { AddTokenInterceptor } from './_auth/add-token.interceptor';
 import { ResponseInterceptor } from './_auth/response.interceptor';
 import { AdminComponent } from './admin/admin.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -23,13 +32,22 @@ import { AdminComponent } from './admin/admin.component';
     ReservationsComponent,
     SignInComponent,
     SignUpComponent,
-    AdminComponent
+    AdminComponent,
+    MainNavComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatTabsModule
   ],
   providers: [
     {

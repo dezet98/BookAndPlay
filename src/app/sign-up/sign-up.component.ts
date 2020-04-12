@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../_services/user.service';
 import { Router } from '@angular/router';
+import { User } from '../_models/user';
 
 @Component({
   selector: 'app-sign-up',
@@ -12,7 +13,7 @@ export class SignUpComponent implements OnInit {
   signUpForm: FormGroup;
   loading = false;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {}
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.signUpForm = this.fb.group({
@@ -26,13 +27,13 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.signUpForm.value);  // for test
     this.loading = true;
 
-    this.userService.SignUp(this.signUpForm.value)
+    const form = this.signUpForm.value;
+    this.userService.SignUp(new User(form.name, form.surname, form.email, form.password, form.phoneNumber))
       .subscribe((response: any) => {
         this.router.navigate(['SignIn']);
-        alert('Register was successful: ' + response);  // to extend
+        alert('Register was successful: ' + JSON.stringify(response));  // to extend
       },
         err => {
           alert('Failed to register: ' + err.error.title); // to extend

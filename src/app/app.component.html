@@ -1,21 +1,5 @@
-<nav>
-  <label routerLink = '/'>BookAndPlay</label>
-  <a routerLink='/sportsFacilities'>Sports facilities</a>
-  <a routerLink='/yourObjects'>Your objects</a>
-  <a routerLink='/reservations'>Reservations</a>
+<app-main-nav>
+  <router-outlet></router-outlet>
+</app-main-nav>
 
-  <ng-container *ngIf="isAdmin()">
-    <a routerLink='/admin'>Admin</a>
-  </ng-container>
 
-  <ng-container *ngIf="isLoggedIn; else isLoggedOut">
-    <button routerLink='/' (click)="signOut()">Sign out</button>
-  </ng-container>
-
-  <ng-template #isLoggedOut>
-    <button routerLink='/signIn'>Sign In</button>
-    <button routerLink='/signUp' class="btn btn-dark">Sign Up</button>
-  </ng-template>
-</nav>
-
-<router-outlet></router-outlet>

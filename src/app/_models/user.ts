@@ -13,7 +13,7 @@ export class User {
     this.phoneNumber = phoneNumber;
   }
 
-  getUser() {
+  getUserObject() {
     return {
       name: this.name,
       surname: this.surname,

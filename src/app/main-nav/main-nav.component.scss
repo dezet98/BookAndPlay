@@ -1,0 +1,60 @@
+@import "../../styles.scss";
+
+.mat-divider {
+  border-top-color: #E91E63;
+}
+
+.mat-subheader {
+  color: #E91E63;
+}
+
+.sidenav-container {
+  height: 100%;
+
+  .sidenav {
+    width: 200px;
+
+    .mat-toolbar.mat-primary {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .sidenav-content {
+    .toolbar {
+      .logo {
+        width: 20%;
+
+        @media #{$sm} {
+          margin-left: 1%;
+          width: 30vw;
+        }
+      }
+
+      .links {
+        width: 67%;
+
+        a {
+          color: white;
+          margin: 0 12px;
+          font-size: 70%;
+        }
+      }
+
+      .buttons {
+        width: 13%;
+        display: flex;
+        justify-content: space-around;
+
+        @media #{$md} {
+          width: 30vw;
+        }
+      }
+    }
+  }
+}
