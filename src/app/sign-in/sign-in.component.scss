@@ -1,6 +1,40 @@
+@import "../../styles.scss";
+
+.signInCon {
+  display: flex;
+  width: 100vw;
+  height: 50vh;
+  justify-content: center;
+
+  .mat-form-field, button {
+    width: 100%;
+  }
+}
+
 form {
-  width: 50%;
+  width: 30vw;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-end;
+
+  @media #{$xs} {
+    width: 75vw;
+  }
+
+  @media #{$sm} {
+    width: 60vw;
+  }
+
+  @media #{$md} {
+    width: 50vw;
+  }
+
+  @media #{$lg} {
+    width: 40vw;
+  }
+
+  @media #{$xl} {
+    width: 30vw;
+  }
 }
+

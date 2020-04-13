@@ -5,26 +5,26 @@
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list>
       <div mat-subheader>Pages</div>
-      <mat-list-item *ngFor="let link of navLinks"> 
+      <mat-list-item *ngFor="let link of navLinks"  routerLinkActive="activeLink">
         <a [routerLink]="[link.path]">  {{link.label}}</a>
-      </mat-list-item> 
-    
+      </mat-list-item>
+      <br>
       <ng-container *ngIf="isAdmin()">
         <mat-divider></mat-divider>
         <div mat-subheader>Admin</div>
-        <mat-list-item>
+        <mat-list-item routerLinkActive="activeLink">
           <mat-icon>fingerprint</mat-icon>
           <a [routerLink]="[adminLink.path]">  {{adminLink.label}}</a>
         </mat-list-item>
       </ng-container>
-
+      <br>
       <ng-container *ngIf="isLoggedIn">
         <mat-divider></mat-divider>
         <div mat-subheader>Acount</div>
-        <mat-list-item> 
+        <mat-list-item routerLinkActive="activeLink">
           <mat-icon mat-list-icon>logout</mat-icon>
           <a routerLink="loggingLinks[0].path" (click)="signOut()">  {{loggingLinks[0].label}}</a>
-        </mat-list-item> 
+        </mat-list-item>
       </ng-container>
 
     </mat-nav-list>
@@ -33,12 +33,11 @@
   <!--top main toolbar-->
   <mat-sidenav-content class="sidenav-content">
     <mat-toolbar color="primary" class="toolbar">
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-
       <div class="logo">
-        <span routerLink='/'>BookAndPlay</span>
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <a routerLink='/'>BookAndPlay</a>
       </div>
 
       <div class="links">
@@ -56,12 +55,12 @@
 
       <div class="buttons">
         <ng-container *ngIf="isLoggedIn; else isLoggedOut">
-          <a mat-stroked-button routerLink="loggingLinks[0].path" (click)="signOut()"
+          <a mat-stroked-button routerLink="loggingLinks[0].path" routerLinkActive="activeButton" (click)="signOut()"
             *ngIf="!(isHandset$ | async)">{{loggingLinks[0].label}}</a>
         </ng-container>
 
         <ng-template #isLoggedOut>
-          <a *ngFor="let link of loggingLinks" mat-stroked-button [routerLink]="[link.path]">{{link.label}}</a>
+          <a *ngFor="let link of loggingLinks" mat-stroked-button routerLinkActive="activeButton" [routerLink]="[link.path]">{{link.label}}</a>
         </ng-template>
       </div>
     </mat-toolbar>

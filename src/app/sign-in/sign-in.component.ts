@@ -12,6 +12,8 @@ import { User } from '../_models/user';
 export class SignInComponent implements OnInit {
   signInForm: FormGroup;
   loading = false;
+  hidePassword = true;
+
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
