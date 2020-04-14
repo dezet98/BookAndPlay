@@ -1,17 +1,32 @@
-<button (click)="getAllUsers()">Get all users</button>
-<table>
-    <tr>
-      <th>Name</th>
-      <th>Surname</th>
-      <th>Email</th>
-      <th>Password</th>
-      <th>phoneNumber</th>
-    </tr>
-    <tr *ngFor="let user of allUsers">
-      <td>{{user.name}}</td>
-      <td>{{user.surname}}</td>
-      <td>{{user.email}}</td>
-      <td>{{user.password}}</td>
-      <td>{{user.phoneNumber}}</td>
-    </tr>
-</table>
+<mat-tab-group dynamicHeight animationDuration="0ms">
+  <mat-tab label="Users">
+    <ng-template matTabContent>
+      <br>
+      <button mat-raised-button (click)="getAllUsers()">Get all users</button>
+      <br>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>Email</th>
+          <th>Password</th>
+          <th>phoneNumber</th>
+        </tr>
+        <tr *ngFor="let user of allUsers">
+          <td>{{user.name}}</td>
+          <td>{{user.surname}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.password}}</td>
+          <td>{{user.phoneNumber}}</td>
+        </tr>
+      </table>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab label="Sth else">
+    <ng-template matTabContent>
+
+    </ng-template>
+  </mat-tab>
+
+</mat-tab-group>

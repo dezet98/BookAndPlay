@@ -12,6 +12,7 @@ import { User } from '../_models/user';
 export class SignUpComponent implements OnInit {
   signUpForm: FormGroup;
   loading = false;
+  hidePassword = true;
 
   constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { }
 
@@ -21,7 +22,6 @@ export class SignUpComponent implements OnInit {
       surname: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],
-      repeatPassword: ['', Validators.required],
       phoneNumber: ['']
     });
   }
