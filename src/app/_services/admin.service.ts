@@ -17,7 +17,8 @@ export class AdminService {
     return this.http.get('https://booknadplayapi.azurewebsites.net/api/test').pipe(
       map((users: Array<any>) =>
         users.map(user =>
-          new User(user.name, user.surname, user.email, user.password, user.phoneNumber))));
+          new User(user.name, user.surname, user.email, user.password, user.phoneNumber))
+      ));
   }
 
 }
