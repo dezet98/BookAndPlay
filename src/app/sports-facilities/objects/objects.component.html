@@ -1,0 +1,23 @@
+<div class="objects">
+  <ng-container *ngFor="let object of objects">
+    <mat-card class="object" (click)="showObject(object)">
+      <mat-card-header>
+        <div mat-card-avatar class="sportImage"></div>
+        <mat-card-title>Tennis Court </mat-card-title>
+        <mat-card-subtitle>Krakow, Mickiewicza 41</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <img mat-card-image src="../../../assets/sportFacilities1.jpg" alt="Photo">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+      </mat-card-content>
+      <mat-card-footer>
+        30zl/h
+      </mat-card-footer>
+    </mat-card>
+  </ng-container>
+</div>
+
+

@@ -26,6 +26,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { OptionComponent } from './sports-facilities/option/option.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { ObjectsComponent } from './sports-facilities/objects/objects.component';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -37,7 +43,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     SignInComponent,
     SignUpComponent,
     AdminComponent,
-    MainNavComponent
+    MainNavComponent,
+    OptionComponent,
+    ObjectsComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +64,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatExpansionModule,
+    MatCardModule
   ],
   providers: [
     {

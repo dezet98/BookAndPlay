@@ -1,0 +1,39 @@
+@import "../../../styles.scss";
+
+.objects {
+  display: grid;
+  grid-template-rows: auto;
+  justify-content: space-evenly;
+
+    .object {
+      cursor: pointer;
+
+      .sportImage {
+        background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+        background-size: cover;
+      }
+    }
+
+    @media #{$xs} {
+      grid-template-columns: 90%;
+      row-gap: 1.5%;
+      margin-top: 5%;
+      margin-bottom: 5%;
+    }
+
+    @media #{$sm} {
+      grid-template-columns: repeat(2, 40%);
+      row-gap: 2%;
+    }
+
+    @media #{$md} {
+      grid-template-columns: repeat(3, 26.5%);
+      row-gap: 3%;
+      margin-top: 1.5%;
+    }
+
+    @media #{$xl} {
+      grid-template-columns: repeat(4, 20%);
+      row-gap: 5%;
+    }
+}
