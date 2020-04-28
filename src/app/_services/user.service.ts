@@ -18,16 +18,16 @@ export class UserService {
   }
 
   getSports(): Observable<any> {
-    return this.http.get(url + '/api/Sport/Names/').pipe(
-      map((sports: Array<any>) =>
+    return this.http.get(url + '/api/Sport/Names/')
+      .pipe(map((sports: Array<any>) =>
         sports.map((sport: any) =>
           sport.name)
       ));
   }
 
   getCities(): Observable<any> {
-    return this.http.get(url + '/api/City/Names/').pipe(
-      map((cities: Array<any>) =>
+    return this.http.get(url + '/api/City/Names/')
+      .pipe(map((cities: Array<any>) =>
         cities.map((city: any) =>
           city.name)
       ));

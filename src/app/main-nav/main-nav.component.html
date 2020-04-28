@@ -9,7 +9,7 @@
         <a [routerLink]="[link.path]">  {{link.label}}</a>
       </mat-list-item>
       <br>
-      <ng-container *ngIf="isAdmin()">
+      <ng-container *ngIf="isAdmin">
         <mat-divider></mat-divider>
         <div mat-subheader>Admin</div>
         <mat-list-item routerLinkActive="activeLink">
@@ -46,7 +46,7 @@
             #rla="routerLinkActive" [active]="rla.isActive">
             {{link.label}}
           </a>
-          <a mat-tab-link *ngIf="isAdmin()" [routerLink]="[adminLink.path]" routerLinkActive #rla="routerLinkActive"
+          <a mat-tab-link *ngIf="isAdmin" [routerLink]="[adminLink.path]" routerLinkActive #rla="routerLinkActive"
             [active]="rla.isActive">
             {{adminLink.label}}
           </a>

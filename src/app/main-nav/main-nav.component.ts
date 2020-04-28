@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -9,16 +9,17 @@ import { AuthService } from '../_auth/auth.service';
   templateUrl: './main-nav.component.html',
   styleUrls: ['./main-nav.component.scss']
 })
-export class MainNavComponent {
+export class MainNavComponent implements OnInit {
   navLinks = [
     { label: 'Sports facilities', path: '/sportsFacilities' },
     { label: 'Your objects', path: '/yourObjects' },
     { label: 'Reservations', path: '/reservations' },
   ];
   adminLink = { label: 'Admin', path: '/admin' };
-  isLoggedIn: boolean;
   loggingLinks: any;
 
+  isLoggedIn: boolean;
+  isAdmin: boolean;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -26,8 +27,10 @@ export class MainNavComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private auth: AuthService) {
-    auth.getIsLoggedIn().subscribe((isLoggedIn: boolean) => {
+  constructor(private breakpointObserver: BreakpointObserver, private auth: AuthService) { }
+
+  ngOnInit() {
+    this.auth.getIsLoggedIn().subscribe((isLoggedIn: boolean) => {
       if (isLoggedIn) {
         this.isLoggedIn = true;
         this.loggingLinks = [{ label: 'Sign Out', path: '/signOut' }];
@@ -37,15 +40,10 @@ export class MainNavComponent {
         this.loggingLinks = [{ label: 'Sign In', path: '/signIn' }, { label: 'Sign Up', path: '/signUp' }];
       }
     });
-  }
 
-  isAdmin() {
-    return this.auth.isAdmin();
-    /*
-    this.auth.isAdmin().subscribe( (isAdmin: boolean) => {
-      return isAdmin;
+    this.auth.isAdmin().subscribe((isAdmin: boolean) => {
+      this.isAdmin = isAdmin;
     });
-    */
   }
 
   signOut() {

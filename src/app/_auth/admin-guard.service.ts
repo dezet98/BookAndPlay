@@ -11,8 +11,14 @@ export class AdminGuardService implements CanActivate {
 
   // if user(without admin right) want to go at admin page by using url he will logout
   canActivate(): boolean {
-    if (!this.auth.isAdmin()) {
+
+    let isAdmin: boolean;
+    this.auth.isAdmin().subscribe((reply: boolean) =>
+      isAdmin = reply);
+
+    if (!isAdmin) {
       this.auth.logout();
+
       return false;
     }
 

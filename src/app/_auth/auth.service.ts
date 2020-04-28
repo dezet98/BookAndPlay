@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -51,9 +51,11 @@ export class AuthService {
     this.isLoggedInSubject.next(false);
   }
 
-  isAdmin(): boolean {// Observable<any> {
-    return true;
-    // return this.http.get(url + '/api/admin');       // is get safe?
+  isAdmin(): Observable<boolean> {
+    return this.http.get(url + '/api/User/Role')
+      .pipe(map((role: any) =>
+        (role.name === 'Admin') ? true : false
+      ));
   }
 
 }
