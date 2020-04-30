@@ -1,0 +1,96 @@
+@import "../../../styles.scss";
+
+.addresForm {
+  width: 100%;
+  margin-top: 1%;
+  display: grid;
+
+  .map {
+    height: 50vh;
+    width: 100%;
+  }
+
+  .mat-card {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-evenly;
+
+    button {
+      width: 35%;
+    }
+  }
+
+  @media #{$xs} {
+    grid-template-columns: 100%;
+  }
+
+  @media #{$sm} {
+    .buttons button {
+        width: 30%;
+    }
+  }
+
+  @media #{$md} {
+    grid-template-columns: 35% 25% 25%;
+    justify-content: space-around;
+
+    .list {
+      grid-column-start: 1;
+      grid-column-end: 2;
+      grid-row-start: 3;
+      grid-row-end: 4;
+    }
+
+    .card {
+      grid-column-start: 1;
+      grid-column-end: 2;
+      grid-row-start: 4;
+      grid-row-end: 5;
+    }
+
+    .map {
+      grid-column-start: 2;
+      grid-column-end: 4;
+      grid-row-start: 1;
+      grid-row-end: 5;
+    }
+
+    .buttonCon {
+      grid-column-start: 2;
+      grid-column-end: 4;
+      grid-row-start: 5;
+      grid-row-end: 6;
+    }
+  }
+
+  @media #{$lg} {
+    .map {
+      height: 60vh;
+    }
+  }
+
+  @media #{$xl} {
+    .buttonCon {
+      grid-column-start: 3;
+      grid-column-end: 4;
+      grid-row-start: 5;
+      grid-row-end: 6;
+
+      .buttons {
+        justify-content: space-between;
+
+        button {
+          width: 40%;
+        }
+      }
+    }
+  }
+}

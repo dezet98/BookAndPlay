@@ -1,8 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LayoutModule } from '@angular/cdk/layout';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AddTokenInterceptor } from './_auth/add-token.interceptor';
+import { ResponseInterceptor } from './_auth/response.interceptor';
+import { AgmCoreModule } from '@agm/core';
+import { Config as con } from '../config';
+
+// my own components
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { SportsFacilitiesComponent } from './sports-facilities/sports-facilities.component';
@@ -10,13 +18,16 @@ import { YourObjectsComponent } from './your-objects/your-objects.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { AddTokenInterceptor } from './_auth/add-token.interceptor';
-import { ResponseInterceptor } from './_auth/response.interceptor';
 import { AdminComponent } from './admin/admin.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
 import { MainNavComponent } from './main-nav/main-nav.component';
-import { LayoutModule } from '@angular/cdk/layout';
+import { OptionComponent } from './sports-facilities/option/option.component';
+import { ObjectsComponent } from './sports-facilities/objects/objects.component';
+import { AddObjectComponent } from './add-object/add-object.component';
+import { FirstStepComponent } from './add-object/first-step/first-step.component';
+import { SecondStepComponent } from './add-object/second-step/second-step.component';
+
+// angular material components
+import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,10 +39,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { OptionComponent } from './sports-facilities/option/option.component';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { ObjectsComponent } from './sports-facilities/objects/objects.component';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { MatStepperModule } from '@angular/material/stepper';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +56,10 @@ import {MatCardModule} from '@angular/material/card';
     AdminComponent,
     MainNavComponent,
     OptionComponent,
-    ObjectsComponent
+    ObjectsComponent,
+    AddObjectComponent,
+    FirstStepComponent,
+    SecondStepComponent
   ],
   imports: [
     BrowserModule,
@@ -54,8 +68,12 @@ import {MatCardModule} from '@angular/material/card';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatButtonModule,
     LayoutModule,
+    AgmCoreModule.forRoot({
+      apiKey: con.API_KEY,
+      libraries: ['places']
+    }),
+    MatButtonModule,
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
@@ -68,7 +86,8 @@ import {MatCardModule} from '@angular/material/card';
     MatDatepickerModule,
     MatNativeDateModule,
     MatExpansionModule,
-    MatCardModule
+    MatCardModule,
+    MatStepperModule
   ],
   providers: [
     {

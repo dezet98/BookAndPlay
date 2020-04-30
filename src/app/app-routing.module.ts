@@ -3,6 +3,7 @@ import { Routes, RouterModule, } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { SportsFacilitiesComponent } from './sports-facilities/sports-facilities.component';
 import { YourObjectsComponent } from './your-objects/your-objects.component';
+import { AddObjectComponent } from './add-object/add-object.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'sportsFacilities', component: SportsFacilitiesComponent },
   { path: 'yourObjects', component: YourObjectsComponent },
+  { path: 'addObject', component: AddObjectComponent },
   { path: 'reservations', component: ReservationsComponent },
   { path: 'signIn', component: SignInComponent, canActivate: [AuthGuardService] },
   { path: 'signUp', component: SignUpComponent, canActivate: [AuthGuardService] },

@@ -1,0 +1,15 @@
+<mat-vertical-stepper #stepper>
+  <mat-step>
+    <ng-template matStepLabel>Fill out basic information</ng-template>
+    <app-first-step></app-first-step>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Fill out addres</ng-template>
+    <app-second-step></app-second-step>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Upload image</ng-template>
+  </mat-step>
+</mat-vertical-stepper>

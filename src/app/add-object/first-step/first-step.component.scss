@@ -1,0 +1,57 @@
+@import "../../../styles.scss";
+
+.infoForm {
+  width: 100%;
+  margin-top: 1%;
+  display: grid;
+  justify-content: center;
+
+  button {
+    width: 100%;
+  }
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  @media #{$xs} {
+    grid-template-columns: 100%;
+  }
+
+  @media #{$sm} {
+    grid-template-columns: 60%;
+  }
+
+  @media #{$md} {
+    grid-template-columns: 45%;
+  }
+
+  @media #{$lg} {
+    grid-template-columns: 35% 25% 25%;
+    justify-content: space-around;
+
+    .discipline {
+      grid-column-start: 1;
+      grid-column-end: 2;
+      grid-row-start: 2;
+      grid-row-end: 3;
+    }
+
+    .description {
+      grid-column-start: 2;
+      grid-column-end: 4;
+      grid-row-start: 1;
+      grid-row-end: 3;
+    }
+
+    .buttonCon {
+      grid-column-start: 3;
+      grid-column-end: 4;
+
+      button {
+        width: 50%;
+        margin-left: 50%;
+      }
+    }
+  }
+}

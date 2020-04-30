@@ -1,0 +1,26 @@
+<form [formGroup]="infoForm" class="infoForm">
+
+  <mat-form-field class="name">
+    <mat-label>Object name</mat-label>
+    <input matInput formControlName="objectName" placeholder="Ex. Playground beside II hight school in..." required>
+  </mat-form-field>
+
+  <mat-form-field class="discipline">
+    <mat-label>Sport discipline</mat-label>
+    <input matInput formControlName="sportName" [matAutocomplete]="sportAuto" required>
+  </mat-form-field>
+  <mat-autocomplete #sportAuto="matAutocomplete">
+    <mat-option *ngFor="let sport of filteredSportsNames | async" [value]="sport">{{sport}}</mat-option>
+  </mat-autocomplete>
+
+  <mat-form-field class="description">
+    <mat-label>Describe your object</mat-label>
+    <textarea class="objectDescription" matInput cdkTextareaAutosize formControlName="objectDescription"
+      placeholder="Ex. Playground with lighting..."></textarea>
+  </mat-form-field>
+
+  <div class="buttonCon">
+    <br>
+    <button mat-raised-button color="primary" matStepperNext>Next</button>
+  </div>
+</form>

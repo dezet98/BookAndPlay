@@ -13,6 +13,7 @@ export class MainNavComponent implements OnInit {
   navLinks = [
     { label: 'Sports facilities', path: '/sportsFacilities' },
     { label: 'Your objects', path: '/yourObjects' },
+    { label: 'Add object', path: '/addObject' },
     { label: 'Reservations', path: '/reservations' },
   ];
   adminLink = { label: 'Admin', path: '/admin' };
