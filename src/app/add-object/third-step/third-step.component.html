@@ -1,0 +1,36 @@
+<form [formGroup]="furtherForm" class="furtherForm">
+
+  <div [ngClass]="filesToUpload.length > 0 ? 'dropzoneWithFile':'dropzone'" appDropzone (filesDropEvent)="onFileSend($event)" (click)="fileInput.click()">
+    <input hidden type="file" (change)="onFileSend($event.target.files)" #fileInput>
+    <br>
+    <h4 style="text-align: center;"><span style="font-weight: 500;">Click</span> to choose a file</h4>
+    <span class="material-icons" style="font-size: 100px; width: 100%; text-align: center;">system_update_alt</span>
+    <h4 style="text-align: center;">or <span style="font-weight: 500;">drag</span> it here</h4>
+  </div>
+
+  <div class="filesToUpload" *ngIf="filesToUpload.length > 0">
+    <h4 style="text-align: center; margin-top: 2%;">Selected Files:</h4>
+    <ul>
+      <li class="file" *ngFor="let file of filesToUpload; let i = index">
+        <span style="display: inline-block; width: 80%;">{{file.name}}</span>
+        <button mat-icon-button color="primary" aria-label="Delete file" (click)="onFileDelete(i)">
+          <mat-icon style="font-size: large;">delete</mat-icon>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <mat-form-field class="description">
+    <mat-label>Describe your object</mat-label>
+    <textarea class="objectDescription" matInput cdkTextareaAutosize formControlName="objectDescription"
+      placeholder="Ex. Playground with lighting..."></textarea>
+  </mat-form-field>
+
+  <div class="buttonCon">
+    <br>
+    <div class="buttons">
+      <button mat-raised-button color="primary" matStepperPrevious>Previous</button>
+      <button mat-raised-button color="primary" matStepperNext>Next</button>
+    </div>
+  </div>
+</form>

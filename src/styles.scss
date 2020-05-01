@@ -1,9 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+@import './my-theme.scss';
+
+$primary-color: mat-color($my-theme-primary, default);
+$accent-color: mat-color($my-theme-accent, default);
+$warn-color: mat-color($my-theme-warn, default);
+
 $xs: "only screen and (min-width : 0px)";
 $sm: "only screen and (min-width : 576px)";
 $md: "only screen and (min-width : 768px)";
 $lg: "only screen and (min-width : 992px)";
 $xl: "only screen and (min-width : 1200px)";
+
 
 html {
   height: 100%;

@@ -10,17 +10,17 @@ import { startWith, map } from 'rxjs/operators';
   styleUrls: ['./first-step.component.scss']
 })
 export class FirstStepComponent implements OnInit {
-  infoForm: FormGroup;
+  basicForm: FormGroup;
   sportsNames: Array<string> = [];
   filteredSportsNames: Observable<any>;
 
   constructor(private fb: FormBuilder, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.infoForm = this.fb.group({
+    this.basicForm = this.fb.group({
       objectName: ['', Validators.required],
       sportName: ['', Validators.required],
-      objectDescription: ['']
+      phoneNumbers: ['']
     });
 
     this.userService.getSports().subscribe((sportsNames: Array<string>) => {
@@ -32,7 +32,7 @@ export class FirstStepComponent implements OnInit {
   }
 
   linkSportFilter() {
-    this.filteredSportsNames = this.infoForm.get('sportName').valueChanges.pipe(
+    this.filteredSportsNames = this.basicForm.get('sportName').valueChanges.pipe(
       startWith(''), map(key =>
         this._filter(key, this.sportsNames)
       ));

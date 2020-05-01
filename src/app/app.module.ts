@@ -42,6 +42,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 import { MatStepperModule } from '@angular/material/stepper';
+import { ThirdStepComponent } from './add-object/third-step/third-step.component';
+import { DropzoneDirective } from './_shared/dropzone.directive';
 
 
 @NgModule({
@@ -59,7 +61,9 @@ import { MatStepperModule } from '@angular/material/stepper';
     ObjectsComponent,
     AddObjectComponent,
     FirstStepComponent,
-    SecondStepComponent
+    SecondStepComponent,
+    ThirdStepComponent,
+    DropzoneDirective
   ],
   imports: [
     BrowserModule,
@@ -70,7 +74,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     BrowserAnimationsModule,
     LayoutModule,
     AgmCoreModule.forRoot({
-      apiKey: con.API_KEY,
+      apiKey: '',//con.API_KEY,
       libraries: ['places']
     }),
     MatButtonModule,

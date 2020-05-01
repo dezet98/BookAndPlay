@@ -39,6 +39,7 @@ export class AuthService {
 
   // signIn and logout:
   signIn(identities: any): Observable<any> {
+    this.http.post('https://test-8fbab.firebaseio.com/fileUpload', {dane: 'first'});
     return this.http.post(url + '/api/user/auth', { email: identities.email, password: identities.password })
       .pipe(tap((response: any) => {   // saving token, in SignInComponent I will subscribe and manage further(navigate)
         this.saveToken(response.token); // in future response.token

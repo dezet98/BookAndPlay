@@ -1,0 +1,146 @@
+@import '../../../styles.scss';
+
+.furtherForm {
+  display: grid;
+  margin-top: 1%;
+  justify-content: center;
+  row-gap: 20px;
+
+  .dropzone, .dropzoneWithFile {
+    border: 1px dashed $primary-color;
+    height: 30vh;
+    border-radius: 10px;
+    transition: background-color 0.4s linear;
+    -o-transition: background-color 0.4s linear;
+    -ms-transition: background-color 0.4s linear;
+    -moz-transition: background-color 0.4s linear;
+    -webkit-transition: background-color 0.4s linear;
+
+    &, & > * {
+      cursor: pointer;
+    }
+
+    &:hover {
+      background: rgba($primary-color, 0.3);
+
+      h4 {
+        font-weight: 500;
+      }
+    }
+  }
+
+  .filesToUpload {
+    border: 1px solid $primary-color;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-around;
+
+    button {
+      width: 35%;
+    }
+  }
+
+  @media #{$xs} {
+    grid-template-columns: 100%;
+  }
+
+  @media #{$sm} {
+    grid-template-columns: 60%;
+  }
+
+  @media #{$md} {
+    grid-template-columns: 20% 20% 10% 20% 20%;
+
+    .dropzone {
+      grid-column-start: 2;
+      grid-column-end: 5;
+      grid-row-start: 1;
+      grid-row-end: 3;
+    }
+
+    // class for dropzone when filesToUpload exist
+    .dropzoneWithFile {
+      grid-column-start: 1;
+      grid-column-end: 3;
+      grid-row-start: 1;
+      grid-row-end: 3;
+    }
+
+    .filesToUpload {
+      grid-column-start: 4;
+      grid-column-end: 6;
+      grid-row-start: 1;
+      grid-row-end: 3;
+    }
+
+    .description {
+      grid-column-start: 2;
+      grid-column-end: 5;
+      grid-row-start: 4;
+      grid-row-end: 5;
+    }
+
+    .buttonCon {
+      grid-column-start: 2;
+      grid-column-end: 5;
+      grid-row-start: 5;
+      grid-row-end: 6;
+
+      .buttons {
+        justify-content: space-between;
+
+        button {
+          width: 40%;
+        }
+      }
+    }
+
+  }
+
+  @media #{$lg} {
+    grid-template-columns: 15% 10% 15% 10% 15%;
+    row-gap: 20px;
+
+    .dropzone {
+      grid-column-start: 2;
+      grid-column-end: 5;
+      grid-row-start: 1;
+      grid-row-end: 3;
+    }
+
+    // class for dropzone when filesToUpload exist
+    .dropzoneWithFile {
+      grid-column-start: 1;
+      grid-column-end: 3;
+      grid-row-start: 1;
+      grid-row-end: 3;
+    }
+
+    .filesToUpload {
+      grid-column-start: 4;
+      grid-column-end: 6;
+      grid-row-start: 1;
+      grid-row-end: 3;
+    }
+
+    .description {
+      grid-column-start: 1;
+      grid-column-end: 6;
+      grid-row-start: 4;
+      grid-row-end: 5;
+    }
+
+    .buttonCon {
+      grid-column-start: 4;
+      grid-column-end: 6;
+      grid-row-start: 5;
+      grid-row-end: 6;
+    }
+  }
+
+
+}

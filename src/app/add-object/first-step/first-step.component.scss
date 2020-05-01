@@ -1,7 +1,6 @@
 @import "../../../styles.scss";
 
-.infoForm {
-  width: 100%;
+.basicForm {
   margin-top: 1%;
   display: grid;
   justify-content: center;
@@ -37,7 +36,7 @@
       grid-row-end: 3;
     }
 
-    .description {
+    .phoneNumbers {
       grid-column-start: 2;
       grid-column-end: 4;
       grid-row-start: 1;

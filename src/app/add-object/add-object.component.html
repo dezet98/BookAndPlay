@@ -5,11 +5,18 @@
   </mat-step>
 
   <mat-step>
-    <ng-template matStepLabel>Fill out addres</ng-template>
+    <ng-template matStepLabel>Fill out address</ng-template>
     <app-second-step></app-second-step>
   </mat-step>
 
   <mat-step>
-    <ng-template matStepLabel>Upload image</ng-template>
+    <ng-template matStepLabel>Upload image and fill out description</ng-template>
+    <app-third-step></app-third-step>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <button mat-raised-button color="primary" matStepperPrevious>Previous</button>
+    <button mat-raised-button color="primary">Create Object</button>
   </mat-step>
 </mat-vertical-stepper>

@@ -14,8 +14,8 @@ export class SecondStepComponent implements OnInit {
   lat = 50.049683;
   lng = 19.944544;
   zoom = 7;
-  addresses: Array<any> = ['kur', 'ja', 'be'];
-  addressToSend: string;
+  addresses: Array<any>;
+  selectedaddress: string;
   geocoder: google.maps.Geocoder;
 
   @ViewChild('search')
@@ -30,7 +30,7 @@ export class SecondStepComponent implements OnInit {
 
     // value of list with addresses always will be addressToSend:
     this.addressForm.get('address').valueChanges.subscribe(address => {
-      this.addressToSend = address;
+      this.selectedaddress = address;
     });
 
     this.mapsAPILoader.load().then(() => {
