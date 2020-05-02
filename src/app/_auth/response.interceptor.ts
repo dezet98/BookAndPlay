@@ -22,6 +22,7 @@ export class ResponseInterceptor implements HttpInterceptor {
             if (error instanceof HttpErrorResponse) {
               if (error.status === 401) {
                 this.router.navigate(['SignIn']);
+                console.log('You don\'t have permission to access this resource');
               }
             }
           }));

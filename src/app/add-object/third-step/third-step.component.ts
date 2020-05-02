@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-third-step',
@@ -8,29 +7,22 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./third-step.component.scss']
 })
 export class ThirdStepComponent implements OnInit {
-  furtherForm: FormGroup;
+  @Input() furtherForm: FormGroup;   // contains 2 FormControl: files[], objectDescription
   filesToUpload = [];
 
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+  constructor() { }
 
-  ngOnInit(): void {
-    this.furtherForm = this.fb.group({
-      file: [''],
-      objectDescription: ['']
-    });
-  }
+  ngOnInit(): void { }
 
   onFileSend(files: any) {
     for (const file of files) {
       this.filesToUpload.push(file);
     }
+    this.furtherForm.get('files');
   }
 
   onFileDelete(index: number) {
     this.filesToUpload.splice(index, 1);
-  }
-
-  onUpload() {
-    console.log('I will should upload! formData:');
+    this.furtherForm.get('files');
   }
 }

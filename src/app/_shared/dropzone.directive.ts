@@ -31,5 +31,4 @@ export class DropzoneDirective {
       this.filesDropEvent.emit(files);
     }
   }
-
 }

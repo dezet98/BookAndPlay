@@ -1,22 +1,48 @@
-<mat-vertical-stepper #stepper>
-  <mat-step>
-    <ng-template matStepLabel>Fill out basic information</ng-template>
-    <app-first-step></app-first-step>
-  </mat-step>
+<form [formGroup]="objectForm" (ngSubmit)="onCreateObject()">
+  <mat-vertical-stepper #stepper>
+    <mat-step [stepControl]="objectForm.get('basicForm')">
+      <ng-template matStepLabel>Fill out basic information</ng-template>
+      <app-first-step [basicForm]="objectForm.get('basicForm')"></app-first-step>
+    </mat-step>
 
-  <mat-step>
-    <ng-template matStepLabel>Fill out address</ng-template>
-    <app-second-step></app-second-step>
-  </mat-step>
+    <mat-step [stepControl]="objectForm.get('addressForm')">
+      <ng-template matStepLabel>Fill out address</ng-template>
+      <app-second-step [addressForm]="objectForm.get('addressForm')"></app-second-step>
+    </mat-step>
 
-  <mat-step>
-    <ng-template matStepLabel>Upload image and fill out description</ng-template>
-    <app-third-step></app-third-step>
-  </mat-step>
+    <mat-step [stepControl]="objectForm.get('furtherForm')" optional>
+      <ng-template matStepLabel>Upload image and write description</ng-template>
+      <app-third-step [furtherForm]="objectForm.get('furtherForm')"></app-third-step>
+    </mat-step>
 
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    <button mat-raised-button color="primary" matStepperPrevious>Previous</button>
-    <button mat-raised-button color="primary">Create Object</button>
-  </mat-step>
-</mat-vertical-stepper>
+    <mat-step>
+      <ng-template matStepLabel>Create Object</ng-template>
+      <div class="summary">
+       <!-- <mat-card class="card" appareance="outline">
+          <mat-card-title>Summary</mat-card-title>
+          <mat-card-header>Name</mat-card-header>
+          <mat-card-content>{{objectForm.get('basicForm').get('objectName').value}}</mat-card-content>
+          <mat-card-header>Sport discipline</mat-card-header>
+          <mat-card-content>{{objectForm.get('basicForm').get('sportName').value}}</mat-card-content>
+          <mat-card-header>Contact number phone</mat-card-header>
+          <mat-card-content>{{objectForm.get('basicForm').get('phoneNumber').value}}</mat-card-content>
+          <mat-card-header>Address</mat-card-header>
+          <mat-card-content>{{objectForm.get('addressForm').get('address').value}}</mat-card-content>
+          <mat-card-header>Coordinates</mat-card-header>
+          <mat-card-content>
+            ({{objectForm.get('addressForm').get('latitude').value}}, {{objectForm.get('addressForm').get('longitude').value}})
+          </mat-card-content>
+          <mat-card-header>Pictures</mat-card-header>
+          <mat-card-content>{{objectForm.get('furtherForm').get('images').value}}</mat-card-content>
+          <mat-card-header>Object Description</mat-card-header>
+          <mat-card-content>{{objectForm.get('furtherForm').get('objectDescription').value}}</mat-card-content>
+        </mat-card>-->
+        <br>
+        <button type="submit" mat-raised-button color="primary" [disabled]="loading || !objectForm.valid">
+          {{objectForm.valid ? 'Create Object':'Fill out all required form'}}
+        </button>
+        <br>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+</form>

@@ -1,8 +1,7 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, NgZone, ViewChild, ElementRef, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
-import { tap, map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-second-step',
@@ -10,37 +9,19 @@ import { Observable } from 'rxjs';
   styleUrls: ['./second-step.component.scss']
 })
 export class SecondStepComponent implements OnInit {
-  addressForm: FormGroup;
-  lat = 50.049683;
-  lng = 19.944544;
-  zoom = 7;
+  @Input() addressForm: FormGroup;  // contains 3 FormControl: address, latitude, longitude
+  zoom: number;
   addresses: Array<any>;
-  selectedaddress: string;
   geocoder: google.maps.Geocoder;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
-  constructor(private fb: FormBuilder, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) { }
+  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) { }
 
   ngOnInit(): void {
-    this.addressForm = this.fb.group({
-      address: ['', Validators.required],
-    });
-
-    // value of list with addresses always will be addressToSend:
-    this.addressForm.get('address').valueChanges.subscribe(address => {
-      this.selectedaddress = address;
-    });
-
     this.mapsAPILoader.load().then(() => {
-      // set a user location in first load if it's possible:
-      if ('geolocation' in navigator) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          this.choseLocation({ coords: { lat: position.coords.latitude, lng: position.coords.longitude } });
-          this.zoom = 7;
-        });
-      }
+      this.firstLocationSetting();
 
       // tslint:disable-next-line: new-parens
       this.geocoder = new google.maps.Geocoder;
@@ -60,16 +41,30 @@ export class SecondStepComponent implements OnInit {
     });
   }
 
+  firstLocationSetting() {
+    // set user location in first load if it's possible, in other case set default location
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.choseLocation({ coords: { lat: position.coords.latitude, lng: position.coords.longitude } });
+        this.zoom = 7;
+      });
+    }
+    else {
+      this.choseLocation({ coords: { lat: 50.049683, lng: 19.944544 } });
+      this.zoom = 7;
+    }
+  }
+
   choseLocation(position: any) {
-    this.lat = position.coords.lat;
-    this.lng = position.coords.lng;
+    this.addressForm.get('latitude').setValue(position.coords.lat);
+    this.addressForm.get('longitude').setValue(position.coords.lng);
     this.zoom = 14;
     this.setAddress(position);
   }
 
   setAddress(position: any) {
     this.geocoder.geocode({ location: { lat: position.coords.lat, lng: position.coords.lng } }, (results: any, status: string) => {
-      console.log(results); // all find places
+      // console.log(results); // all find places
 
       if (status === 'OK') {
         this.addresses = results.filter((result: any) =>
@@ -85,11 +80,13 @@ export class SecondStepComponent implements OnInit {
 
         // if user change location I set first new address as a value of list with addresses to chosen
         this.addressForm.get('address').setValue(this.addresses[0]);
-
-        console.log(this.addresses); // all filter places
+        console.log('Set address to: ' + this.addresses[0]);
+        // console.log(this.addresses); // all filter places
       }
       else {
         console.log('Gecoder failed. Status: ' + status);
+        this.addresses = [];
+        this.addressForm.get('address').setValue('');
       }
     });
   }

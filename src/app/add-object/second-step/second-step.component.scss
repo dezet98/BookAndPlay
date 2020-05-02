@@ -3,6 +3,7 @@
 .addresForm {
   margin-top: 1%;
   display: grid;
+  row-gap: 20px;
 
   .map {
     height: 50vh;
@@ -72,7 +73,7 @@
 
   @media #{$lg} {
     .map {
-      height: 60vh;
+      height: 55vh;
     }
   }
 

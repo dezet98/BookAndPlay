@@ -1,5 +1,4 @@
 <form [formGroup]="basicForm" class="basicForm">
-
   <mat-form-field class="name">
     <mat-label>Object name</mat-label>
     <input matInput formControlName="objectName" placeholder="Ex. Playground beside II hight school in..." required>
@@ -13,10 +12,10 @@
     <mat-option *ngFor="let sport of filteredSportsNames | async" [value]="sport">{{sport}}</mat-option>
   </mat-autocomplete>
 
-  <mat-form-field class="phoneNumbers">
-    <mat-label>Describe your object</mat-label>
-    <textarea class="objectDescription" matInput cdkTextareaAutosize formControlName="objectDescription"
-      placeholder="Ex. Playground with lighting..."></textarea>
+  <mat-form-field class="phoneNumber">
+    <mat-label>Contact phone number</mat-label>
+    <input matInput type="tel" formControlName="phoneNumber" placeholder="000-000-000">
+    <mat-icon matSuffix style="font-size: large;">phone</mat-icon>
   </mat-form-field>
 
   <div class="buttonCon">

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { UserService } from 'src/app/_services/user.service';
 import { startWith, map } from 'rxjs/operators';
+import { PublicService } from 'src/app/_services/public.service';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-first-step',
@@ -10,37 +11,38 @@ import { startWith, map } from 'rxjs/operators';
   styleUrls: ['./first-step.component.scss']
 })
 export class FirstStepComponent implements OnInit {
-  basicForm: FormGroup;
+  @Input() basicForm: FormGroup;  // contains 3 FormControl: objectName, sportName, phoneNumber
+
   sportsNames: Array<string> = [];
   filteredSportsNames: Observable<any>;
 
-  constructor(private fb: FormBuilder, private userService: UserService) { }
+  constructor(private publicService: PublicService, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.basicForm = this.fb.group({
-      objectName: ['', Validators.required],
-      sportName: ['', Validators.required],
-      phoneNumbers: ['']
-    });
+    this.loadSports();
+    this.setDefaultPhone();
+  }
 
-    this.userService.getSports().subscribe((sportsNames: Array<string>) => {
+  loadSports() {
+    this.publicService.getSports().subscribe((sportsNames: Array<string>) => {
       this.sportsNames = sportsNames;
-      this.linkSportFilter();
+      this.filteredSportsNames = this.basicForm.get('sportName').valueChanges.pipe(
+        startWith(''), map(key =>
+          this._filter(key, this.sportsNames)
+        ));
     }, error => {
       console.log('Error with load sports: ' + error.status);
     });
   }
 
-  linkSportFilter() {
-    this.filteredSportsNames = this.basicForm.get('sportName').valueChanges.pipe(
-      startWith(''), map(key =>
-        this._filter(key, this.sportsNames)
-      ));
-  }
-
   _filter(key: string, list: Array<string>): Array<string> {
-    console.log('in _filter: ' + this.sportsNames);
     return list.filter(item =>
       item.toLowerCase().indexOf(key.toLowerCase()) === 0);
+  }
+
+  setDefaultPhone() {
+    this.userService.getPhoneNumber().subscribe((numberPhone: string) => {
+      this.basicForm.get('phoneNumber').setValue(numberPhone);
+    });
   }
 }

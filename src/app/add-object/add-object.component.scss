@@ -1,1 +1,19 @@
 @import "../../styles.scss";
+
+.summary {
+  display: grid;
+  grid-template-columns: 50%;
+  justify-content: center;
+
+  button {
+    width: 100%;
+  }
+
+  @media #{$md} {
+    grid-template-columns: 35%;
+  }
+
+  @media #{$lg} {
+    grid-template-columns: 25%;
+  }
+}

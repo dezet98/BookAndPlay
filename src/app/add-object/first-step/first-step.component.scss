@@ -26,7 +26,7 @@
   }
 
   @media #{$lg} {
-    grid-template-columns: 35% 25% 25%;
+    grid-template-columns: 35% 35%;
     justify-content: space-around;
 
     .discipline {
@@ -36,16 +36,16 @@
       grid-row-end: 3;
     }
 
-    .phoneNumbers {
+    .phoneNumber {
       grid-column-start: 2;
-      grid-column-end: 4;
+      grid-column-end: 3;
       grid-row-start: 1;
       grid-row-end: 3;
     }
 
     .buttonCon {
-      grid-column-start: 3;
-      grid-column-end: 4;
+      grid-column-start: 2;
+      grid-column-end: 3;
 
       button {
         width: 50%;

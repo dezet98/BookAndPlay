@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { UserService } from '../../_services/user.service';
 import { LettersGroups } from '../../_models/lettersGroups';
+import { PublicService } from 'src/app/_services/public.service';
 
 @Component({
   selector: 'app-option',
@@ -20,44 +20,43 @@ export class OptionComponent implements OnInit {
   citiesGroup: LettersGroups = new LettersGroups([]);
   filteredCitiesGroup: Observable<any>;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(private fb: FormBuilder, private publicService: PublicService) { }
+
+  ngOnInit() {
     this.searchForm = this.fb.group({
       sportName: [''],
       city: [''],
       day: [this.minDate],
       hours: ['']
     });
+
+    this.loadSports();
+    this.loadCities();
   }
 
-  ngOnInit() {
-    this.userService.getSports().subscribe((sportsNames: Array<string>) => {
+  loadSports() {
+    this.publicService.getSports().subscribe((sportsNames: Array<string>) => {
       this.sportsNames = sportsNames;
-      this.linkSportFilter();
+      this.filteredSportsNames = this.searchForm.get('sportName').valueChanges.pipe(
+        startWith(''), map(key =>
+          this._filter(key, this.sportsNames)
+        ));
     }, error => {
       console.log('Error with load sports: ' + error.status);
     });
+  }
 
-    this.userService.getCities().subscribe((cities: Array<string>) => {
+  loadCities() {
+    this.publicService.getCities().subscribe((cities: Array<string>) => {
       console.log(cities);
       this.citiesGroup = new LettersGroups(cities);
-      this.linkCitiesFilter();
+      this.filteredCitiesGroup = this.searchForm.get('city').valueChanges.pipe(
+        startWith(''), map(key =>
+          this._filterGroup(key, this.citiesGroup)
+        ));
     }, error => {
       console.log('Error with load sports: ' + error.status);
     });
-  }
-
-  linkSportFilter() {
-    this.filteredSportsNames = this.searchForm.get('sportName').valueChanges.pipe(
-      startWith(''), map(key =>
-        this._filter(key, this.sportsNames)
-      ));
-  }
-
-  linkCitiesFilter() {
-    this.filteredCitiesGroup = this.searchForm.get('city').valueChanges.pipe(
-      startWith(''), map(key =>
-        this._filterGroup(key, this.citiesGroup)
-      ));
   }
 
   _filter(key: string, list: Array<string>): Array<string> {

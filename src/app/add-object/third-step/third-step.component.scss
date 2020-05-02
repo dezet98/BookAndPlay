@@ -103,7 +103,6 @@
 
   @media #{$lg} {
     grid-template-columns: 15% 10% 15% 10% 15%;
-    row-gap: 20px;
 
     .dropzone {
       grid-column-start: 2;

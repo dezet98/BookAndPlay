@@ -5,8 +5,10 @@
     <mat-icon matSuffix style="font-size: large;">search</mat-icon>
   </mat-form-field>
 
-  <agm-map class="map" [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="choseLocation($event)">
-    <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true" (dragEnd)="choseLocation($event)">
+  <agm-map class="map" [latitude]="this.addressForm.get('latitude').value"
+    [longitude]="this.addressForm.get('longitude').value" [zoom]="zoom" (mapClick)="choseLocation($event)">
+    <agm-marker [latitude]="this.addressForm.get('latitude').value"
+      [longitude]="this.addressForm.get('longitude').value" [markerDraggable]="true" (dragEnd)="choseLocation($event)">
     </agm-marker>
   </agm-map>
   <br>
@@ -19,9 +21,12 @@
   <mat-card class="card" appareance="outline">
     <mat-card-title style="font-size: large;">Approved data</mat-card-title>
     <br>
-    <mat-card-content>Addres: <span style="text-align: center; display: block;">{{selectedaddress}}</span>
+    <mat-card-content>Addres: <span
+        style="text-align: center; display: block;">{{addressForm.get('address').value}}</span>
     </mat-card-content>
-    <mat-card-content>Coordinates: <span style="text-align: center; display: block;">({{lat}}, {{lng}})</span>
+    <mat-card-content>Coordinates: <span
+        style="text-align: center; display: block;">({{this.addressForm.get('latitude').value}},
+        {{this.addressForm.get('longitude').value}})</span>
     </mat-card-content>
   </mat-card>
 
