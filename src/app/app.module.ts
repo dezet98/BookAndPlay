@@ -10,7 +10,7 @@ import { ResponseInterceptor } from './_auth/response.interceptor';
 import { AgmCoreModule } from '@agm/core';
 import { Config as con } from '../config';
 
-// my own components
+// my own components, directives
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { SportsFacilitiesComponent } from './sports-facilities/sports-facilities.component';
@@ -25,6 +25,9 @@ import { ObjectsComponent } from './sports-facilities/objects/objects.component'
 import { AddObjectComponent } from './add-object/add-object.component';
 import { FirstStepComponent } from './add-object/first-step/first-step.component';
 import { SecondStepComponent } from './add-object/second-step/second-step.component';
+import { ThirdStepComponent } from './add-object/third-step/third-step.component';
+import { DropzoneDirective } from './_shared/dropzone.directive';
+import { ProfileComponent } from './profile/profile.component';
 
 // angular material components
 import { MatButtonModule } from '@angular/material/button';
@@ -42,8 +45,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 import { MatStepperModule } from '@angular/material/stepper';
-import { ThirdStepComponent } from './add-object/third-step/third-step.component';
-import { DropzoneDirective } from './_shared/dropzone.directive';
+import { MatMenuModule } from '@angular/material/menu';
+
 
 
 @NgModule({
@@ -63,7 +66,8 @@ import { DropzoneDirective } from './_shared/dropzone.directive';
     FirstStepComponent,
     SecondStepComponent,
     ThirdStepComponent,
-    DropzoneDirective
+    DropzoneDirective,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +78,7 @@ import { DropzoneDirective } from './_shared/dropzone.directive';
     BrowserAnimationsModule,
     LayoutModule,
     AgmCoreModule.forRoot({
-      apiKey: '',//con.API_KEY,
+      apiKey: con.API_KEY,
       libraries: ['places']
     }),
     MatButtonModule,
@@ -91,7 +95,8 @@ import { DropzoneDirective } from './_shared/dropzone.directive';
     MatNativeDateModule,
     MatExpansionModule,
     MatCardModule,
-    MatStepperModule
+    MatStepperModule,
+    MatMenuModule
   ],
   providers: [
     {

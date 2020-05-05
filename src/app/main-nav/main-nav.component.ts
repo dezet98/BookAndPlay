@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from '../_auth/auth.service';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-main-nav',
@@ -17,10 +18,12 @@ export class MainNavComponent implements OnInit {
     { label: 'Reservations', path: '/reservations' },
   ];
   adminLink = { label: 'Admin', path: '/admin' };
-  loggingLinks: any;
+  loggedOutLinks = [{ label: 'Sign In', path: '/signIn' }, { label: 'Sign Up', path: '/signUp' }];
+  loggedInLinks = [{ label: 'Profile', path: '/profile' }, { label: 'Sign Out', path: '/' }];
 
   isLoggedIn: boolean;
   isAdmin: boolean;
+  userName: string;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -28,23 +31,24 @@ export class MainNavComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private auth: AuthService) { }
+  constructor(private breakpointObserver: BreakpointObserver, private auth: AuthService, private userService: UserService) { }
 
   ngOnInit() {
     this.auth.getIsLoggedIn().subscribe((isLoggedIn: boolean) => {
+      this.isLoggedIn = isLoggedIn;
       if (isLoggedIn) {
-        this.isLoggedIn = true;
-        this.loggingLinks = [{ label: 'Sign Out', path: '/signOut' }];
-      }
-      else {
-        this.isLoggedIn = false;
-        this.loggingLinks = [{ label: 'Sign In', path: '/signIn' }, { label: 'Sign Up', path: '/signUp' }];
+        this.getUserName();
       }
     });
 
     this.auth.isAdmin().subscribe((isAdmin: boolean) => {
       this.isAdmin = isAdmin;
     });
+  }
+
+  getUserName() {
+    this.userService.getName().subscribe((name: string) =>
+      this.userName = name);
   }
 
   signOut() {

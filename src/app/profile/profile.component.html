@@ -1,0 +1,142 @@
+<span class="material-icons" style="font-size: 130px; width: 100%; text-align: center; margin-top: 2%;">person</span>
+<form [formGroup]='personalDataForm' class="personalData">
+  <h2>Personal Data</h2>
+  <mat-expansion-panel (opened)="panelIsOpen[0]=true" (closed)="panelIsOpen[0]=false">
+    <mat-expansion-panel-header class="panel-title">
+      <mat-panel-title class="panel-title">
+        Your name
+      </mat-panel-title>
+      <mat-panel-description class="panel-description">
+        {{panelIsOpen[0] ? 'Change name' : personalData.name}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <!--for lazy loading-->
+      <div class="content">
+        <mat-form-field>
+          <input matInput formControlName="name">
+        </mat-form-field>
+        <button mat-stroked-button color="warn" (click)="changeUserName()">Save changes</button>
+      </div>
+    </ng-template>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (opened)="panelIsOpen[1]=true" (closed)="panelIsOpen[1]=false">
+    <mat-expansion-panel-header class="panel-title">
+      <mat-panel-title class="panel-title">
+        Your surname
+      </mat-panel-title>
+      <mat-panel-description class="panel-description">
+        {{panelIsOpen[1] ? 'Change surname' : personalData.surname}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <div class="content">
+        <mat-form-field>
+          <input matInput formControlName="surname">
+        </mat-form-field>
+        <button mat-stroked-button color="warn" (click)="changeUserSurname()">Save changes</button>
+      </div>
+    </ng-template>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (opened)="panelIsOpen[2]=true" (closed)="panelIsOpen[2]=false">
+    <mat-expansion-panel-header class="panel-title">
+      <mat-panel-title class="panel-title">
+        Your email
+      </mat-panel-title>
+      <mat-panel-description class="panel-description">
+        {{panelIsOpen[2] ? 'Change email' : personalData.email}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <div class="content">
+        <mat-form-field>
+          <input matInput formControlName="email">
+        </mat-form-field>
+        <button mat-stroked-button color="warn" (click)="changeUserEmail()">Save changes</button>
+      </div>
+    </ng-template>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (opened)="panelIsOpen[3]=true" (closed)="panelIsOpen[3]=false">
+    <mat-expansion-panel-header class="panel-title">
+      <mat-panel-title class="panel-title">
+        Your phone number
+      </mat-panel-title>
+      <mat-panel-description class="panel-description">
+        {{panelIsOpen[3] ? 'Change phone number' : personalData.phoneNumber}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <div class="content">
+        <mat-form-field>
+          <input matInput formControlName="phoneNumber">
+        </mat-form-field>
+        <button mat-stroked-button color="warn" (click)="changeUserPhoneNumber()">Save changes</button>
+      </div>
+    </ng-template>
+  </mat-expansion-panel>
+</form>
+
+<form [formGroup]='accountSettingsForm' class="accountSettings">
+  <br>
+  <h2>Account Settings</h2>
+  <mat-expansion-panel (closed)="accountSettingsForm.get('oldPassword').setValue('')">
+    <mat-expansion-panel-header class="panel-title">
+      <mat-panel-title class="panel-title">
+        Change password
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <div class="content">
+        <mat-form-field>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="oldPassword"
+            placeholder="Write your old password">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="newPassword"
+            placeholder="Write your new password">
+        </mat-form-field>
+        <br>
+        <div class="buttons">
+          <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+            <mat-icon style="font-size: large;">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <button mat-raised-button color="warn" (click)="changeUserPassword()">Change password</button>
+        </div>
+      </div>
+    </ng-template>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (closed)="accountSettingsForm.get('password').setValue('')">
+    <mat-expansion-panel-header class="panel-title">
+      <mat-panel-title class="panel-title">
+        Delete account
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <div class="content">
+        <mat-form-field>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password"
+            placeholder="Write your password to confirm" #oldPassword>
+          <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+            <mat-icon style="font-size: large;">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <br>
+        <div class="buttons">
+          <button mat-raised-button color="warn" (click)="deleteUserAccount()">
+            <mat-icon>error_outline</mat-icon>
+            <span>   Delete Account</span>
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </mat-expansion-panel>
+  <br>
+  <br>
+  <br>
+</form>

@@ -5,8 +5,8 @@
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list>
       <div mat-subheader>Pages</div>
-      <mat-list-item *ngFor="let link of navLinks"  routerLinkActive="activeLink">
-        <a [routerLink]="[link.path]">  {{link.label}}</a>
+      <mat-list-item *ngFor="let link of navLinks" routerLinkActive="activeLink">
+        <a [routerLink]="[link.path]"> {{link.label}}</a>
       </mat-list-item>
       <br>
       <ng-container *ngIf="isAdmin">
@@ -14,7 +14,7 @@
         <div mat-subheader>Admin</div>
         <mat-list-item routerLinkActive="activeLink">
           <mat-icon>fingerprint</mat-icon>
-          <a [routerLink]="[adminLink.path]">  {{adminLink.label}}</a>
+          <a [routerLink]="[adminLink.path]"> {{adminLink.label}}</a>
         </mat-list-item>
       </ng-container>
       <br>
@@ -22,8 +22,12 @@
         <mat-divider></mat-divider>
         <div mat-subheader>Acount</div>
         <mat-list-item routerLinkActive="activeLink">
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <a [routerLink]="loggedInLinks[0].path"> {{loggedInLinks[0].label}}</a>
+        </mat-list-item>
+        <mat-list-item routerLinkActive="activeLink">
           <mat-icon mat-list-icon>logout</mat-icon>
-          <a routerLink="loggingLinks[0].path" (click)="signOut()">  {{loggingLinks[0].label}}</a>
+          <a routerLink="loggedInLinks[1].path" (click)="signOut()"> {{loggedInLinks[1].label}}</a>
         </mat-list-item>
       </ng-container>
 
@@ -34,7 +38,8 @@
   <mat-sidenav-content class="sidenav-content">
     <mat-toolbar color="primary" class="toolbar">
       <div class="logo">
-        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         <a routerLink='/'>BookAndPlay</a>
@@ -55,12 +60,25 @@
 
       <div class="buttons">
         <ng-container *ngIf="isLoggedIn; else isLoggedOut">
-          <a mat-stroked-button routerLink="loggingLinks[0].path" routerLinkActive="activeButton" (click)="signOut()"
-            *ngIf="!(isHandset$ | async)">{{loggingLinks[0].label}}</a>
+          <button mat-stroked-button [matMenuTriggerFor]="menu" *ngIf="!(isHandset$ | async)">
+            <mat-icon>whatshot</mat-icon>
+            <span> Hi, {{userName}}</span>
+          </button>
+          <mat-menu #menu="matMenu">
+            <a mat-menu-item [routerLink]="[loggedInLinks[0].path]" routerLinkActive="activeButton">
+              <mat-icon>account_circle</mat-icon>
+              <span>{{loggedInLinks[0].label}}</span>
+            </a>
+            <a mat-menu-item [routerLink]="loggedInLinks[1].path" (click)="signOut()">
+              <mat-icon>logout</mat-icon>
+              <span>{{loggedInLinks[1].label}}</span>
+            </a>
+          </mat-menu>
         </ng-container>
 
         <ng-template #isLoggedOut>
-          <a *ngFor="let link of loggingLinks" mat-stroked-button routerLinkActive="activeButton" [routerLink]="[link.path]">{{link.label}}</a>
+          <a *ngFor="let link of loggedOutLinks" mat-stroked-button routerLinkActive="activeButton"
+            [routerLink]="[link.path]">{{link.label}}</a>
         </ng-template>
       </div>
     </mat-toolbar>

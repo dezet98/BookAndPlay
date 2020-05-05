@@ -10,6 +10,10 @@
 
 .activeButton {
   background-color:$accent-color;
+
+  &:hover {
+    background-color: $accent-color !important;
+  }
 }
 
 .activeLink {
