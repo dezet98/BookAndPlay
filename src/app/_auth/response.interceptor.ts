@@ -1,14 +1,14 @@
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { AuthService } from './auth.service';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { UserService } from '../_services/user.service';
 
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor {
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req)
@@ -21,8 +21,8 @@ export class ResponseInterceptor implements HttpInterceptor {
           }, error => {
             if (error instanceof HttpErrorResponse) {
               if (error.status === 401) {
-                this.router.navigate(['SignIn']);
-                console.log('You don\'t have permission to access this resource');
+                this.router.navigate(['signIn']);
+                this.userService.showSnackbar('You don\'t have permission to access this resource', 'Close');
               }
             }
           }));

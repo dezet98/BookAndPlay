@@ -22,7 +22,10 @@
       <input matInput formControlName="hours">
     </mat-form-field>
 
-    <button mat-stroked-button type="submit" (click)="search()">Search</button>
+    <button mat-stroked-button type="submit" (click)="search()">
+      <mat-icon>search</mat-icon>
+      <span>   Search</span>
+    </button>
   </form>
 
   <mat-autocomplete #sportAuto="matAutocomplete">

@@ -5,15 +5,23 @@ import { Observable } from 'rxjs';
 import { User } from '../_models/user';
 import { tap, map } from 'rxjs/operators';
 import { SportObject } from '../_models/sportObject';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
 
-  SignUp(user: User): Observable<any> {
+  showSnackbar(message: string, action: string, dur: number = 4000) {
+    this.snackBar.open(message, action, {
+      duration: dur,
+      panelClass: 'snackbar'
+    });
+  }
+
+  signUp(user: User): Observable<any> {
     return this.http.post(con.REST_API_URL + '/api/user/add', user.getUserObject());
   }
 

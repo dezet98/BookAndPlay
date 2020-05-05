@@ -10,6 +10,11 @@ $md: "only screen and (min-width : 768px)";
 $lg: "only screen and (min-width : 992px)";
 $xl: "only screen and (min-width : 1200px)";
 
+.snackbar {
+  width: 100vw !important;
+  padding: 5% !important;
+}
+
 
 html {
   height: 100%;

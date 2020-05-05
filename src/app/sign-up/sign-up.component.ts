@@ -30,13 +30,13 @@ export class SignUpComponent implements OnInit {
     this.loading = true;
 
     const form = this.signUpForm.value;
-    this.userService.SignUp(new User(form.name, form.surname, form.email, form.password, form.phoneNumber))
+    this.userService.signUp(new User(form.name, form.surname, form.email, form.password, form.phoneNumber))
       .subscribe((response: any) => {
-        this.router.navigate(['SignIn']);
-        alert('Register was successful: ' + JSON.stringify(response));  // to extend
+        this.router.navigate(['signIn']);
+        this.userService.showSnackbar('Register was succesful. You can now sign in', 'Close');
       },
         err => {
-          alert('Failed to register: ' + err.error.title); // to extend
+          this.userService.showSnackbar('Failed to register.', 'Close');
           console.log('Status: ' + err.status + ' Title: ' + err.error.title);
           this.loading = false;
         });
