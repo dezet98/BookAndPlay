@@ -35,9 +35,10 @@ export class SignUpComponent implements OnInit {
         this.router.navigate(['signIn']);
         this.userService.showSnackbar('Register was succesful. You can now sign in', 'Close');
       },
-        err => {
+        error => {
           this.userService.showSnackbar('Failed to register.', 'Close');
-          console.log('Status: ' + err.status + ' Title: ' + err.error.title);
+          console.log('Error:');
+          console.log(error);
           this.loading = false;
         });
   }

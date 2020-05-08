@@ -13,5 +13,4 @@ export class ReservationsComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
 }

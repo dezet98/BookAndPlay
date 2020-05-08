@@ -37,23 +37,23 @@ export class AddObjectComponent implements OnInit {
     this.loading = true;
     console.log('CreateObject');
 
-    const form = this.objectForm.value;
     const newSportObject = new SportObject(
-      form.objectName,
-      form.sportName,
-      form.phoneNumber,
-      form.address,
-      form.latitude,
-      form.longitude,
-      form.images,
-      form.objectDescription
+      this.objectForm.get('basicForm').get('objectName').value,
+      this.objectForm.get('basicForm').get('sportName').value,
+      this.objectForm.get('basicForm').get('phoneNumber').value,
+      this.objectForm.get('addressForm').get('address').value,
+      this.objectForm.get('addressForm').get('latitude').value,
+      this.objectForm.get('addressForm').get('longitude').value,
+      this.objectForm.get('furtherForm').get('images').value,
+      this.objectForm.get('furtherForm').get('objectDescription').value
     );
-
+    console.log(newSportObject);
     this.userService.createObject(newSportObject).subscribe((response: any) => {
       console.log('Response: ' + response);
+      this.loading = false;
     }, (error: any) => {
       console.log('Error during creating the object. Status: ' + error.status);
+      this.loading = false;
     });
-    this.loading = false;
   }
 }

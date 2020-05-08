@@ -31,9 +31,10 @@ export class SignInComponent implements OnInit {
         this.router.navigate(['']);
         this.userService.showSnackbar('Login was successful', 'Close');
       },
-        err => {
+        error => {
           this.userService.showSnackbar('Failed to login', 'Close');
-          console.log('Status: ' + err.status + ' Title: ' + err.error.title);
+          console.log('Error:');
+          console.log(error)
           this.loading = false;
         });
   }

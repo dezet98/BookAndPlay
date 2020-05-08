@@ -47,6 +47,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FacilityComponent } from './facility/facility.component';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     SecondStepComponent,
     ThirdStepComponent,
     DropzoneDirective,
-    ProfileComponent
+    ProfileComponent,
+    FacilityComponent
   ],
   imports: [
     BrowserModule,

@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { tap, map } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-
-const url = 'https://booknadplayapi.azurewebsites.net'; //  REST API
+import { Config as con } from '../../config';
 
 @Injectable({
   providedIn: 'root'
@@ -39,8 +38,7 @@ export class AuthService {
 
   // signIn and logout:
   signIn(identities: any): Observable<any> {
-    this.http.post('https://test-8fbab.firebaseio.com/fileUpload', {dane: 'first'});
-    return this.http.post(url + '/api/user/auth', { email: identities.email, password: identities.password })
+    return this.http.post(con.REST_API_URL + '/api/user/auth', { email: identities.email, password: identities.password })
       .pipe(tap((response: any) => {   // saving token, in SignInComponent I will subscribe and manage further(navigate)
         this.saveToken(response.token); // in future response.token
         this.isLoggedInSubject.next(true);
@@ -53,7 +51,7 @@ export class AuthService {
   }
 
   isAdmin(): Observable<boolean> {
-    return this.http.get(url + '/api/User/Role')
+    return this.http.get(con.REST_API_URL + '/api/User/Role')
       .pipe(map((role: any) =>
         (role.name === 'Admin') ? true : false
       ));

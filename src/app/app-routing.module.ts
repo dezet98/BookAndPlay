@@ -11,10 +11,12 @@ import { AdminComponent } from './admin/admin.component';
 import { AuthGuardService } from './_auth/auth-guard.service';
 import { AdminGuardService } from './_auth/admin-guard.service';
 import { ProfileComponent } from './profile/profile.component';
+import { FacilityComponent } from './facility/facility.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'sportsFacilities', component: SportsFacilitiesComponent },
+  { path: 'facility/:id', component: FacilityComponent },
   { path: 'yourObjects', component: YourObjectsComponent },
   { path: 'addObject', component: AddObjectComponent },
   { path: 'reservations', component: ReservationsComponent },
