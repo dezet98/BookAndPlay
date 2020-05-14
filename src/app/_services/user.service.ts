@@ -26,11 +26,11 @@ export class UserService {
   }
 
   createObject(newSportObject: SportObject): Observable<any> {
-    return this.http.post(con.REST_API_URL, newSportObject.getSportObject());
+    return this.http.post(con.REST_API_URL + '/api/facility/add', newSportObject.getSportObject());
   }
 
-  deleteAccount(): Observable<any> {
-    return this.http.get(con.REST_API_URL + '/api/User/SelfDelete');
+  deleteAccount(password: string): Observable<any> {
+    return this.http.post(con.REST_API_URL + '/api/User/SelfDelete', { Password: password });
   }
 
   getPhoneNumber(): Observable<any> {
@@ -58,6 +58,10 @@ export class UserService {
         };
       })
     );
+  }
+
+  changePassword(oldP: string, newP: string): Observable<any> {
+    return this.http.post(con.REST_API_URL + '/api/User/Password/Change', {oldPassword: oldP, newPassword: newP});
   }
 
   setPersonalData(data: any): Observable<any> {

@@ -8,7 +8,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class ThirdStepComponent implements OnInit {
   @Input() furtherForm: FormGroup;   // contains 2 FormControl: images[], objectDescription
-  filesToUpload = [];
+  filesToUpload: Array<File> = [];
 
   constructor() { }
 
@@ -18,7 +18,11 @@ export class ThirdStepComponent implements OnInit {
     for (const file of files) {
       this.filesToUpload.push(file);
     }
-    this.furtherForm.get('images').setValue(this.filesToUpload);
+
+    const fd = new FormData();
+    fd.append('image', this.filesToUpload[0]);
+
+    this.furtherForm.get('images').setValue(fd);
   }
 
   onFileDelete(index: number) {

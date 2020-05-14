@@ -50,9 +50,11 @@ export class AddObjectComponent implements OnInit {
     console.log(newSportObject);
     this.userService.createObject(newSportObject).subscribe((response: any) => {
       console.log('Response: ' + response);
+      console.log(response);
       this.loading = false;
     }, (error: any) => {
-      console.log('Error during creating the object. Status: ' + error.status);
+      console.log('Error during creating the object. Error:');
+      console.log(error);
       this.loading = false;
     });
   }

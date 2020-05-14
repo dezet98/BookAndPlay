@@ -1,42 +1,42 @@
 export class SportObject {
-  objectName: string;
-  sportName: string;
-  phoneNumber: string;
+  name: string;
+  sport: string;
+  phone: string;
   address: string;
-  latitude: string;
-  longitude: string;
-  images: Array<string>;
-  objectDescription: string;
+  lat: string;
+  lon: string;
+  images: FormData;
+  description: string;
 
   constructor(objectName: string,
               sportName: string,
-              phoneNumber: string,
+              phone: string,
               address: string,
-              latitude: string,
-              longitude: string,
-              images: Array<string>,
-              objectDescription: string)
+              lat: string,
+              lon: string,
+              images: FormData,
+              description: string)
   {
-    this.objectName = objectName;
-    this.sportName = sportName;
-    this.phoneNumber = phoneNumber;
+    this.name = objectName;
+    this.sport = sportName;
+    this.phone = phone;
     this.address = address;
-    this.latitude = latitude;
-    this.longitude = longitude;
+    this.lat = lat;
+    this.lon = lon;
     this.images = images;
-    this.objectDescription = objectDescription;
+    this.description = description;
   }
 
   getSportObject() {
     return {
-      objectName: this.objectName,
-      sportName: this.sportName,
-      phoneNumber: this.phoneNumber,
+      name: this.name,
+      sport: this.sport,
+      phone: this.phone,
       address: this.address,
-      latitude: this.latitude,
-      longitude: this.longitude,
-      images: this.images,
-      objectDescription: this.objectDescription
+      lat: this.lat,
+      lon: this.lon,
+      // images: this.images,
+      description: this.description
     };
   }
 }

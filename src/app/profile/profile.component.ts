@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { UserService } from '../_services/user.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { AuthService } from '../_auth/auth.service';
+
 
 @Component({
   selector: 'app-profile',
@@ -8,79 +9,72 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  personalDataForm: FormGroup;
-  personalData: any;
-  panelIsOpen = [false, false, false, false];  // name, surname, email, phoneNumber
+  personalData = [
+    { name: 'name', realValue: '', isOpen: false, loading: false },
+    { name: 'surname', realValue: '', isOpen: false, loading: false },
+    { name: 'email', realValue: '', isOpen: false, loading: false },
+    { name: 'phoneNumber', realValue: '', isOpen: false, loading: false }
+  ];
 
-  accountSettingsForm: FormGroup;
-  hidePassword = true;
+  accountSettings = [
+    { oldPassword: '', newPassword: '', hideOldPassword: true, hideNewPassword: true, loading: false },
+    { password: '', hidePassword: true, loading: false }
+  ];
 
-  constructor(private userService: UserService, private fb: FormBuilder) { }
+  constructor(private userService: UserService, private auth: AuthService) { }
 
   ngOnInit(): void {
-    this.personalDataForm = this.fb.group({
-      name: [''],
-      surname: [''],
-      email: [''],
-      phoneNumber: [''],
-    });
-
-    this.accountSettingsForm = this.fb.group({
-      oldPassword: [''],
-      newPassword: [''],
-      password: ['']
-    });
-
-    this.getUserPersonalData();
+    this.setPersonalData();
   }
 
-  getUserPersonalData() {
+  setPersonalData() {
     this.userService.getPersonalData().subscribe((response: any) => {
-      this.personalData = response;
-      this.personalDataForm.get('name').setValue(response.name);
-      this.personalDataForm.get('surname').setValue(response.surname);
-      this.personalDataForm.get('email').setValue(response.email);
-      this.personalDataForm.get('phoneNumber').setValue(response.phoneNumber);
+      for (const item of this.personalData) {
+        item.realValue = response[item.name];
+      }
     }, error => {
       console.log('Error when load user data. Error: ');
       console.log(error);
     });
   }
 
-  changeUserName() {
-    this.userService.setPersonalData({ Name: this.personalDataForm.get('name').value }).subscribe(() => {
-      this.getUserPersonalData();
-      console.log('hej');
+  changePersonalData(item: any, newValue: string) {
+    item.loading = true;
+    this.userService.setPersonalData({ [item.name]: newValue }).subscribe((user) => {
+      item.realValue = user[item.name];
+      this.userService.showSnackbar(`You change name on ${user[item.name]}`, 'Close');
+      item.loading = false;
+    }, error => {
+      this.userService.showSnackbar(`Error when changing ${item.name}`, 'Close');
+      console.log('Error when changing ${item.name}. Error:');
+      console.log(error);
+      item.loading = false;
     });
   }
 
-  changeUserSurname() {
-    this.userService.setPersonalData({ Surname: this.personalDataForm.get('surname').value }).subscribe((response: any) => {
-      if (response) {
-        this.getUserPersonalData();
-      }
+  changeUserPassword(oldPassword: string, newPassword: string) {
+    this.accountSettings[0].loading = true;
+    this.userService.changePassword(oldPassword, newPassword).subscribe(() => {
+      this.userService.showSnackbar('You change password correctly', 'Close');
+      this.accountSettings[0].loading = false;
+    }, error => {
+      this.userService.showSnackbar('Error when changing password', 'Close');
+      console.log('Error when changing password. Error:');
+      console.log(error);
+      this.accountSettings[0].loading = false;
     });
   }
 
-  changeUserEmail() {
-    this.userService.setPersonalData({ Email: this.personalDataForm.get('email').value }).subscribe((response: any) => {
-      this.getUserPersonalData();
-    });
-  }
-
-  changeUserPhoneNumber() {
-    this.userService.setPersonalData({ PhoneNumber: this.personalDataForm.get('phoneNumber').value }).subscribe((response: any) => {
-      this.getUserPersonalData();
-    });
-  }
-
-  changeUserPassword() {
-    console.log('change password');
-  }
-
-  deleteUserAccount() {
-    this.userService.deleteAccount().subscribe((error: any) => {
-      console.log('Error when deleting user account. Status: ' + error.status);
+  deleteUserAccount(password: string) {
+    this.accountSettings[0].loading = true;
+    this.userService.deleteAccount(password).subscribe(() => {
+      this.userService.showSnackbar('Account was deleted', 'Close');
+      console.log('Account was deleted');
+    }, error => {
+      this.userService.showSnackbar('Error when deleting account', 'Close');
+      console.log('Error when deleting account. Error:');
+      console.log(error);
+      this.accountSettings[0].loading = false;
     });
   }
 }

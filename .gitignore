@@ -45,3 +45,10 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+firebase.json
+.firebaserc
+.firebase/hosting.c3Jj.cache
+.firebase/hosting.cHVibGlj.cache
+.firebase/hosting.ZGlzdFxCb29rQW5kUGxheQ.cache
+.vscode/launch.json
+.vscode/settings.json

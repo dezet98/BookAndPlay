@@ -34,7 +34,7 @@ export class SignInComponent implements OnInit {
         error => {
           this.userService.showSnackbar('Failed to login', 'Close');
           console.log('Error:');
-          console.log(error)
+          console.log(error);
           this.loading = false;
         });
   }
