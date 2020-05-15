@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserService } from '../_services/user.service';
 import { Router } from '@angular/router';
 import { User } from '../_models/user';
+import { GeneralService } from '../_services/general.service';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,7 +15,7 @@ export class SignUpComponent implements OnInit {
   loading = false;
   hidePassword = true;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) { }
+  constructor(private fb: FormBuilder, private userService: UserService, private generalService: GeneralService, private router: Router) { }
 
   ngOnInit(): void {
     this.signUpForm = this.fb.group({
@@ -33,10 +34,10 @@ export class SignUpComponent implements OnInit {
     this.userService.signUp(new User(form.name, form.surname, form.email, form.password, form.phoneNumber))
       .subscribe((response: any) => {
         this.router.navigate(['signIn']);
-        this.userService.showSnackbar('Register was succesful. You can now sign in', 'Close');
+        this.generalService.showSnackbar('Register was succesful. You can now sign in', 'Close');
       },
         error => {
-          this.userService.showSnackbar('Failed to register.', 'Close');
+          this.generalService.showSnackbar('Failed to register.', 'Close');
           console.log('Error:');
           console.log(error);
           this.loading = false;

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from '../_auth/auth.service';
 import { Router } from '@angular/router';
-import { UserService } from '../_services/user.service';
+import { GeneralService } from '../_services/general.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -14,7 +14,7 @@ export class SignInComponent implements OnInit {
   loading = false;
   hidePassword = true;
 
-  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router, private userService: UserService) { }
+  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router, private generalService: GeneralService) { }
 
   ngOnInit(): void {
     this.signInForm = this.fb.group({
@@ -29,10 +29,10 @@ export class SignInComponent implements OnInit {
     this.auth.signIn(this.signInForm.value)
       .subscribe((response: any) => {
         this.router.navigate(['']);
-        this.userService.showSnackbar('Login was successful', 'Close');
+        this.generalService.showSnackbar('Login was successful', 'Close');
       },
         error => {
-          this.userService.showSnackbar('Failed to login', 'Close');
+          this.generalService.showSnackbar('Failed to login', 'Close');
           console.log('Error:');
           console.log(error);
           this.loading = false;

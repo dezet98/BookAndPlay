@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { PublicService } from 'src/app/_services/public.service';
 import { UserService } from 'src/app/_services/user.service';
+import { SportService } from 'src/app/_services/sport.service';
 
 @Component({
   selector: 'app-first-step',
@@ -16,7 +16,7 @@ export class FirstStepComponent implements OnInit {
   sportsNames: Array<string> = [];
   filteredSportsNames: Observable<any>;
 
-  constructor(private publicService: PublicService, private userService: UserService) { }
+  constructor(private sportService: SportService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.loadSports();
@@ -24,7 +24,7 @@ export class FirstStepComponent implements OnInit {
   }
 
   loadSports() {
-    this.publicService.getSports().subscribe((sportsNames: Array<string>) => {
+    this.sportService.getSports().subscribe((sportsNames: Array<string>) => {
       this.sportsNames = sportsNames;
       this.filteredSportsNames = this.basicForm.get('sportName').valueChanges.pipe(
         startWith(''), map(key =>

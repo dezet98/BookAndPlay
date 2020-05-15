@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AgmCoreModule } from '@agm/core';
+
+// my own components, directives, modules etc
+import { AppRoutingModule } from './app-routing.module';
 import { AddTokenInterceptor } from './_auth/add-token.interceptor';
 import { ResponseInterceptor } from './_auth/response.interceptor';
-import { AgmCoreModule } from '@agm/core';
 import { Config as con } from '../config';
-
-// my own components, directives
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { SportsFacilitiesComponent } from './sports-facilities/sports-facilities.component';
@@ -28,6 +28,7 @@ import { SecondStepComponent } from './add-object/second-step/second-step.compon
 import { ThirdStepComponent } from './add-object/third-step/third-step.component';
 import { DropzoneDirective } from './_shared/dropzone.directive';
 import { ProfileComponent } from './profile/profile.component';
+import { FacilityComponent } from './facility/facility.component';
 
 // angular material components
 import { MatButtonModule } from '@angular/material/button';
@@ -47,8 +48,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { FacilityComponent } from './facility/facility.component';
-
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -80,7 +80,7 @@ import { FacilityComponent } from './facility/facility.component';
     BrowserAnimationsModule,
     LayoutModule,
     AgmCoreModule.forRoot({
-      apiKey: con.API_KEY,
+      apiKey: '', // con.API_KEY
       libraries: ['places']
     }),
     MatButtonModule,
@@ -99,7 +99,8 @@ import { FacilityComponent } from './facility/facility.component';
     MatCardModule,
     MatStepperModule,
     MatMenuModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule
   ],
   providers: [
     {

@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { AuthService } from '../_auth/auth.service';
+import { GeneralService } from '../_services/general.service';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class ProfileComponent implements OnInit {
     { password: '', hidePassword: true, loading: false }
   ];
 
-  constructor(private userService: UserService, private auth: AuthService) { }
+  constructor(private userService: UserService, private generalService: GeneralService, private auth: AuthService) { }
 
   ngOnInit(): void {
     this.setPersonalData();
@@ -42,10 +43,10 @@ export class ProfileComponent implements OnInit {
     item.loading = true;
     this.userService.setPersonalData({ [item.name]: newValue }).subscribe((user) => {
       item.realValue = user[item.name];
-      this.userService.showSnackbar(`You change name on ${user[item.name]}`, 'Close');
+      this.generalService.showSnackbar(`You change name on ${user[item.name]}`, 'Close');
       item.loading = false;
     }, error => {
-      this.userService.showSnackbar(`Error when changing ${item.name}`, 'Close');
+      this.generalService.showSnackbar(`Error when changing ${item.name}`, 'Close');
       console.log('Error when changing ${item.name}. Error:');
       console.log(error);
       item.loading = false;
@@ -55,10 +56,10 @@ export class ProfileComponent implements OnInit {
   changeUserPassword(oldPassword: string, newPassword: string) {
     this.accountSettings[0].loading = true;
     this.userService.changePassword(oldPassword, newPassword).subscribe(() => {
-      this.userService.showSnackbar('You change password correctly', 'Close');
+      this.generalService.showSnackbar('You change password correctly', 'Close');
       this.accountSettings[0].loading = false;
     }, error => {
-      this.userService.showSnackbar('Error when changing password', 'Close');
+      this.generalService.showSnackbar('Error when changing password', 'Close');
       console.log('Error when changing password. Error:');
       console.log(error);
       this.accountSettings[0].loading = false;
@@ -68,10 +69,10 @@ export class ProfileComponent implements OnInit {
   deleteUserAccount(password: string) {
     this.accountSettings[0].loading = true;
     this.userService.deleteAccount(password).subscribe(() => {
-      this.userService.showSnackbar('Account was deleted', 'Close');
+      this.generalService.showSnackbar('Account was deleted', 'Close');
       console.log('Account was deleted');
     }, error => {
-      this.userService.showSnackbar('Error when deleting account', 'Close');
+      this.generalService.showSnackbar('Error when deleting account', 'Close');
       console.log('Error when deleting account. Error:');
       console.log(error);
       this.accountSettings[0].loading = false;

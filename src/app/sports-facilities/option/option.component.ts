@@ -3,7 +3,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { LettersGroups } from '../../_models/lettersGroups';
-import { PublicService } from 'src/app/_services/public.service';
+import { SportService } from 'src/app/_services/sport.service';
+import { CityService } from 'src/app/_services/city.service';
 
 @Component({
   selector: 'app-option',
@@ -20,7 +21,7 @@ export class OptionComponent implements OnInit {
   citiesGroup: LettersGroups = new LettersGroups([]);
   filteredCitiesGroup: Observable<any>;
 
-  constructor(private fb: FormBuilder, private publicService: PublicService) { }
+  constructor(private fb: FormBuilder, private sportService: SportService, private cityService: CityService) { }
 
   ngOnInit() {
     this.searchForm = this.fb.group({
@@ -35,7 +36,7 @@ export class OptionComponent implements OnInit {
   }
 
   loadSports() {
-    this.publicService.getSports().subscribe((sportsNames: Array<string>) => {
+    this.sportService.getSports().subscribe((sportsNames: Array<string>) => {
       this.sportsNames = sportsNames;
       this.filteredSportsNames = this.searchForm.get('sportName').valueChanges.pipe(
         startWith(''), map(key =>
@@ -47,7 +48,7 @@ export class OptionComponent implements OnInit {
   }
 
   loadCities() {
-    this.publicService.getCities().subscribe((cities: Array<string>) => {
+    this.cityService.getCities().subscribe((cities: Array<string>) => {
       console.log(cities);
       this.citiesGroup = new LettersGroups(cities);
       this.filteredCitiesGroup = this.searchForm.get('city').valueChanges.pipe(
