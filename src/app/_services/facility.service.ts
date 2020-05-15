@@ -16,6 +16,6 @@ export class FacilityService {
   }
 
   getOwnObjects(): Observable<any> {
-    return this.http.get(con.REST_API_URL + '/api/facility/All');
+    return this.http.get(con.REST_API_URL + '/api/facility/Own');
   }
 }

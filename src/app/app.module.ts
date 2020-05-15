@@ -49,6 +49,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
+import { AccessRulesComponent } from './your-objects/access-rules/access-rules.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { MatTableModule } from '@angular/material/table';
     ThirdStepComponent,
     DropzoneDirective,
     ProfileComponent,
-    FacilityComponent
+    FacilityComponent,
+    AccessRulesComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +82,7 @@ import { MatTableModule } from '@angular/material/table';
     BrowserAnimationsModule,
     LayoutModule,
     AgmCoreModule.forRoot({
-      apiKey: '', // con.API_KEY
+      apiKey: con.API_KEY,
       libraries: ['places']
     }),
     MatButtonModule,

@@ -1,3 +1,10 @@
-<mat-form-field>
-  <input matInput type="datetime-local" placeholder="start date">
-</mat-form-field>
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Choose object</mat-label>
+    <mat-select formControlName="object">
+      <mat-option *ngFor="let object of objects" [value]="object">{{object.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <app-access-rules [facilityId]="form.get('object').value.facilityId"></app-access-rules>
+</form>
