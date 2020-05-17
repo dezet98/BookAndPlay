@@ -1,17 +1,20 @@
 @import "../../../../styles.scss";
-
 .content {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
 
   .days {
 
     .checkboxes {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(4, 23%);
       width: 100%;
       justify-content: space-evenly;
+
+      @media #{$md} {
+        grid-template-columns: repeat(7, 13%);
+      }
+
     }
   }
 
@@ -39,6 +42,8 @@
     width: 35%;
   }
 }
+
+
 
 // always display thumb:
 ::ng-deep {

@@ -1,14 +1,15 @@
 <form [formGroup]="ruleForm" (ngSubmit)="onSubmit()">
-  <h2 mat-dialog-title>Add rule for object: {{data.facilityName}}</h2>
+  <h3 mat-dialog-title style="text-align: center;">Add rule for object: {{data.facilityName}}</h3>
   <div class="content">
 
     <div class="days">
       <h3>Choose days of week</h3>
       <div class="checkboxes">
-        <mat-checkbox *ngFor="let day of daysFormArray.controls; let i = index" [formControlName]="day">
+        <mat-checkbox *ngFor="let day of daysFormArray.controls; let i = index" [formControl]="day">
           {{daysNames[i]}}
         </mat-checkbox>
       </div>
+      <br>
     </div>
 
     <div class="silders">
@@ -23,22 +24,21 @@
     <div class="silders">
       <h3 id="title">Amount of possible reservations</h3>
       <mat-form-field>
-        <mat-label>Choose time of one reservation</mat-label>
+        <mat-label>Choose time for one reservation</mat-label>
         <mat-select formControlName="step">
-          <mat-option *ngFor="let step of steps" style="text-align: center;" [value]="step">{{step.hours}}h {{formatThumb(step.minutes)}}min</mat-option>
+          <mat-option *ngFor="let step of steps" style="text-align: center;" [value]="step">{{step.hour}}h
+            {{formatThumb(step.minute)}}min</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-slider formControlName="amountOfSteps" class="slider" thumbLabel tickInterval="1" [min]="1"
         [max]="maxAmountOfSteps" [step]="1" #stepsSlider>
       </mat-slider>
-      <h3>{{ formatAmountOfSteps(stepsSlider.value) }}</h3>
+      <h3>{{ formatEndTime(stepsSlider.value) }}</h3>
     </div>
 
   </div>
   <div mat-dialog-actions class="buttons">
-    <button mat-stroked-button color="primary" class="mat-elevation-z4" (click)="onCancel()">Cancel</button>
-    <button mat-stroked-button color="primary" class="mat-elevation-z4" [mat-dialog-close]="'Hello'"
-      [disabled]="false" type="submit">Create</button>
+    <button type="button" mat-stroked-button color="primary" class="mat-elevation-z4" (click)="onCancel()">Cancel</button>
+    <button mat-stroked-button color="primary" class="mat-elevation-z4" [disabled]="loading" type="submit">Create</button>
   </div>
 </form>
-

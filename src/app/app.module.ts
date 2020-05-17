@@ -79,6 +79,9 @@ import { MatSliderModule } from '@angular/material/slider';
     AccessRulesComponent,
     AddRuleDialogComponent
   ],
+  entryComponents: [
+    AddRuleDialogComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

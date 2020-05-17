@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Config as con } from '../../config';
 import { AccessPeriod } from '../_models/accessPeriod';
+import { ReservationRule } from '../_models/reservationRule';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +18,10 @@ export class AccessPeriodService {
 
   addAccessPeriods(accessPeriod: AccessPeriod): Observable<any> {
     return this.http.post(con.REST_API_URL + '/api/AccessPeriod/Add', accessPeriod.getAccessPeriodObject());
+  }
+
+  addRule(rule: ReservationRule): Observable<any> {
+    const accessPeriods = rule.getAccessPeriods().map((accessPeriod: AccessPeriod) => accessPeriod.getAccessPeriodObject());
+    return this.http.post(con.REST_API_URL + '/api/AccessPeriod/AddFew', accessPeriods);
   }
 }
