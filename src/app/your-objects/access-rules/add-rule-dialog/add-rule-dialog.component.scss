@@ -1,0 +1,59 @@
+@import "../../../../styles.scss";
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  .days {
+
+    .checkboxes {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      justify-content: space-evenly;
+    }
+  }
+
+  .silders {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      #title {
+        float: left !important;
+        width: 100%;
+      }
+
+      .slider {
+        width: 90%;
+      }
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+
+  button {
+    width: 35%;
+  }
+}
+
+// always display thumb:
+::ng-deep {
+  .mat-slider-thumb-label {
+    transform: rotate(45deg) !important;
+    border-radius: 50% 50% 0 !important;
+    background-color: $accent-color !important; // <- for case when value is '0'
+  }
+
+  .mat-slider-thumb {
+    transform: scale(0) !important;
+  }
+
+  .mat-slider-thumb-label-text {
+    opacity: 1 !important;
+  }
+
+}

@@ -29,6 +29,7 @@ import { ThirdStepComponent } from './add-object/third-step/third-step.component
 import { DropzoneDirective } from './_shared/dropzone.directive';
 import { ProfileComponent } from './profile/profile.component';
 import { FacilityComponent } from './facility/facility.component';
+import { AddRuleDialogComponent } from './your-objects/access-rules/add-rule-dialog/add-rule-dialog.component';
 
 // angular material components
 import { MatButtonModule } from '@angular/material/button';
@@ -50,6 +51,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { AccessRulesComponent } from './your-objects/access-rules/access-rules.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSliderModule } from '@angular/material/slider';
+
 
 @NgModule({
   declarations: [
@@ -71,7 +76,8 @@ import { AccessRulesComponent } from './your-objects/access-rules/access-rules.c
     DropzoneDirective,
     ProfileComponent,
     FacilityComponent,
-    AccessRulesComponent
+    AccessRulesComponent,
+    AddRuleDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +108,10 @@ import { AccessRulesComponent } from './your-objects/access-rules/access-rules.c
     MatStepperModule,
     MatMenuModule,
     MatSnackBarModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatSliderModule
   ],
   providers: [
     {
