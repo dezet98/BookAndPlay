@@ -15,6 +15,10 @@ export class FacilityService {
     return this.http.post(con.REST_API_URL + '/api/facility/add', newSportObject.getSportObject());
   }
 
+  uploadImage(fd: FormData): Observable<any> {
+    return this.http.post(con.REST_API_URL + '/api/Images/Upload', fd);
+  }
+
   getOwnObjects(): Observable<any> {
     return this.http.get(con.REST_API_URL + '/api/facility/Own');
   }

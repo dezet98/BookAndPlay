@@ -11,9 +11,9 @@ import { ReservationStep } from 'src/app/_models/reservationsStep';
   styleUrls: ['./access-rules.component.scss']
 })
 export class AccessRulesComponent implements OnChanges {
-  accessPeriods: Array<any>;
-  rules: any;
-  columns = ['startHour', 'startMinute', 'step.hour', 'amountOfSteps', 'days'];
+  rules: Array<ReservationRule> = [];
+  rows: Array<any> = [];
+  columns = ['startTime', 'endTime', 'step', 'amountOfSteps', 'days'];
 
   @Input() facilityId: number;
   @Input() facilityName: string;
@@ -21,18 +21,23 @@ export class AccessRulesComponent implements OnChanges {
   constructor(private accessPeriodService: AccessPeriodService, private dialog: MatDialog) { }
 
   ngOnChanges() {
-    if (typeof this.facilityId === 'number') {
+    if (Number.isInteger(this.facilityId)) {
       this.getRules();
     }
   }
 
   getRules(): void {
     this.accessPeriodService.getAccessPeriods(this.facilityId).subscribe((accessPeriods) => {
-      this.accessPeriods = accessPeriods;
-      console.log(this.changeOnOneDayRules(accessPeriods));
-      console.log(this.linkRulesByDays(this.changeOnOneDayRules(accessPeriods)));
       this.rules = this.linkRulesByDays(this.changeOnOneDayRules(accessPeriods));
-
+      this.rows = this.rules.map((rule: ReservationRule) => {
+        return {
+          startTime: [rule.startHour, rule.startMinute],
+          endTime: rule.getEndTime(),
+          step: rule.step,
+          amountOfSteps: rule.amountOfSteps,
+          days: rule.days
+        };
+      });
     }, error => {
       console.log('Error when loading object accessPeriods. Error:');
       console.log(error);
@@ -43,23 +48,25 @@ export class AccessRulesComponent implements OnChanges {
   linkRulesByDays(oneDayRules: Array<ReservationRule>): Array<ReservationRule> {
     const rules: Array<ReservationRule> = [];
 
-    oneDayRules.reduce((prev, curr, index, array) => {
-      if (prev.startHour === curr.startHour && prev.startMinute === curr.startMinute && prev.amountOfSteps === curr.amountOfSteps) {
-        curr.addDays(prev.days);
+    oneDayRules.sort((a: any, b: any) => a.startMinute - b.startMinute)
+      .sort((a: any, b: any) => a.startHour - b.startHour)
+      .reduceRight((prev: ReservationRule, curr: ReservationRule, index: number) => {
+        if (prev.startHour === curr.startHour && prev.startMinute === curr.startMinute && prev.amountOfSteps === curr.amountOfSteps) {
+          curr.addDays(prev.days);
 
-        if (index === array.length - 1) {
+          if (index === 0) {
+            rules.push(curr);
+          }
+          return curr;
+        }
+
+        rules.push(prev);
+        if (index === 0) {
           rules.push(curr);
         }
+
         return curr;
-      }
-
-      if (index === array.length - 1) {
-        rules.push(prev);
-      }
-      rules.push(curr);
-
-      return curr;
-    });
+      });
 
     return rules;
   }
@@ -82,10 +89,10 @@ export class AccessRulesComponent implements OnChanges {
           return curr;
         }
 
-        if (index === 0) {
-          oneDayRules.push(this.createRule(prev, steps, this.facilityId));
-        }
         oneDayRules.push(this.createRule(prev, steps, this.facilityId));
+        if (index === 0) {
+          oneDayRules.push(this.createRule(curr, steps, this.facilityId));
+        }
 
         steps = 1;
         return curr;
@@ -95,7 +102,7 @@ export class AccessRulesComponent implements OnChanges {
   }
 
   createRule(accessPeriod: any, amountOfSteps: number, facilityId: number): ReservationRule {
-    const days = [false, false, false, false, false, false, false];
+    const days = new Array(7).fill(false);
     days[accessPeriod.dayOfWeek] = true;
 
     let stepHour = accessPeriod.endHour - accessPeriod.startHour;

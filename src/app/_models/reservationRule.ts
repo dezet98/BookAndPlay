@@ -33,6 +33,19 @@ export class ReservationRule {
     }
   }
 
+  getEndTime() {
+    const durMinutes = this.amountOfSteps * this.step.getInMinutes();
+    let hour = this.startHour + Math.floor(durMinutes / 60);
+    let minute = this.startMinute + (durMinutes % 60);
+
+    while (minute > 59) {
+      hour++;
+      minute -= 60;
+    }
+
+    return [hour, minute];
+  }
+
   // change rule to array of accessPeriod
   getAccessPeriods(): any {
     const accessPeriods = [];

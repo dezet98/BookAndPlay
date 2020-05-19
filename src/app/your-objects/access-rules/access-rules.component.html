@@ -1,13 +1,34 @@
-<table mat-table [dataSource]="rules" multiTemplateDataRows class="mat-elevation-z8">
+<table mat-table [dataSource]="rows" multiTemplateDataRows class="mat-elevation-z8">
   <!-- Columns -->
-  <ng-container *ngFor="let col of columns" matColumnDef={{col}}>
-    <th mat-header-cell *matHeaderCellDef> {{col}} </th>
-    <td mat-cell *matCellDef="let element"> {{element[col]}} </td>
+  <ng-container matColumnDef="startTime">
+    <th mat-header-cell *matHeaderCellDef> Start Time </th>
+    <td mat-cell *matCellDef="let element"> {{element.startTime[0] | addZero}}:{{element.startTime[1] | addZero}} </td>
+ </ng-container>
+
+  <ng-container matColumnDef="endTime">
+    <th mat-header-cell *matHeaderCellDef> End Time </th>
+    <td mat-cell *matCellDef="let element"> {{element.endTime[0] | addZero}}:{{element.endTime[1] | addZero}}  </td>
+  </ng-container>
+
+  <ng-container matColumnDef="step">
+    <th mat-header-cell *matHeaderCellDef> Time of one reservation </th>
+    <td mat-cell *matCellDef="let element"> {{element.step.hour}}h : {{element.step.minute | addZero}}m </td>
+  </ng-container>
+
+  <ng-container matColumnDef="amountOfSteps">
+    <th mat-header-cell *matHeaderCellDef> Amount Of possible reservations </th>
+    <td mat-cell *matCellDef="let element"> {{element.amountOfSteps}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="days">
+    <th mat-header-cell *matHeaderCellDef> days </th>
+    <td mat-cell *matCellDef="let element"> {{element.days | daysOfWeek}} </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="columns"></tr>
   <tr mat-row *matRowDef="let row; columns: columns;"></tr>
 </table>
+
 <button mat-stroked-button (click)="onAddRule()">
   New Rule
 </button>

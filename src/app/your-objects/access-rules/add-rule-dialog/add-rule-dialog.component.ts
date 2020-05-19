@@ -5,6 +5,7 @@ import { AccessPeriodService } from 'src/app/_services/access-period.service';
 import { ReservationRule } from 'src/app/_models/reservationRule';
 import { GeneralService } from 'src/app/_services/general.service';
 import { ReservationStep } from 'src/app/_models/reservationsStep';
+import { AddZeroPipe } from 'src/app/_shared/add-zero.pipe';
 
 @Component({
   selector: 'app-add-rule-dialog',
@@ -13,9 +14,9 @@ import { ReservationStep } from 'src/app/_models/reservationsStep';
 })
 export class AddRuleDialogComponent implements OnInit {
   loading = false;
+  addZeroPipe = new AddZeroPipe();
   ruleForm: FormGroup;
   daysFormArray: any;
-  daysNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
 
   // user have to choose a time of one reservation(step):
   steps = [
@@ -37,7 +38,7 @@ export class AddRuleDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.ruleForm = this.fb.group({
-      days: this.fb.array([false, true, false, false, false, true, false]),
+      days: this.fb.array(new Array(7).fill(false)),
       startHour: [8],
       startMinute: [0],
       step: [this.steps[0]],
@@ -127,15 +128,6 @@ export class AddRuleDialogComponent implements OnInit {
     return Math.floor(minutes / stepMinutes);
   }
 
-  // change value to 'clock value', like: 8 -> '08',  12 -> '12'
-  formatThumb(value: number): string {
-    if (value < 10) {
-      return '0' + value;
-    }
-
-    return value.toString();
-  }
-
   // calculate time when reservation will finish, return like '00:00'
   formatEndTime(dur: number): string {
     const durMinutes = dur * this.ruleForm.get('step').value.getInMinutes();
@@ -147,10 +139,6 @@ export class AddRuleDialogComponent implements OnInit {
       minutes -= 60;
     }
 
-    return this.formatThumb(hours) + ':' + this.formatThumb(minutes);
-  }
-
-  onCancel(): void {
-    this.dialogRef.close();
+    return this.addZeroPipe.transform(hours) + ':' + this.addZeroPipe.transform(minutes);
   }
 }

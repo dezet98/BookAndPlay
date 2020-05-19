@@ -6,7 +6,7 @@
       <h3>Choose days of week</h3>
       <div class="checkboxes">
         <mat-checkbox *ngFor="let day of daysFormArray.controls; let i = index" [formControl]="day">
-          {{daysNames[i]}}
+          {{i | dayOfWeek}}
         </mat-checkbox>
       </div>
       <br>
@@ -14,20 +14,20 @@
 
     <div class="silders">
       <h3 id="title">Start Time</h3>
-      <mat-slider formControlName="startHour" class="slider" [displayWith]="formatThumb" thumbLabel tickInterval="1"
-        min="0" [max]="maxStartHour" #hoursSlider></mat-slider>
-      <mat-slider formControlName="startMinute" class="slider" [displayWith]="formatThumb" thumbLabel tickInterval="1"
-        min="0" [max]="maxStartMinute" step="5" #minutesSlider></mat-slider>
-      <h3>{{ formatThumb(hoursSlider.value) }} : {{ formatThumb(minutesSlider.value) }}</h3>
+      <mat-slider formControlName="startHour" class="slider" [displayWith]="addZeroPipe.transform" thumbLabel
+        tickInterval="1" min="0" [max]="maxStartHour" #hoursSlider></mat-slider>
+      <mat-slider formControlName="startMinute" class="slider" [displayWith]="addZeroPipe.transform" thumbLabel
+        tickInterval="1" min="0" [max]="maxStartMinute" step="5" #minutesSlider></mat-slider>
+      <h3>{{hoursSlider.value | addZero}} : {{minutesSlider.value | addZero}}</h3>
     </div>
 
     <div class="silders">
-      <h3 id="title">Amount of possible reservations</h3>
+      <h3 id="title">End Time</h3>
       <mat-form-field>
         <mat-label>Choose time for one reservation</mat-label>
         <mat-select formControlName="step">
           <mat-option *ngFor="let step of steps" style="text-align: center;" [value]="step">{{step.hour}}h
-            {{formatThumb(step.minute)}}min</mat-option>
+            {{step.minute | addZero}}min</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-slider formControlName="amountOfSteps" class="slider" thumbLabel tickInterval="1" [min]="1"
@@ -38,7 +38,9 @@
 
   </div>
   <div mat-dialog-actions class="buttons">
-    <button type="button" mat-stroked-button color="primary" class="mat-elevation-z4" (click)="onCancel()">Cancel</button>
-    <button mat-stroked-button color="primary" class="mat-elevation-z4" [disabled]="loading" type="submit">Create</button>
+    <button type="button" mat-stroked-button color="primary" class="mat-elevation-z4"
+    [mat-dialog-close]="true">Cancel</button>
+    <button mat-stroked-button color="primary" class="mat-elevation-z4" [disabled]="loading"
+      type="submit">Create</button>
   </div>
 </form>

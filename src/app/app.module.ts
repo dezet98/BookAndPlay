@@ -54,6 +54,9 @@ import { AccessRulesComponent } from './your-objects/access-rules/access-rules.c
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSliderModule } from '@angular/material/slider';
+import { AddZeroPipe } from './_shared/add-zero.pipe';
+import { DaysOfWeekPipe } from './_shared/days-of-week.pipe';
+import { DayOfWeekPipe } from './_shared/day-of-week.pipe';
 
 
 @NgModule({
@@ -77,7 +80,10 @@ import { MatSliderModule } from '@angular/material/slider';
     ProfileComponent,
     FacilityComponent,
     AccessRulesComponent,
-    AddRuleDialogComponent
+    AddRuleDialogComponent,
+    AddZeroPipe,
+    DaysOfWeekPipe,
+    DayOfWeekPipe
   ],
   entryComponents: [
     AddRuleDialogComponent
