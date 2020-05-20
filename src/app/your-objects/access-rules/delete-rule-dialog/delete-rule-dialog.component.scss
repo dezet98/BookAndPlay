@@ -1,0 +1,46 @@
+@import '../../../../styles.scss';
+
+#title {
+  color: $warn-color;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 5%;
+  border: 1px solid $warn-color;
+
+  .mat-card-actions {
+    width: 100%;
+    text-align: center;
+    button {
+      @media #{$xs} {
+        width: 70%;
+      }
+
+      @media #{$sm} {
+        width: 60%;
+      }
+
+      @media #{$sm} {
+        width: 50%;
+      }
+
+      @media #{$lg} {
+        width: 40%;
+      }
+    }
+  }
+
+  .mat-card-content {
+    text-align: justify;
+  }
+}
+
+#cancel {
+
+  button {
+    width: 100%;
+  }
+}
