@@ -1,6 +1,7 @@
 <form [formGroup]="furtherForm" class="furtherForm">
 
-  <div [ngClass]="filesToUpload.length > 0 ? 'dropzoneWithFile':'dropzone'" appDropzone (filesDropEvent)="onFileSend($event)" (click)="fileInput.click()">
+  <div [ngClass]="filesToUpload.length > 0 ? 'dropzoneWithFile':'dropzone'" appDropzone
+    (filesDropEvent)="onFileSend($event)" (click)="fileInput.click()">
     <input hidden type="file" (change)="onFileSend($event.target.files)" #fileInput>
     <br>
     <h4 style="text-align: center;"><span style="font-weight: 500;">Click</span> to choose a file</h4>
@@ -13,7 +14,8 @@
     <ul>
       <li class="file" *ngFor="let file of filesToUpload; let i = index">
         <span style="display: inline-block; width: 80%;">{{file.name}}</span>
-        <button mat-icon-button color="primary" aria-label="Delete file" (click)="onFileDelete(i)">
+        <button mat-icon-button color="primary" aria-label="Delete file" (click)="onFileDelete(i)"
+          matTooltip="Delete file from list" matTooltipPosition="left">
           <mat-icon style="font-size: large;">delete</mat-icon>
         </button>
       </li>

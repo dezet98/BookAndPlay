@@ -3,7 +3,9 @@ import { AccessPeriodService } from 'src/app/_services/access-period.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddRuleDialogComponent } from './add-rule-dialog/add-rule-dialog.component';
 import { ReservationRule } from 'src/app/_models/reservationRule';
-import { ReservationStep } from 'src/app/_models/reservationsStep';
+import { ReservationRuleService } from 'src/app/_services/reservation-rule.service';
+import { DeleteRuleDialogComponent } from './delete-rule-dialog/delete-rule-dialog.component';
+import { GeneralService } from 'src/app/_services/general.service';
 
 @Component({
   selector: 'app-access-rules',
@@ -12,13 +14,16 @@ import { ReservationStep } from 'src/app/_models/reservationsStep';
 })
 export class AccessRulesComponent implements OnChanges {
   rules: Array<ReservationRule> = [];
-  rows: Array<any> = [];
-  columns = ['startTime', 'endTime', 'step', 'amountOfSteps', 'days'];
+  columns = ['startTime', 'endTime', 'step', 'days', 'actions'];
 
   @Input() facilityId: number;
   @Input() facilityName: string;
 
-  constructor(private accessPeriodService: AccessPeriodService, private dialog: MatDialog) { }
+  constructor(
+    private generalService: GeneralService,
+    private accessPeriodService: AccessPeriodService,
+    private dialog: MatDialog,
+    private resRuleService: ReservationRuleService) { }
 
   ngOnChanges() {
     if (Number.isInteger(this.facilityId)) {
@@ -28,95 +33,11 @@ export class AccessRulesComponent implements OnChanges {
 
   getRules(): void {
     this.accessPeriodService.getAccessPeriods(this.facilityId).subscribe((accessPeriods) => {
-      this.rules = this.linkRulesByDays(this.changeOnOneDayRules(accessPeriods));
-      this.rows = this.rules.map((rule: ReservationRule) => {
-        return {
-          startTime: [rule.startHour, rule.startMinute],
-          endTime: rule.getEndTime(),
-          step: rule.step,
-          amountOfSteps: rule.amountOfSteps,
-          days: rule.days
-        };
-      });
+      this.rules = this.resRuleService.getReservationRules(accessPeriods, this.facilityId);
     }, error => {
       console.log('Error when loading object accessPeriods. Error:');
       console.log(error);
     });
-  }
-
-  // link days(if rules are exacly this same for a few days we link them into single rule)
-  linkRulesByDays(oneDayRules: Array<ReservationRule>): Array<ReservationRule> {
-    const rules: Array<ReservationRule> = [];
-
-    oneDayRules.sort((a: any, b: any) => a.startMinute - b.startMinute)
-      .sort((a: any, b: any) => a.startHour - b.startHour)
-      .reduceRight((prev: ReservationRule, curr: ReservationRule, index: number) => {
-        if (prev.startHour === curr.startHour && prev.startMinute === curr.startMinute && prev.amountOfSteps === curr.amountOfSteps) {
-          curr.addDays(prev.days);
-
-          if (index === 0) {
-            rules.push(curr);
-          }
-          return curr;
-        }
-
-        rules.push(prev);
-        if (index === 0) {
-          rules.push(curr);
-        }
-
-        return curr;
-      });
-
-    return rules;
-  }
-
-  // change all accessPeriods into reservationRules(with only one day)
-  changeOnOneDayRules(accessPeriods: any): Array<ReservationRule> {
-    const oneDayRules: Array<ReservationRule> = [];
-    let steps = 1;
-
-    accessPeriods.sort((a: any, b: any) => a.startMinute - b.startMinute)
-      .sort((a: any, b: any) => a.startHour - b.startHour)
-      .sort((a: any, b: any) => a.dayOfWeek - b.dayOfWeek)
-      .reduceRight((prev: any, curr: any, index: number) => {
-        if (prev.startHour === curr.endHour && prev.startMinute === curr.endMinute) {
-          steps++;
-
-          if (index === 0) {
-            oneDayRules.push(this.createRule(curr, steps, this.facilityId));
-          }
-          return curr;
-        }
-
-        oneDayRules.push(this.createRule(prev, steps, this.facilityId));
-        if (index === 0) {
-          oneDayRules.push(this.createRule(curr, steps, this.facilityId));
-        }
-
-        steps = 1;
-        return curr;
-      });
-
-    return oneDayRules;
-  }
-
-  createRule(accessPeriod: any, amountOfSteps: number, facilityId: number): ReservationRule {
-    const days = new Array(7).fill(false);
-    days[accessPeriod.dayOfWeek] = true;
-
-    let stepHour = accessPeriod.endHour - accessPeriod.startHour;
-    let stepMinute = 60 + accessPeriod.endMinute - accessPeriod.startMinute;
-    if (stepHour === 0) { // because in stepMinute I added 60 unnecessarily in that case
-      stepHour--;
-    }
-    while (stepMinute > 59) {
-      stepMinute -= 60;
-      stepHour++;
-    }
-    const step = new ReservationStep(stepHour, stepMinute);
-
-    return new ReservationRule(days, accessPeriod.startHour, accessPeriod.startMinute, step, amountOfSteps, facilityId);
   }
 
   onAddRule(): void {
@@ -135,7 +56,18 @@ export class AccessRulesComponent implements OnChanges {
           this.getRules();
         }
       });
-
     }
+  }
+
+  deleteRule(rule: ReservationRule) {
+    this.accessPeriodService.deleteAccessPeriods(rule).subscribe((isPossible) => {
+      this.generalService.showSnackbar('Rule was delete correctly', 'Ok');
+    }, error => {
+      console.log(error);
+      const dialogRef = this.dialog.open(DeleteRuleDialogComponent, {
+        width: '100vh',
+        // height: '80vh',
+      });
+    });
   }
 }

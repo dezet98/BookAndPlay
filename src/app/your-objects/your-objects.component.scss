@@ -1,0 +1,54 @@
+@import "../../styles.scss";
+
+form {
+  display: grid;
+  grid-template-columns: 60%;
+  justify-content: center;
+  margin-top: 1%;
+  grid-gap: 10px;
+
+  #selection {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .mat-form-field {
+      width: 100%;
+    }
+  }
+
+  @media #{$xs} {
+    grid-template-columns: 95%;
+  }
+
+  @media #{$sm} {
+    grid-template-columns: 90%;
+  }
+
+  @media #{$md} {
+    grid-template-columns: 80%;
+  }
+
+
+  @media #{$lg} {
+    grid-template-columns: 60% 35%;
+
+    #selection {
+      grid-column-start: 1;
+      grid-column-end: 4;
+      grid-row-start: 1;
+      grid-row-end: 2;
+
+
+      .mat-form-field {
+        width: 50%;
+      }
+    }
+
+    #table {
+      grid-row-start: 2;
+      grid-row-end: 3;
+    }
+  }
+
+}

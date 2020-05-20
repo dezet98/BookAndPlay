@@ -11,26 +11,26 @@ import { AccessPeriod } from '../_models/accessPeriod';
 })
 export class YourObjectsComponent implements OnInit {
   form: FormGroup;
-  objects = [];
+  facilities = [];
 
   constructor(private facilityService: FacilityService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      object: ['']
+      facility: ['']
     });
 
     this.setSelectOptions();
   }
 
   setSelectOptions() {
-    this.facilityService.getOwnObjects().subscribe((objects) => {
-      this.objects = objects;
-      if (objects.length !== 0) {
-        this.form.get('object').setValue(this.objects[0]);
+    this.facilityService.getOwnObjects().subscribe((facilities) => {
+      this.facilities = facilities;
+      if (facilities.length !== 0) {
+        this.form.get('facility').setValue(this.facilities[0]);
       }
     }, error => {
-      console.log('Error when loading user objects. Error:');
+      console.log('Error when loading user sport facilities. Error:');
       console.log(error);
     });
   }

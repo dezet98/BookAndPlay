@@ -1,34 +1,52 @@
-<table mat-table [dataSource]="rows" multiTemplateDataRows class="mat-elevation-z8">
+<button id="addButton" mat-raised-button (click)="onAddRule()">
+  New Rule
+</button>
+<table mat-table [dataSource]="rules" multiTemplateDataRows class="mat-elevation-z8">
   <!-- Columns -->
   <ng-container matColumnDef="startTime">
     <th mat-header-cell *matHeaderCellDef> Start Time </th>
-    <td mat-cell *matCellDef="let element"> {{element.startTime[0] | addZero}}:{{element.startTime[1] | addZero}} </td>
- </ng-container>
+    <td mat-cell *matCellDef="let element"> {{element.startHour | addZero}}:{{element.startMinute | addZero}} </td>
+  </ng-container>
 
   <ng-container matColumnDef="endTime">
     <th mat-header-cell *matHeaderCellDef> End Time </th>
-    <td mat-cell *matCellDef="let element"> {{element.endTime[0] | addZero}}:{{element.endTime[1] | addZero}}  </td>
+    <td mat-cell *matCellDef="let element"> {{element.getEndTime()[0] | addZero}}:{{element.getEndTime()[1] | addZero}}
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="step">
-    <th mat-header-cell *matHeaderCellDef> Time of one reservation </th>
-    <td mat-cell *matCellDef="let element"> {{element.step.hour}}h : {{element.step.minute | addZero}}m </td>
-  </ng-container>
-
-  <ng-container matColumnDef="amountOfSteps">
-    <th mat-header-cell *matHeaderCellDef> Amount Of possible reservations </th>
-    <td mat-cell *matCellDef="let element"> {{element.amountOfSteps}} </td>
+    <th mat-header-cell *matHeaderCellDef> Reservation </th>
+    <td mat-cell *matCellDef="let element">
+      <span [matBadge]="'x'+element.amountOfSteps" matBadgeOverlap="false" matBadgeSize="small">
+        {{element.step.hour}}h:{{element.step.minute | addZero}}m
+      </span>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="days">
-    <th mat-header-cell *matHeaderCellDef> days </th>
-    <td mat-cell *matCellDef="let element"> {{element.days | daysOfWeek}} </td>
+    <th mat-header-cell *matHeaderCellDef> Days </th>
+    <td mat-cell *matCellDef="let element">
+      <div id="daysCon">
+        <button mat-mini-fab aria-label="name of day" style="cursor: default; font-size: smaller;"
+          *ngFor="let day of element.days; let i = index" color="primary" [disabled]="!day">
+          <span>{{i | dayOfWeek}}</span>
+        </button>
+      </div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="primary" aria-label="Delete rule" (click)="deleteRule(element)"
+        matTooltip="Delete this reservation rule" matTooltipPosition="right">
+        <mat-icon style="font-size: large;">delete</mat-icon>
+      </button>
+    </td>250"
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="columns"></tr>
   <tr mat-row *matRowDef="let row; columns: columns;"></tr>
 </table>
 
-<button mat-stroked-button (click)="onAddRule()">
-  New Rule
-</button>
+

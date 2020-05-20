@@ -6,7 +6,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
 
-// my own components, directives, modules etc
+// my own components, directives, modules, pipes etc
 import { AppRoutingModule } from './app-routing.module';
 import { AddTokenInterceptor } from './_auth/add-token.interceptor';
 import { ResponseInterceptor } from './_auth/response.interceptor';
@@ -30,6 +30,9 @@ import { DropzoneDirective } from './_shared/dropzone.directive';
 import { ProfileComponent } from './profile/profile.component';
 import { FacilityComponent } from './facility/facility.component';
 import { AddRuleDialogComponent } from './your-objects/access-rules/add-rule-dialog/add-rule-dialog.component';
+import { AddZeroPipe } from './_shared/add-zero.pipe';
+import { DaysOfWeekPipe } from './_shared/days-of-week.pipe';
+import { DayOfWeekPipe } from './_shared/day-of-week.pipe';
 
 // angular material components
 import { MatButtonModule } from '@angular/material/button';
@@ -54,9 +57,10 @@ import { AccessRulesComponent } from './your-objects/access-rules/access-rules.c
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSliderModule } from '@angular/material/slider';
-import { AddZeroPipe } from './_shared/add-zero.pipe';
-import { DaysOfWeekPipe } from './_shared/days-of-week.pipe';
-import { DayOfWeekPipe } from './_shared/day-of-week.pipe';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatBadgeModule } from '@angular/material/badge';
+import { DeleteRuleDialogComponent } from './your-objects/access-rules/delete-rule-dialog/delete-rule-dialog.component';
 
 
 @NgModule({
@@ -83,10 +87,12 @@ import { DayOfWeekPipe } from './_shared/day-of-week.pipe';
     AddRuleDialogComponent,
     AddZeroPipe,
     DaysOfWeekPipe,
-    DayOfWeekPipe
+    DayOfWeekPipe,
+    DeleteRuleDialogComponent
   ],
   entryComponents: [
-    AddRuleDialogComponent
+    AddRuleDialogComponent,
+    DeleteRuleDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -97,7 +103,7 @@ import { DayOfWeekPipe } from './_shared/day-of-week.pipe';
     BrowserAnimationsModule,
     LayoutModule,
     AgmCoreModule.forRoot({
-      apiKey: con.API_KEY,
+      apiKey: '', // con.API_KEY,
       libraries: ['places']
     }),
     MatButtonModule,
@@ -120,7 +126,10 @@ import { DayOfWeekPipe } from './_shared/day-of-week.pipe';
     MatTableModule,
     MatDialogModule,
     MatCheckboxModule,
-    MatSliderModule
+    MatSliderModule,
+    MatTooltipModule,
+    MatChipsModule,
+    MatBadgeModule
   ],
   providers: [
     {

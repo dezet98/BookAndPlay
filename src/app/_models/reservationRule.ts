@@ -8,6 +8,7 @@ export class ReservationRule {
   step: ReservationStep;
   amountOfSteps: number;
   facilityId: number;
+  accessPeriodsIds: Array<number>;
 
   constructor(
     days: Array<boolean>,
@@ -15,7 +16,8 @@ export class ReservationRule {
     startMinute: number,
     step: ReservationStep,
     amountOfSteps: number,
-    facilityId: number
+    facilityId: number,
+    accessPeriodsIds?: Array<number>
   ) {
     this.days = days;
     this.startHour = startHour;
@@ -23,6 +25,7 @@ export class ReservationRule {
     this.step = step;
     this.amountOfSteps = amountOfSteps;
     this.facilityId = facilityId;
+    this.accessPeriodsIds = accessPeriodsIds;
   }
 
   addDays(newDays: Array<boolean>) {
@@ -31,6 +34,10 @@ export class ReservationRule {
         this.days[index] = true;
       }
     }
+  }
+
+  sumAccessPeriodsIds(accessPeriodsIds: Array<number>) {
+    this.accessPeriodsIds = this.accessPeriodsIds.concat(accessPeriodsIds);
   }
 
   getEndTime() {

@@ -16,12 +16,12 @@ export class AccessPeriodService {
     return this.http.get(con.REST_API_URL + `/api/AccessPeriod/Facility/Get/${facilityId}`);
   }
 
-  addAccessPeriods(accessPeriod: AccessPeriod): Observable<any> {
-    return this.http.post(con.REST_API_URL + '/api/AccessPeriod/Add', accessPeriod.getAccessPeriodObject());
-  }
-
-  addRule(rule: ReservationRule): Observable<any> {
+  addAccessPeriods(rule: ReservationRule): Observable<any> {
     const accessPeriods = rule.getAccessPeriods().map((accessPeriod: AccessPeriod) => accessPeriod.getAccessPeriodObject());
     return this.http.post(con.REST_API_URL + '/api/AccessPeriod/AddFew', accessPeriods);
+  }
+
+  deleteAccessPeriods(rule: ReservationRule): Observable<any> {
+    return this.http.post(con.REST_API_URL + '/api/AccessPeriod/DeleteFew', rule.accessPeriodsIds);
   }
 }
