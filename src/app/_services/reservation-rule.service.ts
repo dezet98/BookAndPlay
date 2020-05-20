@@ -16,7 +16,6 @@ export class ReservationRuleService {
   // change all accessPeriods into reservationRules
   changeOnRules(accessPeriods: Array<any>, facilityId: number): Array<ReservationRule> {
     const oneDayRules: Array<ReservationRule> = [];
-    let steps = 1;
     let accessPeriodsIds = [];
 
     // change accessPeriods to reservationRules(but each reservation has only one day avaible, deal with that in second step)
@@ -25,23 +24,21 @@ export class ReservationRuleService {
       .sort((a: any, b: any) => a.dayOfWeek - b.dayOfWeek)
       .reduceRight((prev: any, curr: any, index: number) => {
         if (prev.startHour === curr.endHour && prev.startMinute === curr.endMinute) {
-          steps++;
           accessPeriodsIds.push(prev.accessPeriodId);
 
           if (index === 0) {
             accessPeriodsIds.push(curr.accessPeriodId);
-            oneDayRules.push(this.createRule(curr, steps, facilityId, accessPeriodsIds));
+            oneDayRules.push(this.createRule(curr, facilityId, accessPeriodsIds));
           }
           return curr;
         }
         accessPeriodsIds.push(prev.accessPeriodId);
-        oneDayRules.push(this.createRule(prev, steps, facilityId, accessPeriodsIds));
-        steps = 1;
+        oneDayRules.push(this.createRule(prev, facilityId, accessPeriodsIds));
         accessPeriodsIds = [];
 
         if (index === 0) {
           accessPeriodsIds.push(curr.accessPeriodId);
-          oneDayRules.push(this.createRule(curr, steps, facilityId, accessPeriodsIds));
+          oneDayRules.push(this.createRule(curr, facilityId, accessPeriodsIds));
         }
 
         return curr;
@@ -51,7 +48,7 @@ export class ReservationRuleService {
     return this.linkRulesByDays(oneDayRules);
   }
 
-  createRule(accessPeriod: any, amountOfSteps: number, facilityId: number, accessPeriodsIds?: Array<number>): ReservationRule {
+  createRule(accessPeriod: any, facilityId: number, accessPeriodsIds?: Array<number>): ReservationRule {
     const days = new Array(7).fill(false);
     days[accessPeriod.dayOfWeek] = true;
 
@@ -63,6 +60,7 @@ export class ReservationRuleService {
       stepHour++;
     }
     const step = new ReservationStep(stepHour, stepMinute);
+    const amountOfSteps = accessPeriodsIds.length + 1;
 
     return new ReservationRule(days, accessPeriod.startHour, accessPeriod.startMinute, step, amountOfSteps, facilityId, accessPeriodsIds);
   }

@@ -13,12 +13,19 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(): Observable<Array<User>> {
-    return this.http.get(con.REST_API_URL + '/api/test').pipe(
-      map((users: Array<any>) =>
-        users.map(user =>
-          new User(user.name, user.surname, user.email, user.password, user.phoneNumber))
-      ));
+  getUsers(): Observable<any> {
+    return this.http.get(con.REST_API_URL + '/api/User/GetAll');
   }
 
+  getFacilities(): Observable<any> {
+    return this.http.get(con.REST_API_URL + '/api/Facility/GetAll');
+  }
+
+  getSports(): Observable<any> {
+    return this.http.get(con.REST_API_URL + '/api/Sport/Names');
+  }
+
+  getCities(): Observable<any> {
+    return this.http.get(con.REST_API_URL + '/api/City/Names');
+  }
 }

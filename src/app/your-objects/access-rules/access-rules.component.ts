@@ -14,7 +14,8 @@ import { GeneralService } from 'src/app/_services/general.service';
 })
 export class AccessRulesComponent implements OnChanges {
   rules: Array<ReservationRule> = [];
-  columns = ['startTime', 'endTime', 'step', 'days', 'actions'];
+  columns = ['position', 'startTime', 'endTime', 'step', 'days', 'actions'];
+  i = 0;
 
   @Input() facilityId: number;
   @Input() facilityName: string;

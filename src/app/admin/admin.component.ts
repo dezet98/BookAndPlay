@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../_services/admin.service';
-import { User } from '../_models/user';
+
 
 @Component({
   selector: 'app-admin',
@@ -8,19 +7,10 @@ import { User } from '../_models/user';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-  allUsers: Array<User>;
 
-  constructor(private adminService: AdminService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-
-  getAllUsers() {
-    this.adminService.getUsers().subscribe( (allUsers: Array<User>) => {
-      this.allUsers = allUsers;
-      console.log(allUsers);
-      console.log(this.allUsers);
-    });
-  }
 }

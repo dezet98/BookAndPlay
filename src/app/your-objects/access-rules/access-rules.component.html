@@ -3,6 +3,11 @@
 </button>
 <table mat-table [dataSource]="rules" multiTemplateDataRows class="mat-elevation-z8">
   <!-- Columns -->
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef> No </th>
+    <td mat-cell *matCellDef="let element"> {{rules.indexOf(element) + 1}} </td>
+  </ng-container>
+
   <ng-container matColumnDef="startTime">
     <th mat-header-cell *matHeaderCellDef> Start Time </th>
     <td mat-cell *matCellDef="let element"> {{element.startHour | addZero}}:{{element.startMinute | addZero}} </td>

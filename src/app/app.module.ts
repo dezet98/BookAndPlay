@@ -33,6 +33,12 @@ import { AddRuleDialogComponent } from './your-objects/access-rules/add-rule-dia
 import { AddZeroPipe } from './_shared/add-zero.pipe';
 import { DaysOfWeekPipe } from './_shared/days-of-week.pipe';
 import { DayOfWeekPipe } from './_shared/day-of-week.pipe';
+import { AdminSportsComponent } from './admin/admin-sports/admin-sports.component';
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
+import { AdminFacilitiesComponent } from './admin/admin-facilities/admin-facilities.component';
+import { AdminCitiesComponent } from './admin/admin-cities/admin-cities.component';
+import { DeleteRuleDialogComponent } from './your-objects/access-rules/delete-rule-dialog/delete-rule-dialog.component';
+
 
 // angular material components
 import { MatButtonModule } from '@angular/material/button';
@@ -60,7 +66,9 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatBadgeModule } from '@angular/material/badge';
-import { DeleteRuleDialogComponent } from './your-objects/access-rules/delete-rule-dialog/delete-rule-dialog.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+
 
 
 @NgModule({
@@ -88,7 +96,11 @@ import { DeleteRuleDialogComponent } from './your-objects/access-rules/delete-ru
     AddZeroPipe,
     DaysOfWeekPipe,
     DayOfWeekPipe,
-    DeleteRuleDialogComponent
+    DeleteRuleDialogComponent,
+    AdminSportsComponent,
+    AdminUsersComponent,
+    AdminFacilitiesComponent,
+    AdminCitiesComponent
   ],
   entryComponents: [
     AddRuleDialogComponent,
@@ -129,7 +141,9 @@ import { DeleteRuleDialogComponent } from './your-objects/access-rules/delete-ru
     MatSliderModule,
     MatTooltipModule,
     MatChipsModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [
     {
