@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FacilityService } from 'src/app/_services/facility.service';
+import { SportFacilityService } from 'src/app/_services/sport-facility.service';
 
 @Component({
   selector: 'app-third-step',
@@ -11,7 +11,7 @@ export class ThirdStepComponent implements OnInit {
   @Input() furtherForm: FormGroup;   // contains 2 FormControl: images[], objectDescription
   filesToUpload: Array<File> = [];
 
-  constructor(private facilityService: FacilityService) { }
+  constructor(private facilityService: SportFacilityService) { }
 
   ngOnInit(): void { }
 

@@ -11,7 +11,7 @@ import { MatSort } from '@angular/material/sort';
 })
 export class AdminSportsComponent implements OnInit {
   sports: any;
-  sportsColumns = ['sportId', 'name'];
+  sportsColumns = ['sportId', 'name', 'actions'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -39,5 +39,9 @@ export class AdminSportsComponent implements OnInit {
     if (this.sports.paginator) {
       this.sports.paginator.firstPage();
     }
+  }
+
+  deleteSport() {
+    console.log('delete');
   }
 }

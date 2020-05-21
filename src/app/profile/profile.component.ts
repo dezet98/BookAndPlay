@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { AuthService } from '../_auth/auth.service';
 import { GeneralService } from '../_services/general.service';
+import { User } from '../_models/user';
 
 
 @Component({
@@ -29,9 +30,9 @@ export class ProfileComponent implements OnInit {
   }
 
   setPersonalData() {
-    this.userService.getPersonalData().subscribe((response: any) => {
+    this.userService.getPersonalData().subscribe((user: User) => {
       for (const item of this.personalData) {
-        item.realValue = response[item.name];
+        item.realValue = user.getPersonalData()[item.name];
       }
     }, error => {
       console.log('Error when load user data. Error: ');

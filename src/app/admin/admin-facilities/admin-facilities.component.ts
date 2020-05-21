@@ -3,6 +3,7 @@ import { AdminService } from 'src/app/_services/admin.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { SportFacilityService } from 'src/app/_services/sport-facility.service';
 
 @Component({
   selector: 'app-admin-facilities',
@@ -16,7 +17,7 @@ export class AdminFacilitiesComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private facilityService: SportFacilityService) { }
 
   ngOnInit(): void {
     this.getFacilities();

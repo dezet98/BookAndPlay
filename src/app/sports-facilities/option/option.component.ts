@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { LettersGroups } from '../../_models/lettersGroups';
 import { SportService } from 'src/app/_services/sport.service';
 import { CityService } from 'src/app/_services/city.service';
+import { SportFacilityService } from 'src/app/_services/sport-facility.service';
+import { SportFacility } from 'src/app/_models/sportFacility';
+
 
 @Component({
   selector: 'app-option',
@@ -13,15 +16,19 @@ import { CityService } from 'src/app/_services/city.service';
 })
 export class OptionComponent implements OnInit {
   searchForm: FormGroup;
-  minDate = new Date();
+  @Output() searchEmitter = new EventEmitter<Array<SportFacility>>();
 
+  minDate = new Date();
   sportsNames: Array<string> = [];
   filteredSportsNames: Observable<any>;
-
   citiesGroup: LettersGroups = new LettersGroups([]);
   filteredCitiesGroup: Observable<any>;
 
-  constructor(private fb: FormBuilder, private sportService: SportService, private cityService: CityService) { }
+  constructor(
+    private fb: FormBuilder,
+    private sportService: SportService,
+    private cityService: CityService,
+    private facilityService: SportFacilityService) { }
 
   ngOnInit() {
     this.searchForm = this.fb.group({
@@ -33,6 +40,15 @@ export class OptionComponent implements OnInit {
 
     this.loadSports();
     this.loadCities();
+  }
+
+  search() {
+    this.facilityService.getAllFacilities().subscribe((facilities: Array<SportFacility>) => {
+      console.log(facilities);
+      this.searchEmitter.emit(facilities);
+    }, error => {
+      console.log(error);
+    });
   }
 
   loadSports() {
@@ -71,9 +87,4 @@ export class OptionComponent implements OnInit {
       { letter: group.letter, items: this._filter(key, group.items) })
     ).filter(group => group.items.length > 0);
   }
-
-  search() {
-    console.log(JSON.stringify(this.searchForm.value));
-  }
-
 }

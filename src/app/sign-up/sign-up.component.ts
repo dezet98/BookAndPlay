@@ -31,7 +31,7 @@ export class SignUpComponent implements OnInit {
     this.loading = true;
 
     const form = this.signUpForm.value;
-    this.userService.signUp(new User(form.name, form.surname, form.email, form.password, form.phoneNumber))
+    this.userService.signUp(new User(form.name, form.surname, form.email, form.phoneNumber, form.password))
       .subscribe((response: any) => {
         this.router.navigate(['signIn']);
         this.generalService.showSnackbar('Register was succesful. You can now sign in', 'Close');

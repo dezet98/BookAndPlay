@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SportObject } from '../_models/sportObject';
-import { FacilityService } from '../_services/facility.service';
+import { SportFacilityService } from '../_services/sport-facility.service';
+import { SportFacility } from '../_models/sportFacility';
+
 
 @Component({
   selector: 'app-add-object',
@@ -12,7 +13,7 @@ export class AddObjectComponent implements OnInit {
   objectForm: FormGroup;
   loading = false;
 
-  constructor(private fb: FormBuilder, private facilityService: FacilityService) { }
+  constructor(private fb: FormBuilder, private facilityService: SportFacilityService) { }
 
   ngOnInit(): void {
     this.objectForm = this.fb.group({
@@ -37,7 +38,7 @@ export class AddObjectComponent implements OnInit {
     this.loading = true;
     console.log('CreateObject');
 
-    const newSportObject = new SportObject(
+    const newSportObject = new SportFacility(
       this.objectForm.get('basicForm').get('objectName').value,
       this.objectForm.get('basicForm').get('sportName').value,
       this.objectForm.get('basicForm').get('phoneNumber').value,
@@ -48,7 +49,7 @@ export class AddObjectComponent implements OnInit {
       this.objectForm.get('furtherForm').get('objectDescription').value
     );
     console.log(newSportObject);
-    this.facilityService.createObject(newSportObject).subscribe((response: any) => {
+    this.facilityService.createSportFacility(newSportObject).subscribe((response: any) => {
       console.log('Response: ' + response);
       console.log(response);
       this.loading = false;

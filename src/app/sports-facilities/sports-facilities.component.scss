@@ -1,0 +1,16 @@
+@import '../../styles.scss';
+
+::ng-deep {
+  .mat-paginator-navigation-previous {
+    color: $primary-color;
+  }
+
+  .mat-paginator-navigation-next {
+    color: $primary-color;
+  }
+
+  .mat-select-arrow {
+    color: $primary-color;
+  }
+}
+

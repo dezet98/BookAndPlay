@@ -1,4 +1,4 @@
-<mat-tab-group dynamicHeight animationDuration="0ms">
+<mat-tab-group dynamicHeight animationDuration="0ms" selectedIndex="2">
   <mat-tab label="Users">
     <ng-template matTabContent>
       <app-admin-users></app-admin-users>
@@ -11,7 +11,7 @@
     </ng-template>
   </mat-tab>
 
-  <mat-tab label="Sports">
+  <mat-tab label="Sports" mat-mat-tab-link>
     <ng-template matTabContent>
       <app-admin-sports></app-admin-sports>
     </ng-template>

@@ -22,28 +22,21 @@ export class UserService {
 
   getPhoneNumber(): Observable<any> {
     return this.http.get(con.REST_API_URL + '/api/User/Get').pipe(
-      map((response: any) =>
-        response.phoneNumber
+      map((res: any) =>
+      res.phoneNumber
       ));
   }
 
   getName(): Observable<any> {
     return this.http.get(con.REST_API_URL + '/api/User/Get').pipe(
-      map((response: any) =>
-        response.name
+      map((res: any) =>
+      res.name
       ));
   }
 
-  getPersonalData(): Observable<any> {
+  getPersonalData(): Observable<User> {
     return this.http.get(con.REST_API_URL + '/api/User/Get').pipe(
-      map((response: any) => {
-        return {
-          name: response.name,
-          surname: response.surname,
-          email: response.email,
-          phoneNumber: response.phoneNumber
-        };
-      })
+      map((res: any) => new User(res.name, res.surname, res.email, res.phoneNumber))
     );
   }
 
