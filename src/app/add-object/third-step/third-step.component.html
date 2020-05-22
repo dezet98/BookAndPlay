@@ -13,7 +13,7 @@
     <h4 style="text-align: center; margin-top: 2%;">Selected Files:</h4>
     <ul>
       <li class="file" *ngFor="let file of filesToUpload; let i = index">
-        <span style="display: inline-block; width: 80%;">{{file.name}}</span>
+        <span style="display: inline-block; width: 80%;">{{file.name | compressText:10}}</span>
         <button mat-icon-button color="primary" aria-label="Delete file" (click)="onFileDelete(i)"
           matTooltip="Delete file from list" matTooltipPosition="left">
           <mat-icon style="font-size: large;">delete</mat-icon>

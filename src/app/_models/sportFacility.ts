@@ -12,7 +12,6 @@ export class SportFacility {
   private _description: string;
   private _facilityId: number;
   private _owner: User;
-  // tslint:enable
 
   constructor(
     name: string,

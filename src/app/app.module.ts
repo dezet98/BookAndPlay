@@ -68,6 +68,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { CompressTextPipe } from './_shared/compress-text.pipe';
 
 
 
@@ -100,7 +101,8 @@ import { MatSortModule } from '@angular/material/sort';
     AdminSportsComponent,
     AdminUsersComponent,
     AdminFacilitiesComponent,
-    AdminCitiesComponent
+    AdminCitiesComponent,
+    CompressTextPipe
   ],
   entryComponents: [
     AddRuleDialogComponent,

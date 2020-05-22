@@ -1,0 +1,30 @@
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Reservation } from '../_models/reservation';
+import { HttpClient } from '@angular/common/http';
+import { Config as con } from '../../config';
+import { map, tap } from 'rxjs/operators';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ReservationService {
+
+  constructor(private http: HttpClient) { }
+
+  getAllReservation(facilityId: number): Observable<Array<Reservation>> {
+    return this.http.get(con.REST_API_URL + `/api/Reservation/GetAll/${facilityId}`).pipe(
+      tap(re => console.log(re))
+      , map((reservations: Array<any>) => reservations.map((res) =>
+        new Reservation(
+          new Date(res.startTime),
+          new Date(res.endTime),
+          res.status,
+          res.accessPeriodId,
+          res.sportId,
+          res.facilityId,
+          res.ownerId)
+      ))
+    );
+  }
+}

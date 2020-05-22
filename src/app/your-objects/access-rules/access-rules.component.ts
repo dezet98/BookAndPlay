@@ -6,6 +6,7 @@ import { ReservationRule } from 'src/app/_models/reservationRule';
 import { ReservationRuleService } from 'src/app/_services/reservation-rule.service';
 import { DeleteRuleDialogComponent } from './delete-rule-dialog/delete-rule-dialog.component';
 import { GeneralService } from 'src/app/_services/general.service';
+import { AccessPeriod } from 'src/app/_models/accessPeriod';
 
 @Component({
   selector: 'app-access-rules',
@@ -33,7 +34,7 @@ export class AccessRulesComponent implements OnChanges {
   }
 
   getRules(): void {
-    this.accessPeriodService.getAccessPeriods(this.facilityId).subscribe((accessPeriods) => {
+    this.accessPeriodService.getAccessPeriods(this.facilityId).subscribe((accessPeriods: Array<AccessPeriod>) => {
       this.rules = this.resRuleService.getReservationRules(accessPeriods, this.facilityId);
     }, error => {
       console.log('Error when loading object accessPeriods. Error:');

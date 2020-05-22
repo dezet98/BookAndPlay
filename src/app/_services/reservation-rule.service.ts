@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ReservationRule } from '../_models/reservationRule';
 import { ReservationStep } from '../_models/reservationsStep';
+import { AccessPeriod } from '../_models/accessPeriod';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +10,14 @@ export class ReservationRuleService {
 
   constructor() { }
 
-  getReservationRules(accessPeriods: Array<any>, facilityId: number): Array<ReservationRule> {
+  getReservationRules(accessPeriods: Array<AccessPeriod>, facilityId: number): Array<ReservationRule> {
     return this.changeOnRules(accessPeriods, facilityId);
   }
 
   // change all accessPeriods into reservationRules
-  changeOnRules(accessPeriods: Array<any>, facilityId: number): Array<ReservationRule> {
+  changeOnRules(accessPeriods: Array<AccessPeriod>, facilityId: number): Array<ReservationRule> {
     const oneDayRules: Array<ReservationRule> = [];
-    let accessPeriodsIds = [];
+    let accessPeriodsIds: Array<number> = [];
 
     // change accessPeriods to reservationRules(but each reservation has only one day avaible, deal with that in second step)
     accessPeriods.sort((a: any, b: any) => a.startMinute - b.startMinute)
@@ -48,7 +49,7 @@ export class ReservationRuleService {
     return this.linkRulesByDays(oneDayRules);
   }
 
-  createRule(accessPeriod: any, facilityId: number, accessPeriodsIds?: Array<number>): ReservationRule {
+  createRule(accessPeriod: AccessPeriod, facilityId: number, accessPeriodsIds?: Array<number>): ReservationRule {
     const days = new Array(7).fill(false);
     days[accessPeriod.dayOfWeek] = true;
 
