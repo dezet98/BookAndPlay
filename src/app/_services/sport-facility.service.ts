@@ -22,14 +22,20 @@ export class SportFacilityService {
     return this.http.post(con.REST_API_URL + '/api/Images/Upload', fd);
   }
 
+  getFacility(facilityId: number): Observable<SportFacility> {
+    return this.http.get(con.REST_API_URL + `/api/Facility/Get/${facilityId}`).pipe(
+      map((facility: any) => this.changeToFacilities([facility])[0])
+    );
+  }
+
   getOwnSportFacilites(): Observable<Array<SportFacility>> {
     return this.http.get(con.REST_API_URL + '/api/Facility/Own').pipe(
       map((facilities: Array<any>) => this.changeToFacilities(facilities))
     );
   }
 
-  getFilterFacilities(): Observable<Array<SportFacility>> {
-    return this.http.get(con.REST_API_URL + '/api/Facility/Filter').pipe(
+  getFilterFacilities(sport: string, city: string, day: number): Observable<Array<SportFacility>> {
+    return this.http.post(con.REST_API_URL + '/api/Facility/Filter', { Sport: sport, City: city, Day: day }).pipe(
       map((facilities: Array<any>) => this.changeToFacilities(facilities))
     );
   }

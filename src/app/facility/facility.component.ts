@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AccessPeriod } from '../_models/accessPeriod';
 import { ReservationService } from '../_services/reservation.service';
 import { Reservation } from '../_models/reservation';
+import { SportFacilityService } from '../_services/sport-facility.service';
 
 @Component({
   selector: 'app-facility',
@@ -13,59 +14,21 @@ import { Reservation } from '../_models/reservation';
 })
 export class FacilityComponent implements OnInit {
   facilityId: number;
-  example = new SportFacility('Boisko przy szkole nr 5', 'Piłka Nożna', '123456789', 'Mroczka 32, Warszawa', '21.21', '34.23', null, 'Obiekt posiada oswietlenie. Boisko można zamówić na połowę');
-  dayColumns = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
-  rows: any;
+  facility: SportFacility;
 
-  constructor(private route: ActivatedRoute, private reservationService: ReservationService) { }
+  constructor(private route: ActivatedRoute, private facilityService: SportFacilityService) { }
 
   ngOnInit(): void {
     this.facilityId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
-    this.getAllReservation();
+    this.getFacility();
   }
 
-  getAllReservation() {
-    this.reservationService.getAllReservation(this.facilityId).subscribe((reservations: Array<Reservation>) => {
-      this.rows = this.performReservations(reservations);
+  getFacility() {
+    this.facilityService.getFacility(this.facilityId).subscribe((facility: SportFacility) => {
+      this.facility = facility;
+      console.log(facility);
     }, error => {
       console.log(error);
     });
-  }
-
-  // return order array with objects to display, like: [{Sun: Reservation, Mon: '', Tue: Reservation, ...}, ...]
-  performReservations(reservations: Array<Reservation>): Array<any> {
-    console.log(reservations);
-    const resPerHours = {};
-    let key: string;
-    // order into resPerHours object per hours
-    reservations.forEach((res) => {
-      console.log('minu=' + res.startTime.getMinutes());
-      key = res.startTime.getHours() < 10 ? '0' + res.startTime.getHours() : res.startTime.getHours() +
-        res.startTime.getMinutes() < 30 ? '.00' : '.30';
-      if (resPerHours[key] === undefined) {
-        resPerHours[key] = [res];
-      }
-      else {
-        resPerHours[key].push(res);
-      }
-    });
-    console.log(resPerHours);
-
-    const finalData = [];
-    // create final table of objects
-    for (const prop in resPerHours) {
-      if (resPerHours.hasOwnProperty(prop)) {
-        const sameHourRes = resPerHours[prop];
-        const tmp = { Sun: '', Mon: '', Tue: '', Wed: '', Thur: '', Fri: '', Sat: '' };
-        for (const i of sameHourRes) {
-          console.log('i.startTime.getDay() ' + i.startTime.getDay());
-          tmp[this.dayColumns[i.startTime.getDay()]] = i;
-        }
-        finalData.push(tmp);
-      }
-    }
-
-    console.log(finalData);
-    return finalData;
   }
 }

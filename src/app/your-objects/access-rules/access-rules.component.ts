@@ -16,7 +16,7 @@ import { AccessPeriod } from 'src/app/_models/accessPeriod';
 export class AccessRulesComponent implements OnChanges {
   rules: Array<ReservationRule> = [];
   columns = ['position', 'startTime', 'endTime', 'step', 'days', 'actions'];
-  i = 0;
+  deleting = false;
 
   @Input() facilityId: number;
   @Input() facilityName: string;
@@ -36,9 +36,11 @@ export class AccessRulesComponent implements OnChanges {
   getRules(): void {
     this.accessPeriodService.getAccessPeriods(this.facilityId).subscribe((accessPeriods: Array<AccessPeriod>) => {
       this.rules = this.resRuleService.getReservationRules(accessPeriods, this.facilityId);
+      this.deleting = false;
     }, error => {
       console.log('Error when loading object accessPeriods. Error:');
       console.log(error);
+      this.deleting = false;
     });
   }
 
@@ -62,13 +64,21 @@ export class AccessRulesComponent implements OnChanges {
   }
 
   deleteRule(rule: ReservationRule) {
-    this.accessPeriodService.deleteAccessPeriods(rule).subscribe((isPossible) => {
+    this.deleting = true;
+    this.accessPeriodService.tryDeleteAccessPeriods(rule).subscribe(() => {
+      this.getRules();
       this.generalService.showSnackbar('Rule was delete correctly', 'Ok');
     }, error => {
       console.log(error);
       const dialogRef = this.dialog.open(DeleteRuleDialogComponent, {
         width: '100vh',
         // height: '80vh',
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.getRules();
+        }
       });
     });
   }

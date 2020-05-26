@@ -51,8 +51,8 @@ export class AddRuleDialogComponent implements OnInit {
     this.validData();
   }
 
-   // add rule and send to parent 'true' if request was successful
-   onSubmit(): void {
+  // add rule and send to parent 'true' if request was successful
+  onSubmit(): void {
     this.loading = true;
     const ruleData = this.ruleForm.value;
     const rule = new ReservationRule(

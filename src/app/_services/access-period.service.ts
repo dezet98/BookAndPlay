@@ -22,7 +22,8 @@ export class AccessPeriodService {
           accessPeriod.endHour,
           accessPeriod.endMinute,
           accessPeriod.dayOfWeek,
-          accessPeriod.facilityId))
+          accessPeriod.facilityId,
+          accessPeriod.accessPeriodId))
       )
     );
   }
@@ -32,8 +33,9 @@ export class AccessPeriodService {
     return this.http.post(con.REST_API_URL + '/api/AccessPeriod/AddFew', accessPeriods);
   }
 
-  deleteAccessPeriods(rule: ReservationRule): Observable<any> {
-    return this.http.post(con.REST_API_URL + '/api/AccessPeriod/DeleteFew', rule.accessPeriodsIds);
+  tryDeleteAccessPeriods(rule: ReservationRule): Observable<any> {
+    console.log(rule.accessPeriodsIds);
+    return this.http.post(con.REST_API_URL + `/api/AccessPeriod/TryDelete/${rule.facilityId}`, rule.accessPeriodsIds);
   }
 
 }

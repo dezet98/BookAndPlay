@@ -7,6 +7,7 @@ import { SportService } from 'src/app/_services/sport.service';
 import { CityService } from 'src/app/_services/city.service';
 import { SportFacilityService } from 'src/app/_services/sport-facility.service';
 import { SportFacility } from 'src/app/_models/sportFacility';
+import { GeneralService } from 'src/app/_services/general.service';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class OptionComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private sportService: SportService,
+    private generalService: GeneralService,
     private cityService: CityService,
     private facilityService: SportFacilityService) { }
 
@@ -43,12 +45,17 @@ export class OptionComponent implements OnInit {
   }
 
   search() {
-    this.facilityService.getAllFacilities().subscribe((facilities: Array<SportFacility>) => {
-      console.log(facilities);
-      this.searchEmitter.emit(facilities);
-    }, error => {
-      console.log(error);
-    });
+    const searchData = this.searchForm.value;
+    /*console.log(searchData.sportName);
+    console.log(searchData.city);
+    console.log(searchData.day.getDay());*/
+    this.facilityService.getFilterFacilities(searchData.sportName, searchData.city, searchData.day.getDay())
+      .subscribe((facilities: Array<SportFacility>) => {
+        console.log(facilities);
+        this.searchEmitter.emit(facilities);
+      }, error => {
+        console.log(error);
+      });
   }
 
   loadSports() {
@@ -56,7 +63,7 @@ export class OptionComponent implements OnInit {
       this.sportsNames = sportsNames;
       this.filteredSportsNames = this.searchForm.get('sportName').valueChanges.pipe(
         startWith(''), map(key =>
-          this._filter(key, this.sportsNames)
+          this.generalService.filter(key, this.sportsNames)
         ));
     }, error => {
       console.log('Error with load sports: ' + error.status);
@@ -69,22 +76,10 @@ export class OptionComponent implements OnInit {
       this.citiesGroup = new LettersGroups(cities);
       this.filteredCitiesGroup = this.searchForm.get('city').valueChanges.pipe(
         startWith(''), map(key =>
-          this._filterGroup(key, this.citiesGroup)
+          this.generalService.filterGroup(key, this.citiesGroup)
         ));
     }, error => {
       console.log('Error with load sports: ' + error.status);
     });
-  }
-
-  _filter(key: string, list: Array<string>): Array<string> {
-    console.log('in _filter: ' + this.sportsNames);
-    return list.filter(item =>
-      item.toLowerCase().indexOf(key.toLowerCase()) === 0);
-  }
-
-  _filterGroup(key: string, listGroup: LettersGroups) {
-    return listGroup.getItems().map(group => (
-      { letter: group.letter, items: this._filter(key, group.items) })
-    ).filter(group => group.items.length > 0);
   }
 }

@@ -29,7 +29,6 @@ export class ObjectsComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges(): void {
-    console.log('dis=' + this.paginator.getNumberOfPages());
     this.paginator.length = this.facilities.length;
     this.paginator.firstPage();
     this.pageChanged();

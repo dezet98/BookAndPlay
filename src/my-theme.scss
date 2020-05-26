@@ -5,6 +5,7 @@
 $my-theme-primary: mat-palette($mat-indigo);
 $my-theme-accent: mat-palette($mat-pink);
 $my-theme-warn: mat-palette($mat-red);
+$my-theme-access: mat-palette($mat-green);
 
 $my-theme: mat-light-theme($my-theme-primary, $my-theme-accent, $my-theme-warn);
 

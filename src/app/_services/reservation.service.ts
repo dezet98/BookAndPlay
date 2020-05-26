@@ -14,7 +14,7 @@ export class ReservationService {
 
   getAllReservation(facilityId: number): Observable<Array<Reservation>> {
     return this.http.get(con.REST_API_URL + `/api/Reservation/GetAll/${facilityId}`).pipe(
-      tap(re => console.log(re))
+      tap(re => { console.log('Now:'); console.log(re); })
       , map((reservations: Array<any>) => reservations.map((res) =>
         new Reservation(
           new Date(res.startTime),
@@ -27,4 +27,11 @@ export class ReservationService {
       ))
     );
   }
+
+  book(reservations: Array<Reservation>): Observable<any> {
+    const resIds = reservations.map((res: Reservation) => res.accessPeriodId);
+    console.log(resIds);
+    return this.http.post(con.REST_API_URL + '/api/Reservation/Add', {accessPeriodId: resIds[0]});
+  }
+
 }

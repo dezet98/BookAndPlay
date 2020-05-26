@@ -1,44 +1,6 @@
 .mainCon {
-  display: grid;
-  grid-template-columns: 30% 60%;
-  justify-content: space-evenly;
-  height: 80vh;
-
-  .object {
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 1;
-    grid-row-end: 2;
-
-    .sportImage {
-      background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-      background-size: cover;
-    }
-  }
-
-  .reservation {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 1;
-    grid-row-end: 2;
-  }
-
-}
-
-::ng-deep {
-  .mat-header-cell, .mat-row-cell {
-    text-align: center !important;
-  }
-
-  .mat-chip-list-wrapper {
-    justify-content: center !important;
-  }
-
-  th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type {
-    padding-left: 0px !important;
-  }
-
-  th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
-    padding-right: 0px !important;
-  }
+  width: 100%;
+  height: 90%;
+  box-sizing: border-box;
+  padding: 2% 3%;
 }

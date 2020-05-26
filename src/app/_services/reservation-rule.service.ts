@@ -19,6 +19,13 @@ export class ReservationRuleService {
     const oneDayRules: Array<ReservationRule> = [];
     let accessPeriodsIds: Array<number> = [];
 
+    if (accessPeriods.length === 0) {
+      return [];
+    }
+    else if (accessPeriods.length === 1) {
+      return [this.createRule(accessPeriods[0], facilityId, [accessPeriods[0].accessPeriodId])];
+    }
+
     // change accessPeriods to reservationRules(but each reservation has only one day avaible, deal with that in second step)
     accessPeriods.sort((a: any, b: any) => a.startMinute - b.startMinute)
       .sort((a: any, b: any) => a.startHour - b.startHour)
@@ -61,7 +68,7 @@ export class ReservationRuleService {
       stepHour++;
     }
     const step = new ReservationStep(stepHour, stepMinute);
-    const amountOfSteps = accessPeriodsIds.length + 1;
+    const amountOfSteps = accessPeriodsIds.length;
 
     return new ReservationRule(days, accessPeriod.startHour, accessPeriod.startMinute, step, amountOfSteps, facilityId, accessPeriodsIds);
   }

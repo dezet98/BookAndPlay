@@ -69,6 +69,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { CompressTextPipe } from './_shared/compress-text.pipe';
+import { BookingComponent } from './facility/booking/booking.component';
 
 
 
@@ -102,7 +103,8 @@ import { CompressTextPipe } from './_shared/compress-text.pipe';
     AdminUsersComponent,
     AdminFacilitiesComponent,
     AdminCitiesComponent,
-    CompressTextPipe
+    CompressTextPipe,
+    BookingComponent
   ],
   entryComponents: [
     AddRuleDialogComponent,

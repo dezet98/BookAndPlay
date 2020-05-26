@@ -14,6 +14,10 @@ export class SportsFacilitiesComponent implements OnInit {
   constructor(private facilityService: SportFacilityService) { }
 
   ngOnInit() {
+    this.getAllFacilities();
+  }
+
+  getAllFacilities() {
     this.facilityService.getAllFacilities().subscribe((facilities: Array<SportFacility>) => {
       this.facilities = facilities;
     }, error => {

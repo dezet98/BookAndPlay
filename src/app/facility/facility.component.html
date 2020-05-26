@@ -1,51 +1,38 @@
 <div class="mainCon">
-  <mat-card class="object">
-    <mat-card-header>
-      <div mat-card-avatar class="sportImage"></div>
-      <mat-card-title>{{example.name}}</mat-card-title>
-      <mat-card-subtitle>
-        {{example.address}}
-      </mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-tab-group>
-        <mat-tab label="Description">
-          <p>
-            {{example.description}}
-          </p>
-        </mat-tab>
-        <mat-tab label="Images">
-          <img mat-card-image src="../../../assets/sportFacilities1.jpg" alt="Photo">
-        </mat-tab>
-        <mat-tab label="Contact">
-          Numer telefonu: {{example.phone}}
-          <button mat-button>Show on map</button>
-        </mat-tab>
-        <mat-tab label="Additional">
-          Additional
-        </mat-tab>
-      </mat-tab-group>
-    </mat-card-content>
+  <h3>{{facility.name}}</h3>
+  <mat-tab-group style="height: 88%;">
 
-  </mat-card>
+    <mat-tab label="Book">
+      <ng-template matTabContent>
+        <app-booking class="mat-elevation-z8" [facilityId]="facilityId" class="reservation"></app-booking>
+      </ng-template>
+    </mat-tab>
 
-  <div class="reservation">
-    <table mat-table [dataSource]="rows" style="width: 100%;">
-      <ng-container [matColumnDef]="column" *ngFor="let column of dayColumns">
-        <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-        <td mat-cell *matCellDef="let element">
-          <mat-chip-list *ngIf="element[column] !== ''">
-            <mat-chip color="primary" [disabled]="element[column].status">
-              {{element[column].startTime | date:'HH:mm'}} - {{element[column].endTime | date:'HH:mm'}}
-            </mat-chip>
-          </mat-chip-list>
-        </td>
-      </ng-container>
+    <mat-tab label="Description">
+      <ng-template matTabContent>
+        <p>
+          {{facility.description}}
+        </p>
+      </ng-template>
+    </mat-tab>
 
-      <tr mat-header-row *matHeaderRowDef="dayColumns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: dayColumns;"></tr>
-    </table>
+    <mat-tab label="Images">
+      <ng-template matTabContent>
+        <img mat-card-image src="../../../assets/sportFacilities1.jpg" alt="Photo">
+      </ng-template>
+    </mat-tab>
 
+    <mat-tab label="Contact">
+      <ng-template matTabContent>
+        Numer telefonu: {{facility.phone}}
+        <button mat-button>Show on map</button>
+      </ng-template>
+    </mat-tab>
 
-  </div>
+    <mat-tab label="Additional">
+      <ng-template matTabContent>
+        Additional
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
 </div>

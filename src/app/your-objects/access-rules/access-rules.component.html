@@ -44,7 +44,7 @@
     <th mat-header-cell *matHeaderCellDef> Actions </th>
     <td mat-cell *matCellDef="let element">
       <button mat-icon-button color="primary" aria-label="Delete rule" (click)="deleteRule(element)"
-        matTooltip="Delete this reservation rule" matTooltipPosition="right">
+        matTooltip="Delete this reservation rule" matTooltipPosition="right" [disabled]="deleting">
         <mat-icon style="font-size: large;">delete</mat-icon>
       </button>
     </td>
