@@ -13,7 +13,7 @@ export class AccessPeriodService {
 
   constructor(private http: HttpClient) { }
 
-  getAccessPeriods(facilityId: any): Observable<Array<AccessPeriod>> {
+  get(facilityId: any): Observable<Array<AccessPeriod>> {
     return this.http.get(con.REST_API_URL + `/api/AccessPeriod/Facility/Get/${facilityId}`).pipe(
       map((accessPeriods: any) => accessPeriods.map((accessPeriod: any) =>
         new AccessPeriod(
@@ -28,14 +28,20 @@ export class AccessPeriodService {
     );
   }
 
-  addAccessPeriods(rule: ReservationRule): Observable<any> {
+  add(rule: ReservationRule): Observable<any> {
     const accessPeriods = rule.getAccessPeriods().map((accessPeriod: AccessPeriod) => accessPeriod.getAccessPeriodObject());
     return this.http.post(con.REST_API_URL + '/api/AccessPeriod/AddFew', accessPeriods);
   }
 
-  tryDeleteAccessPeriods(rule: ReservationRule): Observable<any> {
-    console.log(rule.accessPeriodsIds);
+  tryDelete(rule: ReservationRule): Observable<any> {
     return this.http.post(con.REST_API_URL + `/api/AccessPeriod/TryDelete/${rule.facilityId}`, rule.accessPeriodsIds);
   }
 
+  softDelete(rule: ReservationRule): Observable<any> {
+    return this.http.post(con.REST_API_URL + `/api/AccessPeriod/AllowableDelete/${rule.facilityId}`, rule.accessPeriodsIds);
+  }
+
+  hardDelete(rule: ReservationRule): Observable<any> {
+    return this.http.post(con.REST_API_URL + `/api/AccessPeriod/ForceDelete/${rule.facilityId}`, rule.accessPeriodsIds);
+  }
 }

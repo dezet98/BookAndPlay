@@ -2,7 +2,7 @@
 <div mat-dialog-content>
   <mat-card class="option">
     <mat-card-actions>
-      <button mat-stroked-button color="warn">Delete what you can</button>
+      <button mat-stroked-button color="warn" (click)="softDelete()">Delete what you can</button>
     </mat-card-actions>
     <mat-card-content>
       This delete rule without dates with reservations. After end of reservations rule will be destroyed.
@@ -10,7 +10,7 @@
   </mat-card>
   <mat-card class="option">
     <mat-card-actions>
-      <button mat-raised-button color="warn">Delete all anyway</button>
+      <button mat-raised-button color="warn" (click)="hardDelete()">Delete all anyway</button>
     </mat-card-actions>
     <mat-card-content>
       Be carefull using that. This delete rule and cancel all reservations which this rule has. You can't retrieve it in any way.

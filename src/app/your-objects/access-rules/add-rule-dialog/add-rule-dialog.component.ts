@@ -64,7 +64,7 @@ export class AddRuleDialogComponent implements OnInit {
       this.data.facilityId
     );
 
-    this.accessPeriodService.addAccessPeriods(rule).subscribe(() => {
+    this.accessPeriodService.add(rule).subscribe(() => {
       this.generalService.showSnackbar('You add new rule', 'Close');
       this.dialogRef.close(true);
     }, error => {

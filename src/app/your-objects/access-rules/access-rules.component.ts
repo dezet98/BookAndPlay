@@ -34,7 +34,7 @@ export class AccessRulesComponent implements OnChanges {
   }
 
   getRules(): void {
-    this.accessPeriodService.getAccessPeriods(this.facilityId).subscribe((accessPeriods: Array<AccessPeriod>) => {
+    this.accessPeriodService.get(this.facilityId).subscribe((accessPeriods: Array<AccessPeriod>) => {
       this.rules = this.resRuleService.getReservationRules(accessPeriods, this.facilityId);
       this.deleting = false;
     }, error => {
@@ -55,28 +55,31 @@ export class AccessRulesComponent implements OnChanges {
         }
       });
 
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result) {
+      dialogRef.afterClosed().subscribe((change) => {
+        if (change) {
           this.getRules();
         }
       });
     }
   }
 
-  deleteRule(rule: ReservationRule) {
+  onDeleteRule(rule: ReservationRule) {
     this.deleting = true;
-    this.accessPeriodService.tryDeleteAccessPeriods(rule).subscribe(() => {
+    this.accessPeriodService.tryDelete(rule).subscribe(() => {
       this.getRules();
       this.generalService.showSnackbar('Rule was delete correctly', 'Ok');
     }, error => {
       console.log(error);
       const dialogRef = this.dialog.open(DeleteRuleDialogComponent, {
         width: '100vh',
+        data: {
+          reservationRule: rule,
+        }
         // height: '80vh',
       });
 
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result) {
+      dialogRef.afterClosed().subscribe((change) => {
+        if (change) {
           this.getRules();
         }
       });
