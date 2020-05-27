@@ -5,7 +5,7 @@ form {
   grid-template-columns: 60%;
   justify-content: center;
   margin-top: 1%;
-  grid-gap: 10px;
+  grid-gap: 5%;
 
   #selection {
     width: 100%;
@@ -15,6 +15,10 @@ form {
     .mat-form-field {
       width: 100%;
     }
+  }
+
+  #reservations {
+    margin-bottom: 5%;
   }
 
   @media #{$xs} {
@@ -28,27 +32,4 @@ form {
   @media #{$md} {
     grid-template-columns: 80%;
   }
-
-
-  @media #{$lg} {
-    grid-template-columns: 60% 35%;
-
-    #selection {
-      grid-column-start: 1;
-      grid-column-end: 4;
-      grid-row-start: 1;
-      grid-row-end: 2;
-
-
-      .mat-form-field {
-        width: 50%;
-      }
-    }
-
-    #table {
-      grid-row-start: 2;
-      grid-row-end: 3;
-    }
-  }
-
 }

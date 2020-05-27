@@ -7,6 +7,7 @@ export class Reservation {
   private _sportId: number; // 0 -> Sunday
   private _facilityId: number;
   private _ownerId: number;
+  private _reservationId: number;
   // tslint:enable
 
   constructor(
@@ -16,7 +17,8 @@ export class Reservation {
     accessPeriodId: number,
     sportId: number,
     facilityId: number,
-    ownerId: number) {
+    ownerId: number,
+    reservationId: number) {
     this._startTime = startTime;
     this._endTime = endTime;
     this._status = status;
@@ -24,6 +26,7 @@ export class Reservation {
     this._sportId = sportId;
     this._facilityId = facilityId;
     this._ownerId = ownerId;
+    this._reservationId = reservationId;
   }
 
   get startTime() { return this._startTime; }
@@ -32,7 +35,8 @@ export class Reservation {
   get status() { return this._status; }
   get sportId() { return this._sportId; }
   get facilityId() { return this._facilityId; }
-  get ownerId() { return this.ownerId; }
+  get ownerId() { return this._ownerId; }
+  get reservationId() { return this._reservationId; }
 
   getAccessPeriodObject() {
     return {

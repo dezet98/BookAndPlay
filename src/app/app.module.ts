@@ -70,6 +70,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { CompressTextPipe } from './_shared/compress-text.pipe';
 import { BookingComponent } from './facility/booking/booking.component';
+import { ObjectReservationsComponent } from './your-objects/object-reservations/object-reservations.component';
 
 
 
@@ -104,7 +105,8 @@ import { BookingComponent } from './facility/booking/booking.component';
     AdminFacilitiesComponent,
     AdminCitiesComponent,
     CompressTextPipe,
-    BookingComponent
+    BookingComponent,
+    ObjectReservationsComponent
   ],
   entryComponents: [
     AddRuleDialogComponent,

@@ -21,9 +21,10 @@ export class ReservationService {
           new Date(res.endTime),
           res.status,
           res.accessPeriodId,
-          res.sportId,
-          res.facilityId,
-          res.ownerId)
+          res.facility.sportId,
+          res.facility.facilityId,
+          res.facility.owner,
+          res.reservationId)
       ))
     );
   }

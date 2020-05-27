@@ -1,0 +1,31 @@
+@import '../../../styles.scss';
+
+#options {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  padding: 3%;
+
+  @media #{$md} {
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    #filter {
+      width: 70%;
+    }
+
+    #checkbox {
+      width: 25%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+#tableCon {
+  margin: 0% 3%;
+  margin-bottom: 3%;
+
+  border: solid 1px rgba(0, 0, 0, 0.12);
+}

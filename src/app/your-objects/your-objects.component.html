@@ -8,5 +8,6 @@
     </mat-form-field>
   </div>
 
-  <app-access-rules id="table" [facilityId]="form.get('facility').value.facilityId" [facilityName]="form.get('facility').value.name"></app-access-rules>
+  <app-access-rules id="rules" [facilityId]="form.get('facility').value.facilityId" [facilityName]="form.get('facility').value.name"></app-access-rules>
+  <app-object-reservations id="reservations" class="mat-elevation-z8" [facilityId]="form.get('facility').value.facilityId"></app-object-reservations>
 </form>
