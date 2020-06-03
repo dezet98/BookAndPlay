@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, OnChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { ReservationService } from 'src/app/_services/reservation.service';
 import { Reservation } from 'src/app/_models/reservation';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { GeneralService } from 'src/app/_services/general.service';
 
 @Component({
   selector: 'app-object-reservations',
@@ -12,30 +13,53 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class ObjectReservationsComponent implements OnChanges {
   @Input() facilityId: number;
-  reservations: any = [];
+  reservations: MatTableDataSource<Reservation>;
+  newReservations: Array<Reservation> = [];
+  oldReservations: Array<Reservation> = [];
   reservationColumns = ['reservationId', 'date', 'startTime', 'client', 'actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private reservationService: ReservationService) { }
+  constructor(private reservationService: ReservationService, private generalService: GeneralService) { }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     if (Number.isInteger(this.facilityId)) {
-      this.getReservations();
+      this.getReservation();
     }
   }
 
-  getReservations() {
-    this.reservationService.getAllReservation(this.facilityId).subscribe((reservations: Array<Reservation>) => {
+  getReservation(): void {
+    this.reservationService.getNewBooked(this.facilityId).subscribe((reservations: Array<Reservation>) => {
+      this.newReservations = reservations;
       this.reservations = new MatTableDataSource(reservations);
       this.reservations.paginator = this.paginator;
       this.reservations.sort = this.sort;
       console.log(reservations);
-      console.log(reservations.indexOf(reservations[0]));
     });
+
+    this.reservationService.getArchivedBooked(this.facilityId).subscribe((oldReservations: Array<Reservation>) => {
+      this.oldReservations = oldReservations;
+      console.log(oldReservations);
+    }, error => console.log(error));
   }
 
-  filter(event: Event) {
+  onToggleRes(checked: boolean) {
+    if (checked) {
+      this.reservations.data = [...this.oldReservations, ...this.newReservations];
+    }
+    else {
+      this.reservations.data = this.newReservations;
+    }
+  }
+
+  cancelRes(reservationId: number) {
+    this.reservationService.cancel(reservationId).subscribe(() => {
+      this.getReservation();
+      this.generalService.showSnackbar('Cancel reservation was successful', 'Close');
+    }, error => console.log(error));
+  }
+
+  filter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.reservations.filter = filterValue.trim().toLowerCase();
 
@@ -43,31 +67,4 @@ export class ObjectReservationsComponent implements OnChanges {
       this.reservations.paginator.firstPage();
     }
   }
-
-  /*
-    getReservations(): void {
-      this.reservationService.getAllReservation(this.facilityId).subscribe((reservations: Array<Reservation>) => {
-        let key: string;
-        console.log(reservations);
-        console.log(reservations.sort((a: Reservation, b: Reservation) => a.startTime.getTime() - b.startTime.getTime()));
-        this.sortRes = reservations.sort((a: Reservation, b: Reservation) => a.startTime.getTime() - b.startTime.getTime())
-          .reduce((prev: any, curr: Reservation) => {
-            console.log(prev);
-            key = curr.startTime.getDate() + '/' + curr.startTime.getMonth() + '/' + curr.startTime.getFullYear();
-            if (!prev.has(key)) {
-              console.log(prev);
-              prev.set(key, [curr]);
-              return prev;
-            }
-            console.log(prev);
-            prev.get(key).push(curr);
-            return prev;
-          }, new Map());
-
-      }, error => {
-        console.log(error);
-      });
-
-    }
-  */
 }

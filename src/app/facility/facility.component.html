@@ -4,7 +4,7 @@
 
     <mat-tab label="Book">
       <ng-template matTabContent>
-        <app-booking class="mat-elevation-z8" [facilityId]="facilityId" class="reservation"></app-booking>
+        <app-booking [facilityId]="facilityId" class="reservation"></app-booking>
       </ng-template>
     </mat-tab>
 
@@ -17,20 +17,20 @@
     </mat-tab>
 
     <mat-tab label="Images">
-      <ng-template matTabContent>
+      <ng-template matTabContent class="mat-elevation-z8" >
         <img mat-card-image src="../../../assets/sportFacilities1.jpg" alt="Photo">
       </ng-template>
     </mat-tab>
 
     <mat-tab label="Contact">
-      <ng-template matTabContent>
+      <ng-template matTabContent class="mat-elevation-z8" >
         Numer telefonu: {{facility.phone}}
         <button mat-button>Show on map</button>
       </ng-template>
     </mat-tab>
 
     <mat-tab label="Additional">
-      <ng-template matTabContent>
+      <ng-template matTabContent class="mat-elevation-z8" >
         Additional
       </ng-template>
     </mat-tab>

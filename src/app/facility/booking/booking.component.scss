@@ -15,18 +15,32 @@
 
   .order {
     width: 100%;
+    background-color: white;
+    border: solid 1px rgba(0, 0, 0, 0.12);
     grid-column-start: 1;
     grid-column-end: 4;
     grid-row-start: 2;
     grid-row-end: 3;
 
-    h4 {
+    .singleRes {
       width: 100%;
-      text-align: center;
+
+      .mediumDate, .shortTime {
+        width: 35%;
+        display: block;
+        float: left;
+      }
     }
   }
 
-  @media #{$md} {
+  .actions {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 4;
+  }
+
+  @media #{$lg} {
     .tableCon {
       grid-column-start: 1;
       grid-column-end: 2;
@@ -34,10 +48,18 @@
 
     .order {
       grid-column-start: 2;
-      grid-column-end: 4;
+      grid-column-end: 3;
+      grid-row-start: 1;
+      grid-row-end: 2;
+    }
+
+    .actions {
+      grid-column-start: 2;
+      grid-column-end: 3;
+      grid-row-start: 2;
+      grid-row-end: 3;
     }
   }
-
 }
 
 ::ng-deep {

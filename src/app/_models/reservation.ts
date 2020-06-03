@@ -1,3 +1,5 @@
+import { User } from './user';
+
 export class Reservation {
   // tslint:disable
   private _startTime: Date;
@@ -7,6 +9,7 @@ export class Reservation {
   private _sportId: number; // 0 -> Sunday
   private _facilityId: number;
   private _ownerId: number;
+  private _user: User;
   private _reservationId: number;
   // tslint:enable
 
@@ -18,6 +21,7 @@ export class Reservation {
     sportId: number,
     facilityId: number,
     ownerId: number,
+    user: User,
     reservationId: number) {
     this._startTime = startTime;
     this._endTime = endTime;
@@ -26,6 +30,7 @@ export class Reservation {
     this._sportId = sportId;
     this._facilityId = facilityId;
     this._ownerId = ownerId;
+    this._user = user;
     this._reservationId = reservationId;
   }
 
@@ -36,6 +41,7 @@ export class Reservation {
   get sportId() { return this._sportId; }
   get facilityId() { return this._facilityId; }
   get ownerId() { return this._ownerId; }
+  get user() { return this._user; }
   get reservationId() { return this._reservationId; }
 
   getAccessPeriodObject() {

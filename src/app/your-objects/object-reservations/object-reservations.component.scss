@@ -8,16 +8,16 @@
 
   @media #{$md} {
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
 
     #filter {
-      width: 70%;
+      width: 71%;
     }
 
     #checkbox {
-      width: 25%;
+      width: 26%;
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
     }
   }
@@ -28,4 +28,14 @@
   margin-bottom: 3%;
 
   border: solid 1px rgba(0, 0, 0, 0.12);
+}
+
+::ng-deep {
+  .mat-cell, .mat-header-cell {
+    text-align: center !important;
+  }
+
+  .mat-sort-header-container {
+    justify-content: center !important;
+  }
 }

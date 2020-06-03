@@ -2,7 +2,7 @@
 
 form {
   display: grid;
-  grid-template-columns: 60%;
+  grid-template-columns: 95%;
   justify-content: center;
   margin-top: 1%;
   grid-gap: 5%;
@@ -21,15 +21,15 @@ form {
     margin-bottom: 5%;
   }
 
-  @media #{$xs} {
-    grid-template-columns: 95%;
-  }
-
   @media #{$sm} {
     grid-template-columns: 90%;
   }
 
   @media #{$md} {
     grid-template-columns: 80%;
+  }
+
+  @media #{$lg} {
+    grid-template-columns: minmax(60%);
   }
 }
