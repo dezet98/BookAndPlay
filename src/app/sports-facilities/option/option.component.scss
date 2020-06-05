@@ -1,35 +1,70 @@
 @import "../../../styles.scss";
 
-.filter {
-  //background-color: grey;
+.options {
   display: grid;
   justify-content: space-evenly;
   align-items: center;
 
-  .mat-form-field {
-    height: 80%;
+  .filter {
+    display: grid;
+    justify-content: space-between;
+    align-items: center;
+
+    & > * {
+      width: 100%;
+    }
+  }
+
+  #checkboxCon {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 0.75em 1.34375em 0.75em;
+  }
+
+  #buttonCon {
+    display: flex;
+    align-items: center;
+    padding-bottom: 1.34375em;
+
+    button {
+      width: 100%;
+
+      #buttonLabel {
+        display: flex;
+        justify-content: center;
+      }
+    }
   }
 
   @media #{$xs} {
     grid-template-columns: 90%;
+    grid-gap: 1em;
+
+    .filter {
+      grid-template-columns: 100%;
+    }
   }
 
   @media #{$sm} {
-    grid-template-columns: repeat(2, 40%);
-
-    button {
-      grid-column-start: 1;
-      grid-column-end: 3;
+    .filter {
+      grid-template-columns: repeat(2, 45%);
     }
   }
 
   @media #{$md} {
-    grid-template-columns: 15% 15% 15% 15% 10%;
+    grid-template-columns: 80% 10%;
 
-    button {
-      grid-column-start: 5;
-      grid-column-end: 6;
+    .filter {
+      grid-template-columns: repeat(4, 22.5%);
+    }
+
+    #buttonCon {
+      grid-column-start: 2;
+      grid-column-end: 3;
     }
   }
 
 }
+
+

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from '../_auth/auth.service';
 import { UserService } from '../_services/user.service';
+import { ScreenSizeService } from '../_shared/screen-size.service';
 
 @Component({
   selector: 'app-main-nav',
@@ -25,13 +26,9 @@ export class MainNavComponent implements OnInit {
   isAdmin: boolean;
   userName: string;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+  isHandset: boolean;
 
-  constructor(private breakpointObserver: BreakpointObserver, private auth: AuthService, private userService: UserService) { }
+  constructor(private screenSizeService: ScreenSizeService, private auth: AuthService, private userService: UserService) { }
 
   ngOnInit() {
     this.auth.getIsLoggedIn().subscribe((isLoggedIn: boolean) => {
@@ -44,6 +41,8 @@ export class MainNavComponent implements OnInit {
     this.auth.isAdmin().subscribe((isAdmin: boolean) => {
       this.isAdmin = isAdmin;
     });
+
+    this.setHandset();
   }
 
   getUserName() {
@@ -53,5 +52,11 @@ export class MainNavComponent implements OnInit {
 
   signOut() {
     this.auth.logout();
+  }
+
+  setHandset() {
+    this.screenSizeService.lessThanMd().subscribe((result: boolean) => {
+      this.isHandset = result;
+    });
   }
 }

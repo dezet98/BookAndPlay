@@ -1,31 +1,49 @@
 <div>
-  <form [formGroup]="searchForm" class="filter" (ngSubmit)="search()">
-    <mat-form-field appearance="outline">
-      <mat-label>Sport discipline</mat-label>
-      <input matInput formControlName="sportName" [matAutocomplete]="sportAuto">
-    </mat-form-field>
+  <form [formGroup]="searchForm" class="options" (ngSubmit)="search()">
 
-    <mat-form-field appearance="outline">
-      <mat-label>City</mat-label>
-      <input matInput formControlName="city" [matAutocomplete]="cityAuto">
-    </mat-form-field>
+    <ng-container *ngIf="isHandset; else options">
+      <mat-expansion-panel (opened)="filterIsOpen=true;" (closed)="filterIsOpen=false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Filter</mat-panel-title>
+          <mat-panel-description>{{filterIsOpen ? '' : 'Click to change'}}</mat-panel-description>
+        </mat-expansion-panel-header>
+        <ng-container *ngTemplateOutlet="options"></ng-container>
+      </mat-expansion-panel>
+    </ng-container>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Day</mat-label>
-      <input matInput formControlName="day" [matDatepicker]="picker" [min]="minDate" disabled>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker disabled="false"></mat-datepicker>
-    </mat-form-field>
+    <ng-template #options>
+      <div class="filter">
+        <mat-form-field appearance="outline">
+          <mat-label>Sport discipline</mat-label>
+          <input matInput formControlName="sportName" [matAutocomplete]="sportAuto">
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Available from</mat-label>
-      <input matInput formControlName="hours">
-    </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>City</mat-label>
+          <input matInput formControlName="city" [matAutocomplete]="cityAuto">
+        </mat-form-field>
 
-    <button mat-stroked-button type="submit" (click)="search()">
-      <mat-icon>search</mat-icon>
-      <span>   Search</span>
-    </button>
+        <mat-form-field appearance="outline">
+          <mat-label>Day</mat-label>
+          <input matInput formControlName="day" [matDatepicker]="picker" [min]="minDate" disabled>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker disabled="false"></mat-datepicker>
+        </mat-form-field>
+
+        <div id="checkboxCon">
+          <mat-checkbox formControlName="onlyAvailable">Only Available</mat-checkbox>
+        </div>
+      </div>
+    </ng-template>
+
+    <div id="buttonCon">
+      <button mat-stroked-button type="submit" (click)="search()">
+        <label id="buttonLabel">
+          <mat-icon style="margin: auto 8px auto 0;">search</mat-icon>
+          <span>Search</span>
+        </label>
+      </button>
+    </div>
   </form>
 
   <mat-autocomplete #sportAuto="matAutocomplete">
@@ -38,7 +56,3 @@
     </mat-optgroup>
   </mat-autocomplete>
 </div>
-
-
-
-

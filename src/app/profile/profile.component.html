@@ -1,103 +1,108 @@
 <span class="material-icons" style="font-size: 130px; width: 100%; text-align: center; margin-top: 2%;">person</span>
 <div class="box personalData">
   <h2>Personal Data</h2>
-  <ng-container *ngFor="let item of personalData">
-    <mat-expansion-panel (opened)="item.isOpen=true;" (closed)="item.isOpen=false">
-      <mat-expansion-panel-header class="panel-title">
-        <mat-panel-title class="panel-title">
-          Your {{item.name}}
-        </mat-panel-title>
-        <mat-panel-description class="panel-description">
-          {{item.isOpen ? 'Change ' + item.name : item.realValue}}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <ng-template matExpansionPanelContent>
-        <!--for lazy loading-->
-        <div class="content">
-          <mat-form-field>
-            <input matInput [value]="item.realValue" #newValue>
-          </mat-form-field>
-          <button mat-stroked-button color="warn" (click)="changePersonalData(item, newValue.value)"
-            [disabled]="item.loading">
-            Save changes
-          </button>
-        </div>
-      </ng-template>
-    </mat-expansion-panel>
-  </ng-container>
+  <mat-accordion multi>
+    <ng-container *ngFor="let item of personalData">
+      <mat-expansion-panel (opened)="item.isOpen=true;" (closed)="item.isOpen=false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Your {{item.name}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{item.isOpen ? 'Change ' + item.name : item.realValue}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <!--for lazy loading-->
+          <div class="content">
+            <mat-form-field>
+              <input matInput [value]="item.realValue" #newValue>
+            </mat-form-field>
+            <div class="buttonCon">
+              <button mat-stroked-button color="warn" (click)="changePersonalData(item, newValue.value)"
+                [disabled]="item.loading">
+                Save changes
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </mat-expansion-panel>
+    </ng-container>
+  </mat-accordion>
 </div>
 
 <div class="box accountSettings">
   <br>
   <h2>Account Settings</h2>
-  <mat-expansion-panel (closed)="accountSettings[0].oldPassword = ''">
-    <mat-expansion-panel-header class="panel-title">
-      <mat-panel-title class="panel-title">
-        Change password
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <ng-template matExpansionPanelContent>
-      <div class="content">
-        <mat-form-field>
-          <input matInput [type]="accountSettings[0].hideOldPassword ? 'password' : 'text'"
-            placeholder="Write your old password" #oldPassword>
-          <button type="button" mat-icon-button matSuffix
-            (click)="accountSettings[0].hideOldPassword = !accountSettings[0].hideOldPassword"
-            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="accountSettings[0].hideOldPassword">
-            <mat-icon style="font-size: large;">{{accountSettings[0].hideOldPassword ? 'visibility_off' : 'visibility'}}
-            </mat-icon>
-          </button>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput [type]="accountSettings[0].hideNewPassword ? 'password' : 'text'"
-            placeholder="Write your new password" #newPassword>
-          <button type="button" mat-icon-button matSuffix
-            (click)="accountSettings[0].hideNewPassword = !accountSettings[0].hideNewPassword"
-            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="accountSettings[0].hideNewPassword">
-            <mat-icon style="font-size: large;">{{accountSettings[0].hideNewPassword ? 'visibility_off' : 'visibility'}}
-            </mat-icon>
-          </button>
-        </mat-form-field>
-        <br>
-        <div class="buttons">
-          <button mat-raised-button color="warn" (click)="changeUserPassword(oldPassword.value, newPassword.value)"
-            [disabled]="accountSettings[0].loading">
-            Change password
-          </button>
+  <mat-accordion multi>
+    <mat-expansion-panel (closed)="accountSettings[0].oldPassword = ''">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Change password
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <div class="content">
+          <mat-form-field>
+            <input matInput [type]="accountSettings[0].hideOldPassword ? 'password' : 'text'"
+              placeholder="Write your old password" #oldPassword>
+            <button type="button" mat-icon-button matSuffix
+              (click)="accountSettings[0].hideOldPassword = !accountSettings[0].hideOldPassword"
+              [attr.aria-label]="'Hide password'" [attr.aria-pressed]="accountSettings[0].hideOldPassword">
+              <mat-icon style="font-size: large;">
+                {{accountSettings[0].hideOldPassword ? 'visibility_off' : 'visibility'}}
+              </mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [type]="accountSettings[0].hideNewPassword ? 'password' : 'text'"
+              placeholder="Write your new password" #newPassword>
+            <button type="button" mat-icon-button matSuffix
+              (click)="accountSettings[0].hideNewPassword = !accountSettings[0].hideNewPassword"
+              [attr.aria-label]="'Hide password'" [attr.aria-pressed]="accountSettings[0].hideNewPassword">
+              <mat-icon style="font-size: large;">
+                {{accountSettings[0].hideNewPassword ? 'visibility_off' : 'visibility'}}
+              </mat-icon>
+            </button>
+          </mat-form-field>
+          <br>
+          <div class="buttonCon">
+            <button mat-raised-button color="warn" (click)="changeUserPassword(oldPassword.value, newPassword.value)"
+              [disabled]="accountSettings[0].loading">
+              Change password
+            </button>
+          </div>
         </div>
-      </div>
-    </ng-template>
-  </mat-expansion-panel>
+      </ng-template>
+    </mat-expansion-panel>
 
-  <mat-expansion-panel (closed)="accountSettings[1].password = ''">
-    <mat-expansion-panel-header class="panel-title">
-      <mat-panel-title class="panel-title">
-        Delete account
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <ng-template matExpansionPanelContent>
-      <div class="content">
-        <mat-form-field>
-          <input matInput [type]="accountSettings[1].hidePassword ? 'password' : 'text'" formControlName="password"
-            placeholder="Write your password to confirm" #password>
-          <button type="button" mat-icon-button matSuffix
-            (click)="accountSettings[1].hidePassword = !accountSettings[1].hidePassword"
-            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="accountSettings[1].hidePassword">
-            <mat-icon style="font-size: large;">
-              {{accountSettings[1].hidePassword ? 'visibility_off' : 'visibility'}}
-            </mat-icon>
-          </button>
-        </mat-form-field>
-        <br>
-        <div class="buttons">
-          <button mat-raised-button color="warn" (click)="deleteUserAccount(password.value)">
-            Delete Account
-          </button>
+    <mat-expansion-panel (closed)="accountSettings[1].password = ''">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Delete account
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <div class="content">
+          <mat-form-field>
+            <input matInput [type]="accountSettings[1].hidePassword ? 'password' : 'text'" formControlName="password"
+              placeholder="Write your password to confirm" #password>
+            <button type="button" mat-icon-button matSuffix
+              (click)="accountSettings[1].hidePassword = !accountSettings[1].hidePassword"
+              [attr.aria-label]="'Hide password'" [attr.aria-pressed]="accountSettings[1].hidePassword">
+              <mat-icon style="font-size: large;">
+                {{accountSettings[1].hidePassword ? 'visibility_off' : 'visibility'}}
+              </mat-icon>
+            </button>
+          </mat-form-field>
+          <br>
+          <div class="buttonCon">
+            <button mat-raised-button color="warn" (click)="deleteUserAccount(password.value)">
+              Delete Account
+            </button>
+          </div>
         </div>
-      </div>
-    </ng-template>
-  </mat-expansion-panel>
-  <br>
-  <br>
-  <br>
+      </ng-template>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>

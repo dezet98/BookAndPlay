@@ -1,14 +1,14 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { startWith, map, shareReplay } from 'rxjs/operators';
 import { LettersGroups } from '../../_models/lettersGroups';
 import { SportService } from 'src/app/_services/sport.service';
 import { CityService } from 'src/app/_services/city.service';
 import { SportFacilityService } from 'src/app/_services/sport-facility.service';
 import { SportFacility } from 'src/app/_models/sportFacility';
 import { GeneralService } from 'src/app/_services/general.service';
-
+import { ScreenSizeService } from 'src/app/_shared/screen-size.service';
 
 @Component({
   selector: 'app-option',
@@ -25,7 +25,11 @@ export class OptionComponent implements OnInit {
   citiesGroup: LettersGroups = new LettersGroups([]);
   filteredCitiesGroup: Observable<any>;
 
+  isHandset: boolean;
+  filterIsOpen = false;
+
   constructor(
+    private screenSizeService: ScreenSizeService,
     private fb: FormBuilder,
     private sportService: SportService,
     private generalService: GeneralService,
@@ -37,9 +41,10 @@ export class OptionComponent implements OnInit {
       sportName: [''],
       city: [''],
       day: [this.minDate],
-      hours: ['']
+      onlyAvailable: [true]
     });
 
+    this.setHandset();
     this.loadSports();
     this.loadCities();
   }
@@ -56,6 +61,12 @@ export class OptionComponent implements OnInit {
       }, error => {
         console.log(error);
       });
+  }
+
+  setHandset() {
+    this.screenSizeService.lessThanMd().subscribe((result: boolean) => {
+      this.isHandset = result;
+    });
   }
 
   loadSports() {
@@ -82,4 +93,5 @@ export class OptionComponent implements OnInit {
       console.log('Error with load sports: ' + error.status);
     });
   }
+
 }

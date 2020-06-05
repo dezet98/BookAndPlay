@@ -9,17 +9,26 @@
   margin-bottom: 3%;
 
   .mat-expansion-panel {
-    width: 100%;
+    width: 100% !important;
 
     .mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
-      flex-basis: 0;
+      flex-basis: 0 !important;
+    }
+  }
+
+  .buttonCon {
+    width: 100%;
+
+    button {
+      float: right;
+      height: 50%;
     }
   }
 
   @media #{$xs} {
     grid-template-columns: 90%;
 
-    .mat-form-field {
+    .mat-form-field, .buttonCon {
       width: 90%;
       text-align: center;
     }
@@ -28,7 +37,7 @@
   @media #{$sm} {
     grid-template-columns: 80%;
 
-    .mat-form-field {
+    .mat-form-field, .buttonCon {
       width: 75%
     }
   }
@@ -36,7 +45,7 @@
   @media #{$md} {
     grid-template-columns: 65%;
 
-    .mat-form-field {
+    .mat-form-field, .buttonCon {
       width: 60%;
     }
   }
@@ -54,11 +63,6 @@
     flex-direction: column;
     align-items: center;
 
-    button {
-      margin-left: 10px;
-      height: 50%;
-    }
-
     @media #{$md} {
         flex-direction: row;
     }
@@ -73,8 +77,7 @@
     align-items: center;
     flex-direction: column;
 
-    .buttons {
-      width: 60%;
+    .buttonCon {
       display: flex;
       justify-content: space-around;
     }

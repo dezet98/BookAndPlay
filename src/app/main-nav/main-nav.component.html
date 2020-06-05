@@ -1,7 +1,7 @@
 <mat-sidenav-container class="sidenav-container">
 
   <!--left sidenav for phone only-->
-  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'navigation' : 'navigation'">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="isHandset ? 'navigation' : 'navigation'">
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list>
       <div mat-subheader>Pages</div>
@@ -39,14 +39,14 @@
     <mat-toolbar color="primary" class="toolbar">
       <div class="logo">
         <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
-          *ngIf="isHandset$ | async">
+          *ngIf="isHandset">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         <a routerLink='/'>BookAndPlay</a>
       </div>
 
       <div class="links">
-        <nav *ngIf="!(isHandset$ | async)" mat-tab-nav-bar color="accent">
+        <nav *ngIf="!isHandset" mat-tab-nav-bar color="accent">
           <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="[link.path]" routerLinkActive
             #rla="routerLinkActive" [active]="rla.isActive">
             {{link.label}}
@@ -60,7 +60,7 @@
 
       <div class="buttons">
         <ng-container *ngIf="isLoggedIn; else isLoggedOut">
-          <button mat-stroked-button [matMenuTriggerFor]="menu" *ngIf="!(isHandset$ | async)">
+          <button mat-stroked-button [matMenuTriggerFor]="menu" *ngIf="!isHandset">
             <mat-icon>whatshot</mat-icon>
             <span> Hi, {{userName}}</span>
           </button>
