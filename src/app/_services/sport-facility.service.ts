@@ -14,8 +14,10 @@ export class SportFacilityService {
 
   constructor(private http: HttpClient) { }
 
-  createSportFacility(newSportObject: SportFacility): Observable<any> {
-    return this.http.post(con.REST_API_URL + '/api/Facility/Add', newSportObject.getSportObject());
+  createSportFacility(newSportObject: SportFacility): Observable<number> {
+    return this.http.post(con.REST_API_URL + '/api/Facility/Add', newSportObject.getSportObject()).pipe(
+      map((sportFacility: any) => sportFacility.facilityId)
+    );
   }
 
   uploadImage(fd: FormData): Observable<any> {
@@ -57,8 +59,8 @@ export class SportFacilityService {
         serverFacility.address,
         serverFacility.lat,
         serverFacility.lon,
-        new FormData(), // images, probably to delete
         serverFacility.description,
+        serverFacility.facilityImages.map((image: any) => image.imageUrl),
         serverFacility.facilityId,
         new User(serverFacility.owner.name,
           serverFacility.owner.surname,

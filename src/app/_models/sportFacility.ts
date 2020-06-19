@@ -1,4 +1,5 @@
 import { User } from './user';
+import { Config as con } from '../../config';
 
 export class SportFacility {
   // tslint:disable
@@ -8,10 +9,10 @@ export class SportFacility {
   private _address: string;
   private _lat: string;
   private _lon: string;
-  private _images: FormData;
   private _description: string;
   private _facilityId: number;
   private _owner: User;
+  private _imagesUrl: Array<string>;
 
   constructor(
     name: string,
@@ -20,8 +21,8 @@ export class SportFacility {
     address: string,
     lat: string,
     lon: string,
-    images: FormData,
     description: string,
+    imagesUrl?: Array<string>,
     facilityId?: number,
     owner?: User) {
     this._name = name;
@@ -30,7 +31,7 @@ export class SportFacility {
     this._address = address;
     this._lat = lat;
     this._lon = lon;
-    this._images = images;
+    this._imagesUrl = imagesUrl;
     this._description = description;
     this._facilityId = facilityId;
     this._owner = owner;
@@ -42,6 +43,7 @@ export class SportFacility {
   get address() { return this._address; }
   get lat() { return this._lat; }
   get lon() { return this._lon; }
+  get imagesUrl() { return this._imagesUrl.map((imageUrl: string) => con.REST_API_URL + '/' + imageUrl); }
   get description() { return this._description; }
   get facilityId() { return this._facilityId; }
   get owner() { return this._owner; }

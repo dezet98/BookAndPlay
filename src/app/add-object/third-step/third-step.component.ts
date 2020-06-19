@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { SportFacilityService } from 'src/app/_services/sport-facility.service';
+import { ImagesService } from 'src/app/_services/images.service';
 
 @Component({
   selector: 'app-third-step',
@@ -11,7 +12,7 @@ export class ThirdStepComponent implements OnInit {
   @Input() furtherForm: FormGroup;   // contains 2 FormControl: images[], objectDescription
   filesToUpload: Array<File> = [];
 
-  constructor(private facilityService: SportFacilityService) { }
+  constructor(private facilityService: SportFacilityService, private imagesService: ImagesService) { }
 
   ngOnInit(): void { }
 
@@ -21,23 +22,13 @@ export class ThirdStepComponent implements OnInit {
     }
 
     if (this.filesToUpload.length >= 1) {
-      console.log('create fd from:');
-      console.log(this.filesToUpload[0]);
-      const fd = new FormData();
-      fd.append('image', this.filesToUpload[0], this.filesToUpload[0].name);
-
-      this.furtherForm.get('images').setValue(fd);
-
-      this.facilityService.uploadImage(fd).subscribe((res) => {
-        console.log(res);
-        console.log('chyba ok');
-      }, error => { console.log(error); console.log('nie ok'); });
+      this.furtherForm.get('images').setValue(this.filesToUpload);
     }
-
   }
 
   onFileDelete(index: number) {
     this.filesToUpload.splice(index, 1);
     this.furtherForm.get('images').setValue(this.filesToUpload);
   }
+
 }

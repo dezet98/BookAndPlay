@@ -121,7 +121,7 @@ import { ObjectReservationsComponent } from './your-objects/object-reservations/
     BrowserAnimationsModule,
     LayoutModule,
     AgmCoreModule.forRoot({
-      apiKey: '', // con.API_KEY,
+      apiKey: con.API_KEY,
       libraries: ['places']
     }),
     MatButtonModule,

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SportFacility } from 'src/app/_models/sportFacility';
 import { MatPaginator } from '@angular/material/paginator';
+import { ImagesService } from 'src/app/_services/images.service';
 
 @Component({
   selector: 'app-objects',

@@ -80,6 +80,7 @@ export class AccessRulesComponent implements OnChanges {
 
       dialogRef.afterClosed().subscribe((change) => {
         if (change) {
+          console.log('TERAZ');
           this.getRules();
         }
       });

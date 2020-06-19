@@ -7,13 +7,12 @@
         <mat-card-subtitle>{{facility.address}}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <img mat-card-image src="../../../assets/sportFacilities1.jpg" alt="Photo">
+        <img mat-card-image [src]="facility.imagesUrl.length !== 0 ? facility.imagesUrl[0] : '../../../assets/sportFacilities1.jpg'" alt="Photo">
         <p>
           {{facility.description}}
         </p>
       </mat-card-content>
       <mat-card-footer>
-        30zl/h
         {{facility.sport}}
       </mat-card-footer>
     </mat-card>
