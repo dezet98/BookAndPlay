@@ -2,7 +2,7 @@
 
 .options {
   display: grid;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
 
   .filter {
@@ -53,16 +53,23 @@
   }
 
   @media #{$md} {
-    grid-template-columns: 80% 10%;
+    grid-template-columns: 5% 73% 4% 13% 5%;
+    grid-gap: 0;
 
     .filter {
       grid-template-columns: repeat(4, 22.5%);
-    }
-
-    #buttonCon {
       grid-column-start: 2;
       grid-column-end: 3;
     }
+
+    #buttonCon {
+      grid-column-start: 4;
+      grid-column-end: 5;
+    }
+  }
+
+  @media #{$xl} {
+    grid-template-columns: 4% 74% 6% 12% 4%;
   }
 
 }

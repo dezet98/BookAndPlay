@@ -1,22 +1,25 @@
-<div class="objects">
-  <ng-container *ngFor="let facility of visibleFacilities">
-    <mat-card class="object" (click)="toObject(facility.facilityId)">
-      <mat-card-header>
-        <div mat-card-avatar class="sportImage"></div>
-        <mat-card-title>{{facility.name}}</mat-card-title>
-        <mat-card-subtitle>{{facility.address}}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <img mat-card-image [src]="facility.imagesUrl.length !== 0 ? facility.imagesUrl[0] : '../../../assets/sportFacilities1.jpg'" alt="Photo">
-        <p>
-          {{facility.description}}
-        </p>
-      </mat-card-content>
-      <mat-card-footer>
-        {{facility.sport}}
-      </mat-card-footer>
-    </mat-card>
-  </ng-container>
+<div style="display: flex; flex-direction: column;">
+  <div class="box">
+    <ng-container *ngFor="let facility of visibleFacilities">
+      <mat-card class="facility" (click)="toObject(facility.facilityId)">
+        <mat-card-header>
+          <div mat-card-avatar class="userAvatar"></div>
+          <mat-card-title>{{facility.name}}</mat-card-title>
+          <mat-card-subtitle>{{facility.address }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <img class="image" mat-card-image
+            [src]="facility.imagesUrl.length !== 0 ? facility.imagesUrl[0] : '../../../assets/sportFacilities1.jpg'"
+            alt="Photo">
+        </mat-card-content>
+        <mat-card-footer>
+          {{facility.sport}}
+        </mat-card-footer>
+      </mat-card>
+    </ng-container>
+  </div>
+  <div id="paginator">
+    <mat-paginator (page)="pageChanged()" class="mat-elevation-z3">
+    </mat-paginator>
+  </div>
 </div>
-<mat-paginator style="width: 100%;"
-  (page)="pageChanged()" class="mat-elevation-z3"></mat-paginator>

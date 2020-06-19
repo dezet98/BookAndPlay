@@ -1,5 +1,9 @@
 @import '../../styles.scss';
 
+#options {
+  margin: 1.34375em 0 0.5*1.34375em 0;
+}
+
 ::ng-deep {
   .mat-paginator-navigation-previous {
     color: $primary-color;

@@ -1,39 +1,65 @@
 @import "../../../styles.scss";
 
-.objects {
+.box {
   display: grid;
   grid-template-rows: auto;
   justify-content: space-evenly;
+  row-gap: 1.34375em;
 
-    .object {
+    .facility {
       cursor: pointer;
 
-      .sportImage {
+      .userAvatar {
         background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
         background-size: cover;
+      }
+
+      .image {
+        object-fit: cover;
       }
     }
 
     @media #{$xs} {
       grid-template-columns: 90%;
-      row-gap: 1.5%;
-      margin-top: 5%;
-      margin-bottom: 5%;
+
+      .image {
+        height: 30vh;
+      }
     }
 
     @media #{$sm} {
-      grid-template-columns: repeat(2, 40%);
-      row-gap: 2%;
+      grid-template-columns: repeat(2, 42.5%);
+
+      .image {
+        height: 22vh;
+      }
     }
 
-    @media #{$md} {
+    @media #{$lg} {
       grid-template-columns: repeat(3, 26.5%);
-      row-gap: 3%;
-      margin-top: 1.5%;
+
+      .image {
+        height: 18vh;
+      }
     }
 
     @media #{$xl} {
       grid-template-columns: repeat(4, 20%);
-      row-gap: 5%;
+
+      .image {
+        height: 22vh;
+      }
     }
+}
+
+#paginator {
+    position: relative;
+    bottom: 0;
+    margin-top: 1.5*1.34375em;
+}
+
+::ng-deep {
+  .mat-card-image:first-child {
+    margin-top: -10px !important;
+  }
 }

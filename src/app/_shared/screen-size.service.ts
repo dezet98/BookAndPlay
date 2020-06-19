@@ -11,7 +11,7 @@ export class ScreenSizeService {
   constructor(private breakpointObserver: BreakpointObserver) { }
 
   lessThanMd(): Observable<boolean> {
-    return this.breakpointObserver.observe(['(max-width: 768px)']).pipe(
+    return this.breakpointObserver.observe(['(max-width: 767px)']).pipe(
       map((result: BreakpointState) => {
         if (result.matches) {
           return true;
