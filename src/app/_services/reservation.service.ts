@@ -41,6 +41,10 @@ export class ReservationService {
   }
 
   cancel(reservationId: number) {
+    return this.http.delete(con.REST_API_URL + `/cancel/${reservationId}`);
+  }
+
+  deleteOldReservation(reservationId: number) {
     return this.http.delete(con.REST_API_URL + `/api/Reservation/${reservationId}`);
   }
 

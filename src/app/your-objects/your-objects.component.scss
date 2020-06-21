@@ -4,7 +4,7 @@ form {
   display: grid;
   grid-template-columns: 95%;
   justify-content: center;
-  margin-top: 1%;
+  padding-top: 1%;
   grid-gap: 5%;
 
   #selection {
@@ -30,6 +30,10 @@ form {
   }
 
   @media #{$lg} {
-    grid-template-columns: minmax(60%);
+    grid-template-columns: 70%;
+  }
+
+  @media #{$xl} {
+    grid-template-columns: 55%;
   }
 }

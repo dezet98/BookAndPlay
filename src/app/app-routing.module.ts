@@ -9,7 +9,6 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AdminComponent } from './admin/admin.component';
 import { AuthGuardService } from './_auth/auth-guard.service';
-import { AdminGuardService } from './_auth/admin-guard.service';
 import { ProfileComponent } from './profile/profile.component';
 import { FacilityComponent } from './facility/facility.component';
 
@@ -21,10 +20,9 @@ const routes: Routes = [
   { path: 'addObject', component: AddObjectComponent },
   { path: 'reservations', component: ReservationsComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'admin', component: AdminComponent, canActivate: [AdminGuardService]  },
   { path: 'signIn', component: SignInComponent, canActivate: [AuthGuardService] },
   { path: 'signUp', component: SignUpComponent, canActivate: [AuthGuardService] },
-  { path: 'admin', component: AdminComponent, canActivate: [AdminGuardService]  },
+  { path: 'admin', component: AdminComponent },
   { path: '**', redirectTo: '' }
 ];
 

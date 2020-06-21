@@ -1,13 +1,16 @@
-<form [formGroup]="form">
-  <div id="selection">
-    <mat-form-field appearance="fill">
-      <mat-label>Choose object</mat-label>
-      <mat-select formControlName="facility">
-        <mat-option *ngFor="let facility of facilities" [value]="facility">{{facility.name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+<div>
+  <form [formGroup]="form" >
+    <div id="selection">
+      <mat-form-field appearance="fill">
+        <mat-label>Choose object</mat-label>
+        <mat-select formControlName="facility">
+          <mat-option *ngFor="let facility of facilities" [value]="facility">{{facility.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-  <app-access-rules class="mat-elevation-z8" id="rules" [facilityId]="form.get('facility').value.facilityId" [facilityName]="form.get('facility').value.name"></app-access-rules>
-  <app-object-reservations id="reservations" class="mat-elevation-z8" [facilityId]="form.get('facility').value.facilityId"></app-object-reservations>
-</form>
+    <app-access-rules class="mat-elevation-z8" id="rules" [facilityId]="form.get('facility').value.facilityId" [facilityName]="form.get('facility').value.name"></app-access-rules>
+    <app-object-reservations id="reservations" class="mat-elevation-z8" [facilityId]="form.get('facility').value.facilityId"></app-object-reservations>
+  </form>
+</div>
+

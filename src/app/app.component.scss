@@ -1,10 +1,10 @@
-nav {
-  display: flex;
-  justify-content: space-evenly;
-  background-color: #c18d8d;
+@import "../styles.scss";
 
-  a {
-    text-decoration: none;
-    cursor: pointer;
-  }
+#content {
+  max-width: 1940px;
+  height: $content-height;
+  width: 100%;
+  margin-left: 50%;
+  margin-right: -50%;
+  transform: translateX(-50%);
 }

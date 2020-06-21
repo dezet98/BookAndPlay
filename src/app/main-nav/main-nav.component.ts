@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from '../_auth/auth.service';
 import { UserService } from '../_services/user.service';
 import { ScreenSizeService } from '../_shared/screen-size.service';
@@ -38,8 +35,9 @@ export class MainNavComponent implements OnInit {
       }
     });
 
-    this.auth.isAdmin().subscribe((isAdmin: boolean) => {
+    this.auth.getIsAdmin().subscribe((isAdmin: boolean) => {
       this.isAdmin = isAdmin;
+      console.log(isAdmin);
     });
 
     this.setHandset();
@@ -55,7 +53,7 @@ export class MainNavComponent implements OnInit {
   }
 
   setHandset() {
-    this.screenSizeService.lessThanMd().subscribe((result: boolean) => {
+    this.screenSizeService.isSideNav().subscribe((result: boolean) => {
       this.isHandset = result;
     });
   }

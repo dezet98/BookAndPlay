@@ -1,5 +1,10 @@
 @import './my-theme.scss';
 
+$menu-height: 6%;
+$menu-min-height: 34px;
+$content-height: 94%;
+$sidenav-width: 200px;
+
 $primary-color: mat-color($my-theme-primary, default);
 $accent-color: mat-color($my-theme-accent, default);
 $warn-color: mat-color($my-theme-warn, default);

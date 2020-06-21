@@ -1,8 +1,8 @@
-<div>
+<div style="height: 100%; display: flex; flex-direction: column;">
   <div id="options">
     <app-option (searchEmitter)="changeFacilities($event)"> </app-option>
   </div>
-  <div>
+  <div style="height: 100%;">
     <app-objects [facilities]="facilities"> </app-objects>
   </div>
 </div>

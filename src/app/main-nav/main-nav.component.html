@@ -13,8 +13,10 @@
         <mat-divider></mat-divider>
         <div mat-subheader>Admin</div>
         <mat-list-item routerLinkActive="activeLink">
-          <mat-icon>fingerprint</mat-icon>
-          <a [routerLink]="[adminLink.path]"> {{adminLink.label}}</a>
+          <a [routerLink]="[adminLink.path]">
+            <mat-icon style="padding: 12px 0;">fingerprint</mat-icon>
+            <span style="position: fixed; margin-left: 8px;">{{adminLink.label}}</span>
+          </a>
         </mat-list-item>
       </ng-container>
       <br>
@@ -22,12 +24,16 @@
         <mat-divider></mat-divider>
         <div mat-subheader>Acount</div>
         <mat-list-item routerLinkActive="activeLink">
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <a [routerLink]="loggedInLinks[0].path"> {{loggedInLinks[0].label}}</a>
+          <a [routerLink]="loggedInLinks[0].path">
+            <mat-icon style="padding: 12px 0;">account_circle</mat-icon>
+            <span style="position: fixed; margin-left: 8px;">{{loggedInLinks[0].label}}</span>
+          </a>
         </mat-list-item>
         <mat-list-item routerLinkActive="activeLink">
-          <mat-icon mat-list-icon>logout</mat-icon>
-          <a routerLink="loggedInLinks[1].path" (click)="signOut()"> {{loggedInLinks[1].label}}</a>
+          <a routerLink="loggedInLinks[1].path" (click)="signOut()">
+            <mat-icon style="padding: 12px 0;">logout</mat-icon>
+            <span style="position: fixed; margin-left: 8px;">{{loggedInLinks[1].label}}</span>
+          </a>
         </mat-list-item>
       </ng-container>
 
@@ -38,8 +44,7 @@
   <mat-sidenav-content class="sidenav-content">
     <mat-toolbar color="primary" class="toolbar">
       <div class="logo">
-        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
-          *ngIf="isHandset">
+        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
         <a routerLink='/'>BookAndPlay</a>

@@ -22,4 +22,15 @@ export class ScreenSizeService {
     );
   }
 
+  isSideNav(): Observable<boolean> {
+    return this.breakpointObserver.observe(['(max-width: 1200px)']).pipe(
+      map((result: BreakpointState) => {
+        if (result.matches) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
+  }
 }

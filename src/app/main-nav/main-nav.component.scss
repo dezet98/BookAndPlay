@@ -1,36 +1,14 @@
 @import "../../styles.scss";
 
-.mat-divider {
-  border-top-color: $accent-color;
-}
-
-.mat-subheader {
-  color: $accent-color;
-}
-
-.activeButton {
-  background-color:$accent-color;
-
-  &:hover {
-    background-color: $accent-color !important;
-  }
-}
-
-.activeLink {
-  background-color: $accent-color;
-
-  &:hover {
-    background-color: $accent-color !important;
-  }
-}
-
-
 .sidenav-container {
   height: 100%;
 
   .sidenav {
     width: 200px;
 
+    .iconBox {
+margin: auto auto;
+    }
   }
 
   .mat-toolbar.mat-primary {
@@ -42,7 +20,9 @@
   .mat-nav-list {
     a {
       width: 100%;
-      height: auto;
+      height: 100%;
+      line-height: 50px;
+      padding: 0 16px;
     }
   }
 
@@ -97,3 +77,40 @@
     }
   }
 }
+
+// height of toolbar:
+.mat-toolbar-row, .mat-toolbar-single-row {
+  height: $menu-height !important;
+  min-height: $menu-min-height !important;
+}
+
+.mat-divider {
+  border-top-color: $accent-color;
+}
+
+.mat-subheader {
+  color: $accent-color;
+}
+
+.activeButton {
+  background-color:$accent-color;
+
+  &:hover {
+    background-color: $accent-color !important;
+  }
+}
+
+.activeLink {
+  background-color: $accent-color;
+
+  &:hover {
+    background-color: $accent-color !important;
+  }
+}
+
+::ng-deep {
+  .mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content {
+    padding: 0 !important;
+  }
+}
+
