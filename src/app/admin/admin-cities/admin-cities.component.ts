@@ -27,7 +27,6 @@ export class AdminCitiesComponent implements OnInit {
       this.cities = new MatTableDataSource(cities);
       this.cities.paginator = this.paginator;
       this.cities.sort = this.sort;
-      console.log(cities);
     });
   }
 

@@ -26,16 +26,13 @@ export class SignInComponent implements OnInit {
   onSubmit() {
     this.loading = true;
 
-    this.auth.signIn(this.signInForm.value)
-      .subscribe((response: any) => {
+    this.auth.signIn(this.signInForm.get('email').value, this.signInForm.get('password').value)
+      .subscribe(() => {
         this.router.navigate(['']);
         this.generalService.showSnackbar('Login was successful', 'Close');
-      },
-        error => {
-          this.generalService.showSnackbar('Failed to login', 'Close');
-          console.log('Error:');
-          console.log(error);
-          this.loading = false;
-        });
+      }, () => {
+        this.generalService.showSnackbar('Failed to login', 'Close');
+        this.loading = false;
+      });
   }
 }

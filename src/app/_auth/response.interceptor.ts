@@ -11,20 +11,22 @@ export class ResponseInterceptor implements HttpInterceptor {
   constructor(private generalService: GeneralService, private router: Router) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(req)
-      .pipe(
-        tap(
-          (event: HttpEvent<any>) => {
-            if (event instanceof HttpResponse) {
-              console.log('Correct response');
-            }
-          }, error => {
-            if (error instanceof HttpErrorResponse) {
-              if (error.status === 401) {
-                this.router.navigate(['signIn']);
-                this.generalService.showSnackbar('You don\'t have permission to access this resource', 'Close');
-              }
-            }
-          }));
+    return next.handle(req).pipe(
+      tap((event: HttpEvent<any>) => {
+        if (event instanceof HttpResponse) {
+          console.log(`Correct response from ${event.url}`);
+        }
+      }, error => {
+        if (error instanceof HttpErrorResponse) {
+          if (error.status === 401) {
+            this.router.navigate(['signIn']);
+            this.generalService.showSnackbar('You don\'t have permission to access this resource', 'Close');
+          }
+        }
+        console.log(error);
+      }
+      )
+    );
   }
+
 }

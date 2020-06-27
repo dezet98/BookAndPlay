@@ -12,8 +12,15 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  signUp(user: User): Observable<any> {
-    return this.http.post(con.REST_API_URL + '/api/user/add', user.getUserObject());
+  signUp(name: string, surname: string, email: string, phone: string, password: string): Observable<any> {
+    const user = {
+      Name: name,
+      Surname: surname,
+      Email: email,
+      PhoneNumber: phone,
+      Password: password
+    };
+    return this.http.post(con.REST_API_URL + '/api/user/add', user);
   }
 
   deleteAccount(password: string): Observable<any> {
@@ -22,16 +29,14 @@ export class UserService {
 
   getPhoneNumber(): Observable<any> {
     return this.http.get(con.REST_API_URL + '/api/User/Get').pipe(
-      map((res: any) =>
-      res.phoneNumber
-      ));
+      map((res: any) => res.phoneNumber)
+    );
   }
 
   getName(): Observable<any> {
     return this.http.get(con.REST_API_URL + '/api/User/Get').pipe(
-      map((res: any) =>
-      res.name
-      ));
+      map((res: any) => res.name)
+    );
   }
 
   getPersonalData(): Observable<User> {
@@ -40,12 +45,12 @@ export class UserService {
     );
   }
 
-  changePassword(oldP: string, newP: string): Observable<any> {
-    return this.http.post(con.REST_API_URL + '/api/User/Password/Change', { oldPassword: oldP, newPassword: newP });
+  changePassword(oldPassword: string, newPassword: string): Observable<any> {
+    return this.http.post(con.REST_API_URL + '/api/User/Password/Change', { OldPassword: oldPassword, NewPassword: newPassword });
   }
 
-  setPersonalData(data: any): Observable<any> {
-    return this.http.post(con.REST_API_URL + '/api/User/SelfEdit', data);
+  setPersonalData(itemName: string, newValue: string): Observable<any> {
+    return this.http.post(con.REST_API_URL + '/api/User/SelfEdit', { [itemName]: newValue });
   }
 
 }

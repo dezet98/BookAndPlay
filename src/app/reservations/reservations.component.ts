@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AdminService } from '../_services/admin.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -14,10 +13,9 @@ import { ReservationService } from '../_services/reservation.service';
 })
 
 export class ReservationsComponent implements OnInit {
-  reservations: MatTableDataSource<Reservation>;
-  newReservations: Array<Reservation> = [];
-  oldReservations: Array<Reservation> = [];
-  reservationColumns = ['reservationId', 'date', 'startTime', 'client', 'actions'];
+  allReservations: MatTableDataSource<Reservation>;
+  newReservations: MatTableDataSource<Reservation>;
+  reservationColumns = ['reservationId', 'date', 'startTime', 'facility', 'actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -28,42 +26,36 @@ export class ReservationsComponent implements OnInit {
   }
 
   getReservation(): void {
-    this.reservationService.getNewBooked(6).subscribe((reservations: Array<Reservation>) => {
-      this.newReservations = reservations;
-      this.reservations = new MatTableDataSource(reservations);
-      this.reservations.paginator = this.paginator;
-      this.reservations.sort = this.sort;
-      console.log(reservations);
+    this.reservationService.getUserUpcoming().subscribe((reservations: Array<Reservation>) => {
+      this.newReservations = new MatTableDataSource(reservations);
+      this.newReservations.paginator = this.paginator;
+      this.newReservations.sort = this.sort;
     });
 
-    this.reservationService.getArchivedBooked(6).subscribe((oldReservations: Array<Reservation>) => {
-      this.oldReservations = oldReservations;
-      console.log(oldReservations);
-    }, error => console.log(error));
-  }
-
-  onToggleRes(checked: boolean) {
-    if (checked) {
-      this.reservations.data = [...this.oldReservations, ...this.newReservations];
-    }
-    else {
-      this.reservations.data = this.newReservations;
-    }
+    this.reservationService.getUserArchived().subscribe((oldReservations: Array<Reservation>) => {
+      this.allReservations = new MatTableDataSource([...oldReservations, ...this.newReservations.data]);
+      this.allReservations.paginator = this.paginator;
+      this.allReservations.sort = this.sort;
+    });
   }
 
   cancelRes(reservationId: number) {
     this.reservationService.cancel(reservationId).subscribe(() => {
       this.getReservation();
       this.generalService.showSnackbar('Cancel reservation was successful', 'Close');
-    }, error => console.log(error));
+    });
   }
 
   filter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.reservations.filter = filterValue.trim().toLowerCase();
+    this.newReservations.filter = filterValue.trim().toLowerCase();
+    this.allReservations.filter = filterValue.trim().toLowerCase();
 
-    if (this.reservations.paginator) {
-      this.reservations.paginator.firstPage();
+    if (this.newReservations.paginator) {
+      this.newReservations.paginator.firstPage();
+    }
+    else if (this.allReservations.paginator) {
+      this.allReservations.paginator.firstPage();
     }
   }
 }

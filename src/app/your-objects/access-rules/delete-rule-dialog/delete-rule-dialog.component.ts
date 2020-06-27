@@ -23,15 +23,13 @@ export class DeleteRuleDialogComponent implements OnInit {
     this.accessPeriodService.softDelete(this.data.reservationRule).subscribe(() => {
       this.generalService.showSnackbar('You delete rule without reservations', 'Close');
       this.dialogRef.close(true);
-    }, error =>
-      console.log(error));
+    });
   }
 
   hardDelete() {
     this.accessPeriodService.hardDelete(this.data.reservationRule).subscribe(() => {
       this.generalService.showSnackbar('You delete rule with reservations', 'Close');
       this.dialogRef.close(true);
-    }, error =>
-      console.log(error));
+    });
   }
 }

@@ -37,22 +37,21 @@ export class MainNavComponent implements OnInit {
 
     this.auth.getIsAdmin().subscribe((isAdmin: boolean) => {
       this.isAdmin = isAdmin;
-      console.log(isAdmin);
     });
 
     this.setHandset();
   }
 
-  getUserName() {
+  getUserName(): void { // rather from memory
     this.userService.getName().subscribe((name: string) =>
       this.userName = name);
   }
 
-  signOut() {
+  signOut(): void {
     this.auth.logout();
   }
 
-  setHandset() {
+  setHandset(): void {
     this.screenSizeService.isSideNav().subscribe((result: boolean) => {
       this.isHandset = result;
     });

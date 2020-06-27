@@ -27,7 +27,7 @@ export class DropzoneDirective {
 
     const files = event.dataTransfer.files;
     if (files.length > 0) {
-      console.log('sending ' + files.length + ' files');
+      // console.log('sending ' + files.length + ' files');
       this.filesDropEvent.emit(files);
     }
   }

@@ -1,7 +1,7 @@
 <div style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
   <div class="box">
     <ng-container *ngFor="let facility of visibleFacilities">
-      <mat-card class="facility" (click)="toObject(facility.facilityId)">
+      <mat-card class="facility" [routerLink]="['/facility/' + facility.facilityId]">
         <mat-card-header>
           <div mat-card-avatar class="userAvatar"></div>
           <mat-card-title>{{facility.name}}</mat-card-title>

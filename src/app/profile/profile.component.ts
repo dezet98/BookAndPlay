@@ -34,22 +34,17 @@ export class ProfileComponent implements OnInit {
       for (const item of this.personalData) {
         item.realValue = user.getPersonalData()[item.name];
       }
-    }, error => {
-      console.log('Error when load user data. Error: ');
-      console.log(error);
     });
   }
 
   changePersonalData(item: any, newValue: string) {
     item.loading = true;
-    this.userService.setPersonalData({ [item.name]: newValue }).subscribe((user) => {
+    this.userService.setPersonalData(item.name, newValue).subscribe((user) => {
       item.realValue = user[item.name];
       this.generalService.showSnackbar(`You change name on ${user[item.name]}`, 'Close');
       item.loading = false;
-    }, error => {
+    }, () => {
       this.generalService.showSnackbar(`Error when changing ${item.name}`, 'Close');
-      console.log('Error when changing ${item.name}. Error:');
-      console.log(error);
       item.loading = false;
     });
   }
@@ -59,10 +54,8 @@ export class ProfileComponent implements OnInit {
     this.userService.changePassword(oldPassword, newPassword).subscribe(() => {
       this.generalService.showSnackbar('You change password correctly', 'Close');
       this.accountSettings[0].loading = false;
-    }, error => {
+    }, () => {
       this.generalService.showSnackbar('Error when changing password', 'Close');
-      console.log('Error when changing password. Error:');
-      console.log(error);
       this.accountSettings[0].loading = false;
     });
   }
@@ -71,11 +64,8 @@ export class ProfileComponent implements OnInit {
     this.accountSettings[0].loading = true;
     this.userService.deleteAccount(password).subscribe(() => {
       this.generalService.showSnackbar('Account was deleted', 'Close');
-      console.log('Account was deleted');
-    }, error => {
+    }, () => {
       this.generalService.showSnackbar('Error when deleting account', 'Close');
-      console.log('Error when deleting account. Error:');
-      console.log(error);
       this.accountSettings[0].loading = false;
     });
   }

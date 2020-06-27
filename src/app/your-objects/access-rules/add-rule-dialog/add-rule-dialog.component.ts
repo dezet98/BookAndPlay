@@ -69,8 +69,6 @@ export class AddRuleDialogComponent implements OnInit {
       this.dialogRef.close(true);
     }, error => {
       this.loading = false;
-      console.log('Error when add new rule. Error:');
-      console.log(error);
       this.generalService.showSnackbar(`Error! ${error.error}`, 'Close');
     });
   }

@@ -46,8 +46,8 @@ export class AuthService {
   }
 
   // signIn and logout:
-  signIn(identities: any): Observable<any> {
-    return this.http.post(con.REST_API_URL + '/api/user/auth', { email: identities.email, password: identities.password })
+  signIn(email: string, password: string): Observable<any> {
+    return this.http.post(con.REST_API_URL + '/api/user/auth', { Email: email, Password: password })
       .pipe(tap((response: any) => {
         this.saveToken(response.token);
         this.saveUserRole(response.user.roleName);

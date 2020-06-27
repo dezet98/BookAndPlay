@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../_models/user';
 import { GeneralService } from '../_services/general.service';
 import { UserService } from '../_services/user.service';
 
@@ -31,17 +30,14 @@ export class SignUpComponent implements OnInit {
     this.loading = true;
 
     const form = this.signUpForm.value;
-    this.userService.signUp(new User(form.name, form.surname, form.email, form.phoneNumber, form.password))
-      .subscribe((response: any) => {
+    this.userService.signUp(form.name, form.surname, form.email, form.phoneNumber, form.password)
+      .subscribe(() => {
         this.router.navigate(['signIn']);
         this.generalService.showSnackbar('Register was succesful. You can now sign in', 'Close');
-      },
-        error => {
-          this.generalService.showSnackbar('Failed to register.', 'Close');
-          console.log('Error:');
-          console.log(error);
-          this.loading = false;
-        });
+      }, () => {
+        this.generalService.showSnackbar('Failed to register.', 'Close');
+        this.loading = false;
+      });
   }
 }
 

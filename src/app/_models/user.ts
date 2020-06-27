@@ -4,16 +4,14 @@ export class User {
   private _surname: string;
   private _email: string;
   private _phoneNumber: string;
-  private _password: string;
   private _userId?: number;
   // tslint:enable
 
-  constructor(name: string, surname: string, email: string, phoneNumber: string, password?: string, userId?: number) {
+  constructor(name: string, surname: string, email: string, phoneNumber: string, userId?: number) {
     this._name = name;
     this._surname = surname;
     this._email = email;
     this._phoneNumber = phoneNumber;
-    this._password = password;
     this._userId = userId;
   }
 
@@ -32,13 +30,4 @@ export class User {
     };
   }
 
-  getUserObject() {
-    return {
-      name: this._name,
-      surname: this._surname,
-      email: this._email,
-      phoneNumber: this._phoneNumber,
-      password: this._password
-    };
-  }
 }

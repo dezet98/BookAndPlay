@@ -4,6 +4,7 @@ export class Reservation {
   // tslint:disable
   private _startTime: Date;
   private _endTime: Date;
+  private _archives: boolean;
   private _status: number;
   private _accessPeriodId: number;
   private _sportId: number; // 0 -> Sunday
@@ -16,6 +17,7 @@ export class Reservation {
   constructor(
     startTime: Date,
     endTime: Date,
+    archives: boolean,
     status: number,
     accessPeriodId: number,
     sportId: number,
@@ -25,6 +27,7 @@ export class Reservation {
     reservationId: number) {
     this._startTime = startTime;
     this._endTime = endTime;
+    this._archives = archives;
     this._status = status;
     this._accessPeriodId = accessPeriodId;
     this._sportId = sportId;
@@ -36,6 +39,7 @@ export class Reservation {
 
   get startTime() { return this._startTime; }
   get endTime() { return this._endTime; }
+  get archives() { return this._archives; }
   get accessPeriodId() { return this._accessPeriodId; }
   get status() { return this._status; }
   get sportId() { return this._sportId; }
@@ -44,9 +48,8 @@ export class Reservation {
   get user() { return this._user; }
   get reservationId() { return this._reservationId; }
 
-  getAccessPeriodObject() {
-    return {
-
-    };
+  get statusDes(): string {
+    const statusesDes = ['NotBooked', 'Booked', 'CancelledByOwner', 'Inactive', 'CancelledByUser'];
+    return statusesDes[this.status];
   }
 }

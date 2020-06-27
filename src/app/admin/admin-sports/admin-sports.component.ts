@@ -28,7 +28,6 @@ export class AdminSportsComponent implements OnInit {
       this.sports = new MatTableDataSource(sports);
       this.sports.paginator = this.paginator;
       this.sports.sort = this.sort;
-      console.log(sports);
     });
   }
 

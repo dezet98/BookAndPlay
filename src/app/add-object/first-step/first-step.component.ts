@@ -23,15 +23,13 @@ export class FirstStepComponent implements OnInit {
     this.setDefaultPhone();
   }
 
-  loadSports() {
+  loadSports(): void {
     this.sportService.getSports().subscribe((sportsNames: Array<string>) => {
       this.sportsNames = sportsNames;
       this.filteredSportsNames = this.basicForm.get('sportName').valueChanges.pipe(
         startWith(''), map(key =>
           this._filter(key, this.sportsNames)
         ));
-    }, error => {
-      console.log('Error with load sports: ' + error.status);
     });
   }
 
@@ -40,7 +38,7 @@ export class FirstStepComponent implements OnInit {
       item.toLowerCase().indexOf(key.toLowerCase()) === 0);
   }
 
-  setDefaultPhone() {
+  setDefaultPhone(): void {
     this.userService.getPhoneNumber().subscribe((numberPhone: string) => {
       this.basicForm.get('phoneNumber').setValue(numberPhone);
     });

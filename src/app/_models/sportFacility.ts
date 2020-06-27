@@ -48,17 +48,5 @@ export class SportFacility {
   get facilityId() { return this._facilityId; }
   get owner() { return this._owner; }
 
-  getSportObject() {
-    return {
-      name: this._name,
-      sport: this._sport,
-      phone: this._phone,
-      address: this._address,
-      lat: this._lat,
-      lon: this._lon,
-      // images: this.images,
-      description: this._description
-    };
-  }
 }
 

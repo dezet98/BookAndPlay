@@ -28,7 +28,7 @@ export class BookingComponent implements OnInit {
   }
 
   renderReservation() {
-    this.reservationService.getAll(this.facilityId).subscribe((reservations: Array<Reservation>) => {
+    this.reservationService.getUpcoming(this.facilityId).subscribe((reservations: Array<Reservation>) => {
       this.rows = this.performReservations(reservations);
       console.log(this.rows);
     }, error => {

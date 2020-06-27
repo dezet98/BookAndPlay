@@ -1,7 +1,7 @@
 <span class="material-icons" style="font-size: 130px; width: 100%; text-align: center; margin-top: 2%;">person</span>
 <div class="box personalData">
   <h2>Personal Data</h2>
-  <mat-accordion multi>
+  <mat-accordion>
     <ng-container *ngFor="let item of personalData">
       <mat-expansion-panel (opened)="item.isOpen=true;" (closed)="item.isOpen=false">
         <mat-expansion-panel-header>

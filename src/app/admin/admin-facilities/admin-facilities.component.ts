@@ -28,7 +28,6 @@ export class AdminFacilitiesComponent implements OnInit {
       this.facilities = new MatTableDataSource(facilities);
       this.facilities.paginator = this.paginator;
       this.facilities.sort = this.sort;
-      console.log(facilities);
     });
   }
 

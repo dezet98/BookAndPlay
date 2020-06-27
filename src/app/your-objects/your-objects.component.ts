@@ -24,17 +24,11 @@ export class YourObjectsComponent implements OnInit {
 
   setSelectOptions() {
     this.facilityService.getOwnSportFacilites().subscribe((facilities: Array<SportFacility>) => {
-      console.log(facilities);
       this.facilities = facilities;
       if (facilities.length !== 0) {
         this.form.get('facility').setValue(this.facilities[0]);
       }
-    }, error => {
-      console.log('Error when loading user sport facilities. Error:');
-      console.log(error);
     });
   }
 }
 
-    /*this.accessPeriodService.addAccessPeriods(new AccessPeriod(1, 1, 1, 1, 2, 6)).subscribe((res) => { console.log(res) },
-      (error) => console.log(error));*/

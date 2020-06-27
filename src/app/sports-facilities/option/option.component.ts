@@ -49,49 +49,33 @@ export class OptionComponent implements OnInit {
     this.loadCities();
   }
 
-  search() {
+  search(): void {
     const searchData = this.searchForm.value;
-    /*console.log(searchData.sportName);
-    console.log(searchData.city);
-    console.log(searchData.day.getDay());*/
     this.facilityService.getFilterFacilities(searchData.sportName, searchData.city, searchData.day.getDay())
-      .subscribe((facilities: Array<SportFacility>) => {
-        console.log(facilities);
-        this.searchEmitter.emit(facilities);
-      }, error => {
-        console.log(error);
-      });
+      .subscribe((facilities: Array<SportFacility>) => this.searchEmitter.emit(facilities));
   }
 
-  setHandset() {
-    this.screenSizeService.lessThanMd().subscribe((result: boolean) => {
-      this.isHandset = result;
-    });
+  setHandset(): void {
+    this.screenSizeService.lessThanMd().subscribe((result: boolean) => this.isHandset = result);
   }
 
-  loadSports() {
+  loadSports(): void {
     this.sportService.getSports().subscribe((sportsNames: Array<string>) => {
       this.sportsNames = sportsNames;
       this.filteredSportsNames = this.searchForm.get('sportName').valueChanges.pipe(
         startWith(''), map(key =>
           this.generalService.filter(key, this.sportsNames)
         ));
-    }, error => {
-      console.log('Error with load sports: ' + error.status);
     });
   }
 
-  loadCities() {
+  loadCities(): void {
     this.cityService.getCities().subscribe((cities: Array<string>) => {
-      console.log(cities);
       this.citiesGroup = new LettersGroups(cities);
       this.filteredCitiesGroup = this.searchForm.get('city').valueChanges.pipe(
         startWith(''), map(key =>
           this.generalService.filterGroup(key, this.citiesGroup)
         ));
-    }, error => {
-      console.log('Error with load sports: ' + error.status);
     });
   }
-
 }

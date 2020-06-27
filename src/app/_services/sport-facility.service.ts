@@ -14,14 +14,20 @@ export class SportFacilityService {
 
   constructor(private http: HttpClient) { }
 
-  createSportFacility(newSportObject: SportFacility): Observable<number> {
-    return this.http.post(con.REST_API_URL + '/api/Facility/Add', newSportObject.getSportObject()).pipe(
+  // tslint:disable
+  createSportFacility(name: string, sport: string, phone: string, address: string, latitude: string, longitude: string, description: string): Observable<number> {
+    const facility = {
+      Name: name,
+      Sport: sport,
+      Phone: phone,
+      Address: address,
+      Lat: latitude,
+      Lon: longitude,
+      Description: description
+    };
+    return this.http.post(con.REST_API_URL + '/api/Facility/Add', facility).pipe(
       map((sportFacility: any) => sportFacility.facilityId)
     );
-  }
-
-  uploadImage(fd: FormData): Observable<any> {
-    return this.http.post(con.REST_API_URL + '/api/Images/Upload', fd);
   }
 
   getFacility(facilityId: number): Observable<SportFacility> {
@@ -50,7 +56,6 @@ export class SportFacilityService {
 
   // change server array of facilities object into array of sportFacility model:
   changeToFacilities(serverFacilities: Array<any>): Array<SportFacility> {
-    console.log(serverFacilities);
     return serverFacilities.map((serverFacility: any) =>
       new SportFacility(
         serverFacility.name,
@@ -66,7 +71,6 @@ export class SportFacilityService {
           serverFacility.owner.surname,
           serverFacility.owner.email,
           serverFacility.owner.phoneNumber,
-          null, // password
           serverFacility.owner.userId)
       )
     );

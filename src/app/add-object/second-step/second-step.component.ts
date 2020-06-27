@@ -1,6 +1,7 @@
 import { Component, OnInit, NgZone, ViewChild, ElementRef, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MapsAPILoader } from '@agm/core';
+import { GeneralService } from 'src/app/_services/general.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class SecondStepComponent implements OnInit {
   @ViewChild('search')
   public searchElementRef: ElementRef;
 
-  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) { }
+  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone, private genService: GeneralService) { }
 
   ngOnInit(): void {
     this.mapsAPILoader.load().then(() => {
@@ -31,7 +32,7 @@ export class SecondStepComponent implements OnInit {
         this.ngZone.run(() => {
           const place = autocomplete.getPlace();
           if (!place.geometry) {
-            alert('No details available for input: "' + place.name + '"');
+            this.genService.showSnackbar('No details available for input: "' + place.name + '"', 'Ok');
             return;
           }
 
@@ -80,8 +81,6 @@ export class SecondStepComponent implements OnInit {
 
         // if user change location I set first new address as a value of list with addresses to chosen
         this.addressForm.get('address').setValue(this.addresses[0]);
-        console.log('Set address to: ' + this.addresses[0]);
-        // console.log(this.addresses); // all filter places
       }
       else {
         console.log('Gecoder failed. Status: ' + status);

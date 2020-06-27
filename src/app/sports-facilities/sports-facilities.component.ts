@@ -17,16 +17,11 @@ export class SportsFacilitiesComponent implements OnInit {
     this.getAllFacilities();
   }
 
-  getAllFacilities() {
-    this.facilityService.getAllFacilities().subscribe((facilities: Array<SportFacility>) => {
-      this.facilities = facilities;
-    }, error => {
-      console.log('Error when load default facilities. Error:');
-      console.log(error);
-    });
+  getAllFacilities(): void {
+    this.facilityService.getAllFacilities().subscribe((facilities: Array<SportFacility>) => this.facilities = facilities);
   }
 
-  changeFacilities(facilities: Array<SportFacility>) {
+  changeFacilities(facilities: Array<SportFacility>): void {
     this.facilities = facilities;
   }
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SportFacilityService } from '../_services/sport-facility.service';
-import { SportFacility } from '../_models/sportFacility';
 import { ImagesService } from '../_services/images.service';
 import { GeneralService } from '../_services/general.service';
 
@@ -42,9 +41,8 @@ export class AddObjectComponent implements OnInit {
 
   onCreateObject() {
     this.loading = true;
-    console.log('CreateObject');
 
-    const newSportObject = new SportFacility(
+    this.facilityService.createSportFacility(
       this.objectForm.get('basicForm').get('objectName').value,
       this.objectForm.get('basicForm').get('sportName').value,
       this.objectForm.get('basicForm').get('phoneNumber').value,
@@ -52,23 +50,18 @@ export class AddObjectComponent implements OnInit {
       this.objectForm.get('addressForm').get('latitude').value,
       this.objectForm.get('addressForm').get('longitude').value,
       this.objectForm.get('furtherForm').get('objectDescription').value
-    );
-    console.log(newSportObject);
-    console.log(this.objectForm.get('furtherForm').get('images').value);
-
-    this.facilityService.createSportFacility(newSportObject).subscribe((facilityId: number) => {
+    ).subscribe((facilityId: number) => {
       this.imagesService.uploadFacilityImages(this.objectForm.get('furtherForm').get('images').value, facilityId).subscribe((res) => {
         this.generalService.showSnackbar('You create object!', 'Close');
         this.loading = false;
-      }, error => {
+      }, () => {
         this.generalService.showSnackbar('Object was create but error with upload images!', 'Close');
-        console.log(error);
         this.loading = false;
       });
-    }, (error: any) => {
+    }, () => {
       this.generalService.showSnackbar('Error when create object!', 'Close');
-      console.log(error);
       this.loading = false;
     });
   }
+
 }

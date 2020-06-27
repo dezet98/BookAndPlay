@@ -4,10 +4,10 @@
       <mat-label>Filter</mat-label>
       <input matInput (keyup)="filter($event)" placeholder="Write to filter data">
     </mat-form-field>
-    <mat-checkbox id="checkbox" (change)="onToggleRes($event.checked)">Old Reservations</mat-checkbox>
+    <mat-checkbox id="checkbox" #toggle>Old Reservations</mat-checkbox>
   </div>
   <div id="tableCon">
-    <table style="width: 100%;" mat-table [dataSource]="reservations" matSort>
+    <table style="width: 100%;" mat-table [dataSource]="toggle.checked ? allReservations : newReservations" matSort>
       <ng-container matColumnDef="reservationId">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
         <td mat-cell *matCellDef="let element"> {{ element.reservationId}} </td>
@@ -24,26 +24,33 @@
           {{element.endTime | date:'hh:mm' }} </td>
       </ng-container>
 
-      <ng-container matColumnDef="client">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Reservation For </th>
-        <td mat-cell *matCellDef="let element"> {{element.user.name + ' ' + element.user.surname}} </td>
+      <ng-container matColumnDef="facility">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Facility </th>
+        <td mat-cell *matCellDef="let element">
+          <a [routerLink]="['/facility/1']" style="text-decoration: none; color: black"
+            matTooltip="Go to this facility" matTooltipPosition="left">
+            element.facility.name
+          </a>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="warn"
-            aria-label="delete"
-            [matTooltip]="element.status != 1 ? 'Remove from history' : 'Cancel this reservation'"
-            matTooltipPosition="left" [disabled]="false">
+          <button *ngIf="!element.archives; else status" mat-icon-button color="warn" aria-label="delete"
+            matTooltip="Cancel this reservation" matTooltipPosition="left" [disabled]="false"
+            (click)="cancelRes(element.reservationId)">
             <mat-icon style="font-size: large;">cancel</mat-icon>
           </button>
+          <ng-template #status>
+            {{element.statusDes}}
+          </ng-template>
         </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="reservationColumns; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: reservationColumns;"
-        [ngStyle]="{'background-color': row.status == 1 ? 'blue' : 'red'}"></tr>
+        [ngStyle]="{'background-color': row.archives == true ? '#DCDCDC' : ''}"></tr>
     </table>
     <mat-paginator [pageSizeOptions]="[8, 16, 32]" showFirstLastButtons></mat-paginator>
   </div>

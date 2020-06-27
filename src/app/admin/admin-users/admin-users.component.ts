@@ -28,7 +28,6 @@ export class AdminUsersComponent implements OnInit {
       this.users = new MatTableDataSource(users);
       this.users.paginator = this.paginator;
       this.users.sort = this.sort;
-      console.log(users);
     });
   }
 
