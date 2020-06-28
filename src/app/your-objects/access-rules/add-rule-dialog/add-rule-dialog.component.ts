@@ -122,8 +122,9 @@ export class AddRuleDialogComponent implements OnInit {
   calMaxAmountOfSteps(): number {
     const minutes = (24 - this.ruleForm.get('startHour').value) * 60 - this.ruleForm.get('startMinute').value;
     const stepMinutes = this.ruleForm.get('step').value.getInMinutes();
+    const amountOfSteps = minutes % stepMinutes === 0 ? Math.floor(minutes / stepMinutes) - 1 : Math.floor(minutes / stepMinutes);
 
-    return Math.floor(minutes / stepMinutes);
+    return amountOfSteps;
   }
 
   // calculate time when reservation will finish, return like '00:00'

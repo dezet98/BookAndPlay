@@ -52,7 +52,7 @@ export class OptionComponent implements OnInit {
   search(): void {
     const searchData = this.searchForm.value;
     this.facilityService.getFilterFacilities(searchData.sportName, searchData.city, searchData.day.getDay())
-      .subscribe((facilities: Array<SportFacility>) => this.searchEmitter.emit(facilities));
+      .subscribe((facilities: Array<SportFacility>) => { this.searchEmitter.emit(facilities); console.log(facilities); });
   }
 
   setHandset(): void {

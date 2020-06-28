@@ -14,9 +14,10 @@ import { GeneralService } from 'src/app/_services/general.service';
 })
 export class ObjectReservationsComponent implements OnChanges {
   @Input() facilityId: number;
-  allReservations: MatTableDataSource<Reservation>;
-  newReservations: MatTableDataSource<Reservation>;
-  reservationColumns = ['reservationId', 'date', 'startTime', 'client', 'actions'];
+  reservations: MatTableDataSource<Reservation>;
+  upcomingReservations: Array<Reservation> = [];
+  archivedReservations: Array<Reservation> = [];
+  reservationColumns = ['reservationId', 'date', 'startTime', 'client', 'status'];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -31,16 +32,24 @@ export class ObjectReservationsComponent implements OnChanges {
 
   getReservation(): void {
     this.reservationService.getUpcomingBooked(this.facilityId).subscribe((reservations: Array<Reservation>) => {
-      this.newReservations = new MatTableDataSource(reservations);
-      this.newReservations.paginator = this.paginator;
-      this.newReservations.sort = this.sort;
+      this.upcomingReservations = reservations;
+      this.reservations = new MatTableDataSource(this.upcomingReservations);
+      this.reservations.paginator = this.paginator;
+      this.reservations.sort = this.sort;
     });
 
     this.reservationService.getArchived(this.facilityId).subscribe((oldReservations: Array<Reservation>) => {
-      this.allReservations = new MatTableDataSource([...oldReservations, ...this.newReservations.data]);
-      this.allReservations.paginator = this.paginator;
-      this.allReservations.sort = this.sort;
+      this.archivedReservations = oldReservations;
     });
+  }
+
+  onToggleRes(checked: boolean) {
+    if (checked) {
+      this.reservations.data = [...this.archivedReservations, ...this.upcomingReservations];
+    }
+    else {
+      this.reservations.data = this.upcomingReservations;
+    }
   }
 
   cancelRes(reservationId: number) {
@@ -52,14 +61,11 @@ export class ObjectReservationsComponent implements OnChanges {
 
   filter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.newReservations.filter = filterValue.trim().toLowerCase();
-    this.allReservations.filter = filterValue.trim().toLowerCase();
+    this.reservations.filter = filterValue.trim().toLowerCase();
 
-    if (this.newReservations.paginator) {
-      this.newReservations.paginator.firstPage();
-    }
-    else if (this.allReservations.paginator) {
-      this.allReservations.paginator.firstPage();
+    if (this.reservations.paginator) {
+      this.reservations.paginator.firstPage();
     }
   }
+
 }

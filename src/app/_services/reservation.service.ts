@@ -70,10 +70,6 @@ export class ReservationService {
     return this.http.delete(con.REST_API_URL + `/api/Reservation/Cancel/${reservationId}`);
   }
 
-  deleteArchived(reservationId: number) {
-    return this.http.delete(con.REST_API_URL + `/api/Reservation/${reservationId}`);
-  }
-
   toReservations(reservations: Array<any>): Array<Reservation> {
     return reservations.map((res) =>
       new Reservation(
@@ -82,9 +78,10 @@ export class ReservationService {
         res.archives,
         res.status,
         res.accessPeriodId,
-        res.facility == null ? null : res.facility.sportId,
-        res.facility == null ? null : res.facility.facilityId,
-        res.facility == null ? null : res.facility.owner.userId,
+        res.facility == null || res.facility.sportId == null  ? null : res.facility.sportId,
+        res.facility == null || res.facility.facilityId == null ? null : res.facility.facilityId,
+        res.facility == null || res.facility.name == null ? null : res.facility.name,
+        res.facility == null || res.facility.owner == null ? null : res.facility.owner.userId,
         res.user == null ? null : new User(res.user.name, res.user.surname, res.user.email, res.user.phoneNumber, res.user.userId),
         res.reservationId)
     );

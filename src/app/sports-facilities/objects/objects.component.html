@@ -3,7 +3,7 @@
     <ng-container *ngFor="let facility of visibleFacilities">
       <mat-card class="facility" [routerLink]="['/facility/' + facility.facilityId]">
         <mat-card-header>
-          <div mat-card-avatar class="userAvatar"></div>
+          <div mat-card-avatar class="userAvatar" [ngStyle]="{'background-image': 'url(' + facility.owner.avatar + ')'}"></div>
           <mat-card-title>{{facility.name}}</mat-card-title>
           <mat-card-subtitle>{{facility.address }}</mat-card-subtitle>
         </mat-card-header>

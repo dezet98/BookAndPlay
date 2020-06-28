@@ -17,20 +17,21 @@
     </mat-tab>
 
     <mat-tab label="Images">
-      <ng-template matTabContent class="mat-elevation-z8" >
-        <img mat-card-image src="../../../assets/sportFacilities1.jpg" alt="Photo">
+      <ng-template matTabContent>
+        <img *ngFor="let image of facility.imagesUrl" [src]="image" alt="Photo">
       </ng-template>
     </mat-tab>
 
     <mat-tab label="Contact">
-      <ng-template matTabContent class="mat-elevation-z8" >
-        Numer telefonu: {{facility.phone}}
-        <button mat-button>Show on map</button>
+      <ng-template matTabContent>
+        Phone Number: {{facility.phone}}
+        <a mat-button [href]="'http://www.google.com/maps/place/' + facility.lat + ',' + facility.lon"
+          target="_blank">Show on map</a>
       </ng-template>
     </mat-tab>
 
     <mat-tab label="Additional">
-      <ng-template matTabContent class="mat-elevation-z8" >
+      <ng-template matTabContent>
         Additional
       </ng-template>
     </mat-tab>

@@ -13,8 +13,9 @@ import { ReservationService } from '../_services/reservation.service';
 })
 
 export class ReservationsComponent implements OnInit {
-  allReservations: MatTableDataSource<Reservation>;
-  newReservations: MatTableDataSource<Reservation>;
+  reservations: MatTableDataSource<Reservation>;
+  upcomingReservations: Array<Reservation> = [];
+  archivedReservations: Array<Reservation> = [];
   reservationColumns = ['reservationId', 'date', 'startTime', 'facility', 'actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -27,16 +28,24 @@ export class ReservationsComponent implements OnInit {
 
   getReservation(): void {
     this.reservationService.getUserUpcoming().subscribe((reservations: Array<Reservation>) => {
-      this.newReservations = new MatTableDataSource(reservations);
-      this.newReservations.paginator = this.paginator;
-      this.newReservations.sort = this.sort;
+      this.upcomingReservations = reservations;
+      this.reservations = new MatTableDataSource(this.upcomingReservations);
+      this.reservations.paginator = this.paginator;
+      this.reservations.sort = this.sort;
     });
 
     this.reservationService.getUserArchived().subscribe((oldReservations: Array<Reservation>) => {
-      this.allReservations = new MatTableDataSource([...oldReservations, ...this.newReservations.data]);
-      this.allReservations.paginator = this.paginator;
-      this.allReservations.sort = this.sort;
+      this.archivedReservations = oldReservations;
     });
+  }
+
+  onToggleRes(checked: boolean) {
+    if (checked) {
+      this.reservations.data = [...this.archivedReservations, ...this.upcomingReservations];
+    }
+    else {
+      this.reservations.data = this.upcomingReservations;
+    }
   }
 
   cancelRes(reservationId: number) {
@@ -48,14 +57,10 @@ export class ReservationsComponent implements OnInit {
 
   filter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.newReservations.filter = filterValue.trim().toLowerCase();
-    this.allReservations.filter = filterValue.trim().toLowerCase();
+    this.reservations.filter = filterValue.trim().toLowerCase();
 
-    if (this.newReservations.paginator) {
-      this.newReservations.paginator.firstPage();
-    }
-    else if (this.allReservations.paginator) {
-      this.allReservations.paginator.firstPage();
+    if (this.reservations.paginator) {
+      this.reservations.paginator.firstPage();
     }
   }
 }

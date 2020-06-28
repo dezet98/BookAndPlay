@@ -30,23 +30,18 @@ export class BookingComponent implements OnInit {
   renderReservation() {
     this.reservationService.getUpcoming(this.facilityId).subscribe((reservations: Array<Reservation>) => {
       this.rows = this.performReservations(reservations);
-      console.log(this.rows);
-    }, error => {
-      console.log(error);
     });
   }
 
   bookRes() {
     this.booking = true;
     this.reservationService.bookFew(this.chosenRes).subscribe((res) => {
-      console.log(res);
       this.renderReservation();
       this.generalService.showSnackbar('You has a reservation', 'Close');
       this.booking = false;
       this.chosenRes = [];
       this.res.data = this.chosenRes;
-    }, error => {
-      console.log(error);
+    }, () => {
       this.generalService.showSnackbar('Error when booking', 'Close');
       this.booking = false;
     });
@@ -62,7 +57,6 @@ export class BookingComponent implements OnInit {
 
     this.chosenRes.sort((a: Reservation, b: Reservation) => a.startTime.getTime() - b.startTime.getTime());
     this.res.data = this.chosenRes;
-    console.log(this.chosenRes);
   }
 
   removeRes(reservation: Reservation) {
@@ -72,7 +66,6 @@ export class BookingComponent implements OnInit {
 
   // return order array with objects to display, like: [{Sun: Reservation, Mon: '', Tue: Reservation, ...}, ...]
   performReservations(reservations: Array<Reservation>): Array<any> {
-    console.log(reservations);
     let resPerHours: any;
     let key: string;
     let hour: string;
@@ -105,7 +98,6 @@ export class BookingComponent implements OnInit {
       finalData.push(tmp);
     }
 
-    console.log(finalData);
     return finalData;
   }
 }

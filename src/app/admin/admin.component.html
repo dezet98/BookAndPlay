@@ -1,25 +1,28 @@
-<mat-tab-group dynamicHeight animationDuration="0ms" selectedIndex="2">
-  <mat-tab label="Users">
-    <ng-template matTabContent>
-      <app-admin-users></app-admin-users>
-    </ng-template>
-  </mat-tab>
+<div id="box">
+  <mat-tab-group animationDuration="0ms" selectedIndex="2">
+    <mat-tab label="Users">
+      <ng-template matTabContent>
+        <app-admin-users></app-admin-users>
+      </ng-template>
+    </mat-tab>
 
-  <mat-tab label="Facilities">
-    <ng-template matTabContent>
-      <app-admin-facilities></app-admin-facilities>
-    </ng-template>
-  </mat-tab>
+    <mat-tab label="Facilities">
+      <ng-template matTabContent>
+        <app-admin-facilities></app-admin-facilities>
+      </ng-template>
+    </mat-tab>
 
-  <mat-tab label="Sports" mat-mat-tab-link>
-    <ng-template matTabContent>
-      <app-admin-sports></app-admin-sports>
-    </ng-template>
-  </mat-tab>
+    <mat-tab label="Sports" mat-mat-tab-link>
+      <ng-template matTabContent>
+        <app-admin-sports></app-admin-sports>
+      </ng-template>
+    </mat-tab>
 
-  <mat-tab label="Cities">
-    <ng-template matTabContent>
-      <app-admin-cities></app-admin-cities>
-    </ng-template>
-  </mat-tab>
-</mat-tab-group>
+    <mat-tab label="Cities">
+      <ng-template matTabContent>
+        <app-admin-cities></app-admin-cities>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+

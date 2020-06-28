@@ -1,0 +1,27 @@
+#box {
+  height: 100%;
+}
+
+#mainCon {
+  margin: 2% 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  #filter, #tableCon {
+    width: 80%;
+
+    table {
+      width: 100%;
+    }
+  }
+}
+
+::ng-deep {
+  .mat-tab-body-content {
+    height: auto !important;
+  }
+}
+
+

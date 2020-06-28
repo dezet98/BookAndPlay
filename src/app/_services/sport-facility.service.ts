@@ -71,7 +71,8 @@ export class SportFacilityService {
           serverFacility.owner.surname,
           serverFacility.owner.email,
           serverFacility.owner.phoneNumber,
-          serverFacility.owner.userId)
+          serverFacility.owner.userId,
+          serverFacility.owner.avatar)
       )
     );
   }
